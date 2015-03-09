@@ -15,6 +15,6 @@ public interface ConfigAPI {
      * @param customized
      * @return
      */
-    public void load(Context context, ConfigAO customized, Callback<ConfigAO> cb);
+    public void load(ConfigAO customized, Callback<ConfigAO> cb);
 
 }

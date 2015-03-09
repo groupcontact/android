@@ -10,11 +10,11 @@ import seaice.app.groupcontact.api.ao.UserAO;
  */
 public interface UserAPI {
 
-    public void register(Context context, UserAO user, Callback<GeneralAO> cb);
+    public void create(UserAO user, Callback<GeneralAO> cb);
 
-    public void update(Context context, UserAO user, Callback<GeneralAO> cb);
+    public void edit(UserAO user, Callback<GeneralAO> cb);
 
-    public void join(Context context, Long uid, Long gid, String accessToken, Callback<GeneralAO> cb);
+    public void join(Long uid, Long gid, String accessToken, Callback<GeneralAO> cb);
 
-    public void leave(Context context, Long uid, Long gid, Callback<GeneralAO> cb);
+    public void leave(Long uid, Long gid, Callback<GeneralAO> cb);
 }
