@@ -3,15 +3,48 @@
 
     <string name="logo_desc">Splash Screen Using Logo</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_edit">EditActivity</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_group_list">GroupList</string>
+    <string name="title_activity_edit">Edit</string>
+    <string name="title_activity_main">GroupContact</string>
     <string name="title_activity_user_list">UserList</string>
-    <string name="title_activity_create_user">CreateUser</string>
+    <string name="title_activity_create_user">Registration</string>
+
+    <string name="action_search">Search</string>
+    <string name="action_save">Save</string>
+    <string name="action_refresh">Refresh</string>
 
     <string name="enter_name">Your Name</string>
     <string name="enter_phone">Your Phone</string>
-    <string name="create_user">Create</string>
-    <string name="title_activity_test">TestActivity</string>
+    <string name="action_create_user">Create</string>
+
+    <string name="hint_search_group">Group Name</string>
+    <string name="hint_enter_token">Access Token</string>
+    <string name="join_group">Join</string>
+    <string name="cancel">Cancel</string>
+    <string name="error_join_group">Failed to Join</string>
+    <string name="success_join_group">Succeed to Join</string>
+    <string name="search_empty_result">No Results</string>
+
+    <string name="not_implemented">Not Implemented Now...</string>
+
+    <string name="label_user_name">Name</string>
+    <string name="label_user_phone">Phone</string>
+    <string name="label_user_email">Email</string>
+    <string name="label_user_wechat">WeChat</string>
+    <string name="action_save_user">Save</string>
+    <string name="success_save_user">Saved Successfully</string>
+    <string name="fail_save_user">Failed to Save Your Modification</string>
+    <string name="title_activity_search">SearchActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_user_info">Profile</string>
+
+    <string name="user_operation">Operation</string>
+    <string name="user_operation_call">Call</string>
+    <string name="user_operation_sms">SMS</string>
+
+    <string name="loading_user_list">Loading...</string>
+    <string name="tip_press_to_exit">Press Again to Exit</string>
+    <string name="action_add_friend">Add Friend</string>
+
 </resources>

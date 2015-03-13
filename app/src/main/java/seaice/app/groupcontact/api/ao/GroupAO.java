@@ -1,17 +1,45 @@
 package seaice.app.groupcontact.api.ao;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import org.json.JSONObject;
+
 /**
- * The Group API Object:
- *
+ * The Group API Object.
+ * <p/>
  * Created by zhb on 3/5/15.
  */
-public class GroupAO {
+public class GroupAO implements Parcelable {
 
+    public static final Parcelable.Creator<GroupAO> CREATOR = new Creator<GroupAO>() {
+
+        @Override
+        public GroupAO createFromParcel(Parcel source) {
+            GroupAO group = new GroupAO();
+            group.setGid(source.readLong());
+            group.setName(source.readString());
+            group.setDesc(source.readString());
+            return group;
+        }
+
+        @Override
+        public GroupAO[] newArray(int size) {
+            return new GroupAO[size];
+        }
+    };
     private Long gid;
-
     private String name;
-
     private String desc;
+
+    public static GroupAO parse(JSONObject obj) {
+        GroupAO group = new GroupAO();
+        group.setGid(obj.optLong("id", -1L));
+        group.setName(obj.optString("name", ""));
+        group.setDesc(obj.optString("desc", ""));
+
+        return group;
+    }
 
     public String getName() {
         return name;
@@ -35,5 +63,17 @@ public class GroupAO {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(gid);
+        dest.writeString(name);
+        dest.writeString(desc);
     }
 }

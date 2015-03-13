@@ -13,11 +13,17 @@ import seaice.app.groupcontact.api.ao.UserAO;
  */
 public interface GroupAPI {
 
-    public void create(Context context, GroupAO group, Callback<GeneralAO> cb);
+    public void create(GroupAO group, Callback<GeneralAO> cb);
 
-    public void delete(Context context, GroupAO group, String modifyToken, Callback<GeneralAO> cb);
+    public void delete(GroupAO group, String modifyToken, Callback<GeneralAO> cb);
 
-    public void update(Context context, GroupAO group, String modifyToken, Callback<GeneralAO> cb);
+    public void update(GroupAO group, String modifyToken, Callback<GeneralAO> cb);
 
-    public void list(Context context, String gid, String accessToken, Callback<List<UserAO>> cb);
+    public void list(Long gid, String accessToken, Callback<List<UserAO>> cb);
+
+    public void search(String name, Callback<List<GroupAO>> cb);
+
+    public void join(Long uid, Long gid, String accessToken, Callback<GeneralAO> cb);
+
+    public void leave(Long uid, Long gid, Callback<GeneralAO> cb);
 }

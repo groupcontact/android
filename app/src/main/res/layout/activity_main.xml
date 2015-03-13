@@ -1,25 +1,28 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="seaice.app.groupcontact.MainActivity">
 
-    <android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pager"
+    <seaice.app.groupcontact.view.PagerSlidingTabStrip
+        android:id="@+id/pagerIndicator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="48dp"
+        android:background="@drawable/top_bg"
+        android:textSize="20dp"
+        app:pstsDividerColor="#00000000"
+        app:pstsIndicatorColor="#FF33B5E6"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsShouldExpand="true"
+        app:pstsTabPaddingLeftRight="14dip"
+        app:pstsUnderlineHeight="0dp" />
 
-        <android.support.v4.view.PagerTitleStrip
-            android:id="@+id/pager_title_strip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#33b5e5"
-            android:textColor="#fff"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    </android.support.v4.view.ViewPager>
-
-</RelativeLayout>
+</LinearLayout>

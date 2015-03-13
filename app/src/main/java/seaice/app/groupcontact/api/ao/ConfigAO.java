@@ -3,7 +3,7 @@ package seaice.app.groupcontact.api.ao;
 /**
  * The Configuration API Object:
  *
- * Created by zhb on 3/5/15.
+ * @author zhb
  */
 public class ConfigAO {
 

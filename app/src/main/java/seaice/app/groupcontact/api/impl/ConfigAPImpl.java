@@ -16,14 +16,14 @@ import seaice.app.groupcontact.api.ao.ConfigAO;
 
 public class ConfigAPImpl extends AbstractAPImpl implements ConfigAPI {
 
-    public static final String url = "http://groupcontact.duapp.com/android.json";
+    private static final String url = "http://groupcontact.duapp.com/android.json";
 
     public ConfigAPImpl(Context context) {
         super(context);
     }
 
     @Override
-    public void load(ConfigAO customized, final Callback<ConfigAO> cb) {
+    public void load(final Callback<ConfigAO> cb) {
         Request<JSONObject> request = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
 
             @Override

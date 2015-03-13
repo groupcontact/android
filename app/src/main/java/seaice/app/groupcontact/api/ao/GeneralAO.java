@@ -1,7 +1,11 @@
 package seaice.app.groupcontact.api.ao;
 
+import org.json.JSONObject;
+
 /**
- * Created by zhb on 3/5/15.
+ * The General API Object.
+ *
+ * @author zhb
  */
 public class GeneralAO {
 
@@ -10,6 +14,16 @@ public class GeneralAO {
     private String info;
 
     private Long id;
+
+    public static GeneralAO parse(JSONObject obj) {
+        GeneralAO result = new GeneralAO();
+
+        result.setStatus(obj.optInt("status", -1));
+        result.setId(obj.optLong("id", 0L));
+        result.setInfo(obj.optString("info", ""));
+
+        return result;
+    }
 
     public Integer getStatus() {
         return status;

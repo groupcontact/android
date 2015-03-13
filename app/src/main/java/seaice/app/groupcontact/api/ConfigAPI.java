@@ -12,9 +12,9 @@ public interface ConfigAPI {
     /**
      * Load configuration with default value <code>customized</code>
      *
-     * @param customized
+     * @param cb
      * @return
      */
-    public void load(ConfigAO customized, Callback<ConfigAO> cb);
+    public void load(Callback<ConfigAO> cb);
 
 }

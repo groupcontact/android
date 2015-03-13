@@ -56,9 +56,10 @@ public class UserCreateActivity extends ActionBarActivity {
                         // yes, the user logged in
                         SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
                         prefs.edit().putLong("uid", result.getId()).commit();
+                        prefs.edit().putString("name", mNameView.getText().toString()).commit();
+                        prefs.edit().putString("phone", mPhoneView.getText().toString()).commit();
                         // goes to the main activity
                         Intent intent = new Intent(context, MainActivity.class);
-                        intent.putExtra("uid", result.getId());
                         startActivity(intent);
                     }
 
@@ -69,28 +70,5 @@ public class UserCreateActivity extends ActionBarActivity {
                 });
             }
         });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_user_create, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

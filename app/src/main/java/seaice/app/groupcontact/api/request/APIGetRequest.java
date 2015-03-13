@@ -1,9 +1,7 @@
-package seaice.app.groupcontact.api.impl;
+package seaice.app.groupcontact.api.request;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
@@ -13,23 +11,18 @@ import org.json.JSONObject;
 import java.util.Map;
 
 /**
- * A little customization. We use string request while we want to receive json response.
- *
- * @author zhb
+ * Created by zhb on 2015/3/11.
  */
-public class APIRequest extends StringRequest {
-
-    private Map<String, String> mParams;
+public class APIGetRequest extends StringRequest {
 
     /**
      * Use this constructor If you want to receive a JSONArray
      *
      * @param url
-     * @param params
      * @param listener
      * @param errorListener
      */
-    public APIRequest(String url, Map<String, String> params, final Response.Listener<JSONArray> listener, final Response.ErrorListener errorListener) {
+    public APIGetRequest(String url, final Response.Listener<JSONArray> listener, final Response.ErrorListener errorListener) {
         super(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -40,19 +33,16 @@ public class APIRequest extends StringRequest {
                 }
             }
         }, errorListener);
-
-        mParams = params;
     }
 
     /**
      * Use this constructor If you you want to receive a JSONObject
      *
      * @param url
-     * @param params
      * @param errorListener
      * @param listener
      */
-    public APIRequest(String url, Map<String, String> params, final Response.ErrorListener errorListener, final Response.Listener<JSONObject> listener) {
+    public APIGetRequest(String url, final Response.ErrorListener errorListener, final Response.Listener<JSONObject> listener) {
         super(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -63,16 +53,10 @@ public class APIRequest extends StringRequest {
                 }
             }
         }, errorListener);
-
-        mParams = params;
     }
 
     @Override
     public int getMethod() {
-        return Method.POST;
-    }
-
-    protected Map<String, String> getParams() {
-        return mParams;
+        return Method.GET;
     }
 }

@@ -1,0 +1,76 @@
+package seaice.app.groupcontact.fragment;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.List;
+
+import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.adapter.UserListAdapter;
+import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.UserAPI;
+import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.api.impl.UserAPImpl;
+
+public class FriendListFragment extends Fragment {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+
+        final Context context = getActivity();
+        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        final Long uid = prefs.getLong("uid", -1);
+        final String name = prefs.getString("name", "");
+
+        View rootView = inflater.inflate(R.layout.fragment_friend_list, container, false);
+        ListView vUserList = (ListView) rootView.findViewById(R.id.userList);
+        final UserListAdapter adapter = new UserListAdapter(context);
+        vUserList.setAdapter(adapter);
+
+        UserAPI userAPI = new UserAPImpl(context);
+        userAPI.listFriend(uid, name, new Callback<List<UserAO>>() {
+            @Override
+            public void call(List<UserAO> result) {
+                adapter.setDataset(result);
+            }
+
+            @Override
+            public void error(String message) {
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        return rootView;
+    }
+
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_friend_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_add_friend) {
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+}

@@ -1,65 +1,55 @@
 package seaice.app.groupcontact;
 
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
+
+import seaice.app.groupcontact.adapter.MainPagerAdapter;
+import seaice.app.groupcontact.view.PagerSlidingTabStrip;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private ViewPager mPager;
+    public static final int RESET_BACK_COUNT = 123456;
+    private static Handler mHandler = new Handler();
+    private int mBackCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mPager = (ViewPager) findViewById(R.id.pager);
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(new MainPagerAdapter(this.getSupportFragmentManager(), this));
 
-    }
+        PagerSlidingTabStrip indicator = (PagerSlidingTabStrip) findViewById(R.id.pagerIndicator);
+        indicator.setViewPager(pager);
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        // three are three pages in totally, so just increase the size for performance
+        pager.setOffscreenPageLimit(2);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_group_list, container, false);
-            return rootView;
+    public void onBackPressed() {
+        ++mBackCount;
+        // the first press, toast the tip
+        if (mBackCount == 1) {
+            Toast.makeText(this,
+                    getResources().getString(R.string.tip_press_to_exit),
+                    Toast.LENGTH_SHORT).show();
+            // after 3s, then reset the back count
+            mHandler.sendEmptyMessage(RESET_BACK_COUNT);
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mBackCount = 0;
+                }
+            }, 3000);
+        } else {
+            // the second press, exit application
+            super.onBackPressed();
         }
     }
 }

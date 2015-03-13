@@ -15,19 +15,29 @@
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".UserEditActivity"
-            android:label="@string/title_activity_edit"></activity>
-        <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_group_list"></activity>
+            android:label="@string/title_activity_main"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".UserCreateActivity"
             android:label="@string/title_activity_create_user"
-            android:noHistory="true"></activity>
+            android:noHistory="true"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".UserListActivity"
+            android:label="@string/title_activity_user_list"></activity>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"></activity>
+        <activity
+            android:name=".UserInfoActivity"
+            android:label="@string/title_activity_user_info"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
