@@ -3,7 +3,6 @@ package seaice.app.groupcontact.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,15 +15,20 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
-import seaice.app.groupcontact.api.impl.UserAPImpl;
 
-public class GroupListFragment extends Fragment {
+public class GroupListFragment extends DaggerFragment {
+
+    @Inject
+    UserAPI mUserAPI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +45,7 @@ public class GroupListFragment extends Fragment {
 
         // start a http call to load the group listGroup
         Long uid = context.getSharedPreferences("prefs", Context.MODE_PRIVATE).getLong("uid", -1L);
-        new UserAPImpl(getActivity()).listGroup(uid, new Callback<List<GroupAO>>() {
+        mUserAPI.listGroup(uid, new Callback<List<GroupAO>>() {
             @Override
             public void call(List<GroupAO> result) {
                 adapter.setDataset(result);

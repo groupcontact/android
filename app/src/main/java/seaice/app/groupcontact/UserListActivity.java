@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,20 +14,23 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.api.impl.GroupAPImpl;
 
 /**
  * The Screen Shows the listGroup of users in the specified group.
  *
  * @author zhb
  */
-public class UserListActivity extends ActionBarActivity {
+public class UserListActivity extends DaggerActivity {
 
+    @Inject
+    GroupAPI mGroupAPI;
     private UserListAdapter mAdapter;
-
     private Long mGid;
 
     @Override
@@ -55,7 +57,7 @@ public class UserListActivity extends ActionBarActivity {
 
         String accessToken = context.getSharedPreferences("prefs", MODE_PRIVATE)
                 .getString("accessToken_" + mGid, "");
-        new GroupAPImpl(this).list(mGid, accessToken, new Callback<List<UserAO>>() {
+        mGroupAPI.list(mGid, accessToken, new Callback<List<UserAO>>() {
             @Override
             public void call(List<UserAO> result) {
                 mAdapter.setDataset(result);

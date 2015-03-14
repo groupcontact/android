@@ -4,12 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+
 import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.ConfigAPI;
 import seaice.app.groupcontact.api.ao.ConfigAO;
-import seaice.app.groupcontact.api.impl.ConfigAPImpl;
 
 /**
  * The startup activity display a placeholder screen while doing the background tasks(currently
@@ -17,7 +18,10 @@ import seaice.app.groupcontact.api.impl.ConfigAPImpl;
  *
  * @author zhb
  */
-public class StartupActivity extends ActionBarActivity {
+public class StartupActivity extends DaggerActivity {
+
+    @Inject
+    ConfigAPI mConfigAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,7 @@ public class StartupActivity extends ActionBarActivity {
         getSupportActionBar().hide();
 
         final Context context = this;
-        new ConfigAPImpl(context).load(new Callback<ConfigAO>() {
+        mConfigAPI.load(new Callback<ConfigAO>() {
 
             @Override
             public void call(ConfigAO config) {

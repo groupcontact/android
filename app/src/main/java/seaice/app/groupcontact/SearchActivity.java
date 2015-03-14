@@ -6,11 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,17 +19,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
-import seaice.app.groupcontact.api.impl.GroupAPImpl;
 
 
-public class SearchActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class SearchActivity extends DaggerActivity implements AdapterView.OnItemClickListener {
 
-    private GroupAPI mGroupAPI;
+    @Inject
+    GroupAPI mGroupAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,6 @@ public class SearchActivity extends ActionBarActivity implements AdapterView.OnI
         vSearchResult.setAdapter(adapter);
 
         final Context context = this;
-        mGroupAPI = new GroupAPImpl(context);
 
         vSearchKey.addTextChangedListener(new TextWatcher() {
             @Override
@@ -126,7 +125,7 @@ public class SearchActivity extends ActionBarActivity implements AdapterView.OnI
                             } else {
                                 Toast.makeText(context, context.getResources().getString(
                                         R.string.success_join_group), Toast.LENGTH_LONG).show();
-                                prefs.edit().putString("accessToken_" + id, accessToken).commit();
+                                prefs.edit().putString("accessToken_" + id, accessToken).apply();
                             }
                         }
 

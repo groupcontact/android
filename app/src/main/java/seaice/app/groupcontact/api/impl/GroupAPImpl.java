@@ -31,21 +31,6 @@ public class GroupAPImpl extends AbstractAPImpl implements GroupAPI {
     }
 
     @Override
-    public void create(GroupAO group, Callback<GeneralAO> cb) {
-
-    }
-
-    @Override
-    public void delete(GroupAO group, String modifyToken, Callback<GeneralAO> cb) {
-
-    }
-
-    @Override
-    public void update(GroupAO group, String modifyToken, Callback<GeneralAO> cb) {
-
-    }
-
-    @Override
     public void list(Long gid, String accessToken, final Callback<List<UserAO>> cb) {
         String url = Constants.baseUrl + "listUser?gid=" + gid + "&accessToken=" + accessToken;
 

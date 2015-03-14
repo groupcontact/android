@@ -3,7 +3,6 @@ package seaice.app.groupcontact.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,14 +14,18 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.api.impl.UserAPImpl;
 
-public class FriendListFragment extends Fragment {
+public class FriendListFragment extends DaggerFragment {
+
+    @Inject
+    UserAPI mUserAPI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,8 +42,7 @@ public class FriendListFragment extends Fragment {
         final UserListAdapter adapter = new UserListAdapter(context);
         vUserList.setAdapter(adapter);
 
-        UserAPI userAPI = new UserAPImpl(context);
-        userAPI.listFriend(uid, name, new Callback<List<UserAO>>() {
+        mUserAPI.listFriend(uid, name, new Callback<List<UserAO>>() {
             @Override
             public void call(List<UserAO> result) {
                 adapter.setDataset(result);

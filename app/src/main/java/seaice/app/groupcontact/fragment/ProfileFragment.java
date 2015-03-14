@@ -3,7 +3,6 @@ package seaice.app.groupcontact.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,32 +17,27 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.api.impl.UserAPImpl;
 
 /**
  * Created by zhb on 2015/3/11.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends DaggerFragment {
 
+    @Inject
+    UserAPI mUserAPI;
     private EditText mNameView;
-
     private EditText mPhoneView;
-
     private EditText mEmailView;
-
     private EditText mWechatView;
-
-    private UserAPI mUserAPI;
-
     private Context mContext;
-
     private Long mUid;
-
     private String mName;
 
     @Override
@@ -65,7 +59,6 @@ public class ProfileFragment extends Fragment {
         mNameView.setText(mName);
 
         mContext = getActivity();
-        mUserAPI = new UserAPImpl(mContext);
 
         // find user
         mUserAPI.find(mUid, mName, new Callback<List<UserAO>>() {
