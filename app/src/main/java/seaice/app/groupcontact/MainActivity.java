@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
         mPager.setAdapter(new MainPagerAdapter(this.getSupportFragmentManager(), this));
         mIndicator.setViewPager(mPager);
 
-        // three are three pages in totally, so just increase the size for performance
+        // there are three pages in totally, so just increase the size for performance
         mPager.setOffscreenPageLimit(2);
     }
 

@@ -14,7 +14,7 @@ import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
-public class GroupAPImpl extends AbstractAPImpl implements GroupAPI {
+public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
 
     public GroupAPImpl(Context context) {
         super(context);

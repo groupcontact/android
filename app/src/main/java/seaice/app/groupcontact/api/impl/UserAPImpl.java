@@ -17,7 +17,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
 /**
  * API about user manipulation.
  */
-public class UserAPImpl extends AbstractAPImpl implements UserAPI {
+public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
 
     public UserAPImpl(Context context) {
         super(context);

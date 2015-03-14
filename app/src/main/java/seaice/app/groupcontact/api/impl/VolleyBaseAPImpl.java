@@ -25,13 +25,13 @@ import seaice.app.groupcontact.api.request.APIGetRequest;
 import seaice.app.groupcontact.api.request.APIPostRequest;
 
 
-public abstract class AbstractAPImpl {
+public abstract class VolleyBaseAPImpl {
 
     protected Context mContext;
 
     protected RequestQueue mQueue;
 
-    public AbstractAPImpl(Context context) {
+    public VolleyBaseAPImpl(Context context) {
         mContext = context;
         mQueue = Volley.newRequestQueue(mContext);
     }

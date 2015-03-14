@@ -46,7 +46,6 @@ public class APIModule {
         return new GroupAPImpl(mContext);
     }
 
-
     @Provides
     @Singleton
     public UserAPI provideUserAPI() {

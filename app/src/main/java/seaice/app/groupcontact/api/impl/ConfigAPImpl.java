@@ -6,7 +6,7 @@ import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.ConfigAPI;
 import seaice.app.groupcontact.api.ao.ConfigAO;
 
-public class ConfigAPImpl extends AbstractAPImpl implements ConfigAPI {
+public class ConfigAPImpl extends VolleyBaseAPImpl implements ConfigAPI {
 
     private static final String url = "http://groupcontact.duapp.com/android.json";
 
