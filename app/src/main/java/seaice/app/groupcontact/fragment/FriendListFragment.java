@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.Callback;
@@ -26,6 +28,9 @@ public class FriendListFragment extends DaggerFragment {
 
     @Inject
     UserAPI mUserAPI;
+
+    @InjectView(R.id.userList)
+    ListView mUserList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,9 +43,10 @@ public class FriendListFragment extends DaggerFragment {
         final String name = prefs.getString("name", "");
 
         View rootView = inflater.inflate(R.layout.fragment_friend_list, container, false);
-        ListView vUserList = (ListView) rootView.findViewById(R.id.userList);
+        ButterKnife.inject(this, rootView);
+
         final UserListAdapter adapter = new UserListAdapter(context);
-        vUserList.setAdapter(adapter);
+        mUserList.setAdapter(adapter);
 
         mUserAPI.listFriend(uid, name, new Callback<List<UserAO>>() {
             @Override

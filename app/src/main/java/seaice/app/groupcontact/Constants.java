@@ -10,4 +10,8 @@ public class Constants {
 
     public static String baseUrl;
 
+    public static Long uid;
+
+    public static String name;
+
 }

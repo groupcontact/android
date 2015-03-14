@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.GroupAPI;
@@ -30,7 +32,12 @@ public class UserListActivity extends DaggerActivity {
 
     @Inject
     GroupAPI mGroupAPI;
+
+    @InjectView(R.id.userList)
+    ListView mUserList;
+
     private UserListAdapter mAdapter;
+
     private Long mGid;
 
     @Override
@@ -38,12 +45,12 @@ public class UserListActivity extends DaggerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_friend_list);
 
+        ButterKnife.inject(this);
+
         // enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ListView vUserList = (ListView) findViewById(R.id.userList);
         mAdapter = new UserListAdapter(this);
-        vUserList.setAdapter(mAdapter);
+        mUserList.setAdapter(mAdapter);
 
         mGid = getIntent().getLongExtra("gid", -1L);
         setTitle(getIntent().getStringExtra("name"));
@@ -70,7 +77,7 @@ public class UserListActivity extends DaggerActivity {
             }
         });
 
-        vUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserAO user = (UserAO) parent.getAdapter().getItem(position);
@@ -80,7 +87,7 @@ public class UserListActivity extends DaggerActivity {
             }
         });
 
-        vUserList.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+        mUserList.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
                 menu.setHeaderTitle(R.string.user_operation);

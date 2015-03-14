@@ -19,6 +19,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.UserAPI;
@@ -32,12 +34,23 @@ public class ProfileFragment extends DaggerFragment {
 
     @Inject
     UserAPI mUserAPI;
-    private EditText mNameView;
-    private EditText mPhoneView;
-    private EditText mEmailView;
-    private EditText mWechatView;
+
+    @InjectView(R.id.editName)
+    EditText mNameView;
+
+    @InjectView(R.id.editPhone)
+    EditText mPhoneView;
+
+    @InjectView(R.id.editEmail)
+    EditText mEmailView;
+
+    @InjectView(R.id.editWechat)
+    EditText mWechatView;
+
     private Context mContext;
+
     private Long mUid;
+
     private String mName;
 
     @Override
@@ -46,11 +59,7 @@ public class ProfileFragment extends DaggerFragment {
         setHasOptionsMenu(true);
 
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        mNameView = (EditText) rootView.findViewById(R.id.editName);
-        mPhoneView = (EditText) rootView.findViewById(R.id.editPhone);
-        mEmailView = (EditText) rootView.findViewById(R.id.editEmail);
-        mWechatView = (EditText) rootView.findViewById(R.id.editWechat);
+        ButterKnife.inject(this, rootView);
 
         final SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         mUid = prefs.getLong("uid", -1L);

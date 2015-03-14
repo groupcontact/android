@@ -1,40 +1,43 @@
 package seaice.app.groupcontact;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import seaice.app.groupcontact.api.ao.UserAO;
 
 
 public class UserInfoActivity extends ActionBarActivity {
 
-    private EditText mNameView;
+    @InjectView(R.id.editName)
+    EditText mNameView;
 
-    private EditText mPhoneView;
+    @InjectView(R.id.editPhone)
+    EditText mPhoneView;
 
-    private EditText mEmailView;
+    @InjectView(R.id.editEmail)
+    EditText mEmailView;
 
-    private EditText mWechatView;
+    @InjectView(R.id.editWechat)
+    EditText mWechatView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_profile);
 
+        ButterKnife.inject(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mNameView = (EditText) findViewById(R.id.editName);
-        mPhoneView = (EditText) findViewById(R.id.editPhone);
         mPhoneView.setEnabled(false);
-        mEmailView = (EditText) findViewById(R.id.editEmail);
         mEmailView.setEnabled(false);
-        mWechatView = (EditText) findViewById(R.id.editWechat);
         mWechatView.setEnabled(false);
 
         UserAO user = getIntent().getParcelableExtra("user");

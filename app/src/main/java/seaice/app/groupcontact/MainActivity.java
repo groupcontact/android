@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.MainPagerAdapter;
 import seaice.app.groupcontact.view.PagerSlidingTabStrip;
 
@@ -14,6 +16,10 @@ public class MainActivity extends ActionBarActivity {
 
     public static final int RESET_BACK_COUNT = 123456;
     private static Handler mHandler = new Handler();
+    @InjectView(R.id.pager)
+    ViewPager mPager;
+    @InjectView(R.id.pagerIndicator)
+    PagerSlidingTabStrip mIndicator;
     private int mBackCount = 0;
 
     @Override
@@ -21,14 +27,13 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(new MainPagerAdapter(this.getSupportFragmentManager(), this));
+        ButterKnife.inject(this);
 
-        PagerSlidingTabStrip indicator = (PagerSlidingTabStrip) findViewById(R.id.pagerIndicator);
-        indicator.setViewPager(pager);
+        mPager.setAdapter(new MainPagerAdapter(this.getSupportFragmentManager(), this));
+        mIndicator.setViewPager(mPager);
 
         // three are three pages in totally, so just increase the size for performance
-        pager.setOffscreenPageLimit(2);
+        mPager.setOffscreenPageLimit(2);
     }
 
     @Override

@@ -21,6 +21,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.GroupAPI;
@@ -33,21 +35,27 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
     @Inject
     GroupAPI mGroupAPI;
 
+    @InjectView(R.id.searchKey)
+    EditText mSearchKey;
+
+    @InjectView(R.id.searchResult)
+    ListView mSearchResult;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        ButterKnife.inject(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final EditText vSearchKey = (EditText) findViewById(R.id.searchKey);
-        ListView vSearchResult = (ListView) findViewById(R.id.searchResult);
         final GroupListAdapter adapter = new GroupListAdapter(this);
-        vSearchResult.setAdapter(adapter);
+        mSearchResult.setAdapter(adapter);
 
         final Context context = this;
 
-        vSearchKey.addTextChangedListener(new TextWatcher() {
+        mSearchKey.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // ingored
@@ -55,7 +63,7 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String key = vSearchKey.getText().toString();
+                String key = mSearchKey.getText().toString();
                 if (key.trim().equals("")) {
                     // do not allowed empty query
                     adapter.setDataset(new ArrayList<GroupAO>());
@@ -80,7 +88,7 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
             }
         });
 
-        vSearchResult.setOnItemClickListener(this);
+        mSearchResult.setOnItemClickListener(this);
     }
 
     @Override

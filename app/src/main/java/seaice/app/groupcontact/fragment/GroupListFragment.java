@@ -17,6 +17,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
@@ -30,18 +32,20 @@ public class GroupListFragment extends DaggerFragment {
     @Inject
     UserAPI mUserAPI;
 
+    @InjectView(R.id.groupList)
+    ListView mGroupList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
         View rootView = inflater.inflate(R.layout.fragment_group_list, container, false);
+        ButterKnife.inject(this, rootView);
 
         final Context context = getActivity();
-
-        ListView vGroupList = (ListView) rootView.findViewById(R.id.groupList);
         final GroupListAdapter adapter = new GroupListAdapter(context);
-        vGroupList.setAdapter(adapter);
+        mGroupList.setAdapter(adapter);
 
         // start a http call to load the group listGroup
         Long uid = context.getSharedPreferences("prefs", Context.MODE_PRIVATE).getLong("uid", -1L);
@@ -65,7 +69,7 @@ public class GroupListFragment extends DaggerFragment {
             }
         });
 
-        vGroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mGroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // here the id is the group id, and here we jumps to the UserListActivity

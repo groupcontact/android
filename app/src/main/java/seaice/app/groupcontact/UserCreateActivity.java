@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -23,9 +24,11 @@ import seaice.app.groupcontact.api.ao.UserAO;
  */
 public class UserCreateActivity extends DaggerActivity {
 
-    private EditText mNameView;
+    @InjectView(R.id.user_create_name)
+    EditText mNameView;
 
-    private EditText mPhoneView;
+    @InjectView(R.id.user_create_phone)
+    EditText mPhoneView;
 
     @Inject
     UserAPI mUserAPI;
@@ -35,40 +38,37 @@ public class UserCreateActivity extends DaggerActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_create);
 
-        mNameView = (EditText) findViewById(R.id.user_create_name);
-        mPhoneView = (EditText) findViewById(R.id.user_create_phone);
+        ButterKnife.inject(this);
+    }
 
-        Button btnCreate = (Button) findViewById(R.id.user_create_create);
+    @OnClick(R.id.user_create_create)
+    public void createUser() {
         final Context context = this;
-        btnCreate.setOnClickListener(new View.OnClickListener() {
+
+        UserAO user = new UserAO();
+        user.setName(mNameView.getText().toString());
+        user.setPhone(mPhoneView.getText().toString());
+        mUserAPI.create(user, new Callback<GeneralAO>() {
+
             @Override
-            public void onClick(View v) {
-                UserAO user = new UserAO();
-                user.setName(mNameView.getText().toString());
-                user.setPhone(mPhoneView.getText().toString());
-                mUserAPI.create(user, new Callback<GeneralAO>() {
+            public void call(GeneralAO result) {
+                // failed to load resource
+                if (result.getStatus() == -1) {
+                    Toast.makeText(context, result.getInfo(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                // yes, the user logged in
+                SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
+                prefs.edit().putLong("uid", result.getId()).commit();
+                prefs.edit().putString("name", mNameView.getText().toString()).commit();
+                // goes to the main activity
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+            }
 
-                    @Override
-                    public void call(GeneralAO result) {
-                        // failed to load resource
-                        if (result.getStatus() == -1) {
-                            Toast.makeText(context, result.getInfo(), Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        // yes, the user logged in
-                        SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
-                        prefs.edit().putLong("uid", result.getId()).commit();
-                        prefs.edit().putString("name", mNameView.getText().toString()).commit();
-                        // goes to the main activity
-                        Intent intent = new Intent(context, MainActivity.class);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void error(String message) {
-                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-                    }
-                });
+            @Override
+            public void error(String message) {
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
         });
     }
