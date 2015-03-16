@@ -62,8 +62,7 @@ public class UserListActivity extends DaggerActivity {
         dialog.setCancelable(false);
         dialog.show();
 
-        String accessToken = context.getSharedPreferences("prefs", MODE_PRIVATE)
-                .getString("accessToken_" + mGid, "");
+        String accessToken = Constants.accessTokens.get(mGid);
         mGroupAPI.list(mGid, accessToken, new Callback<List<UserAO>>() {
             @Override
             public void call(List<UserAO> result) {

@@ -9,6 +9,7 @@ public class DaggerActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Dagger need this for injection
         MyApplication.inject(this);
     }
 }

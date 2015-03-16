@@ -110,9 +110,10 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
         final Context context = this;
 
         final SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        final Long uid = prefs.getLong("uid", -1L);
+        final Long uid = Constants.uid;
+        String accessToken = prefs.getString("accessToken_" + id, "");
 
-        if (prefs.getString("accessToken_" + id, "").equals("")) {
+        if (accessToken.equals("")) {
             // Ask the user to enter the accessToken
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(group.getName());
@@ -123,8 +124,8 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
             builder.setPositiveButton(getResources().getString(R.string.join_group), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(final DialogInterface dialog, int which) {
-                    final String accessToken = vAccessToken.getText().toString();
-                    mGroupAPI.join(uid, id, accessToken, new Callback<GeneralAO>() {
+                    final String atNew = vAccessToken.getText().toString();
+                    mGroupAPI.join(uid, id, atNew, new Callback<GeneralAO>() {
                         @Override
                         public void call(GeneralAO result) {
                             if (result.getStatus() != 0) {
@@ -133,7 +134,8 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
                             } else {
                                 Toast.makeText(context, context.getResources().getString(
                                         R.string.success_join_group), Toast.LENGTH_LONG).show();
-                                prefs.edit().putString("accessToken_" + id, accessToken).apply();
+                                prefs.edit().putString("accessToken_" + id, atNew).apply();
+                                Constants.accessTokens.put(id, atNew);
                             }
                         }
 
@@ -152,6 +154,7 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
             });
             builder.show();
         } else {
+            Constants.accessTokens.put(id, accessToken);
             // Jump to the User List Activity
             Intent intent = new Intent(this, UserListActivity.class);
             intent.putExtra("gid", group.getGid());

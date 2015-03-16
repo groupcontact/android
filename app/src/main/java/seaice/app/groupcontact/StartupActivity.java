@@ -39,17 +39,14 @@ public class StartupActivity extends DaggerActivity {
                 Constants.baseUrl = config.getBaseUrl();
                 SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
                 long uid = prefs.getLong("uid", -1);
-                Intent intent;
-                if (uid == -1) {
-                    // goes to the edit activity
-                    intent = new Intent(context, UserCreateActivity.class);
-                    startActivity(intent);
-                } else {
-                    // goes to the main activity, and pass the uid into it
-                    intent = new Intent(context, MainActivity.class);
-                    intent.putExtra("uid", uid);
-                    startActivity(intent);
+                Class<?> activityClass = UserCreateActivity.class;
+                if (uid != -1) {
+                    activityClass = MainActivity.class;
+                    Constants.uid = uid;
+                    Constants.name = prefs.getString("name", "");
                 }
+                Intent intent = new Intent(context, activityClass);
+                startActivity(intent);
             }
 
             @Override

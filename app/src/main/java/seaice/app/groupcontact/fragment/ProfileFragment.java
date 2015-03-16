@@ -1,7 +1,6 @@
 package seaice.app.groupcontact.fragment;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import seaice.app.groupcontact.Constants;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.UserAPI;
@@ -28,7 +28,9 @@ import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
 /**
- * Created by zhb on 2015/3/11.
+ * User Profile Info Edit And Save.
+ *
+ * @author zhb
  */
 public class ProfileFragment extends DaggerFragment {
 
@@ -61,9 +63,8 @@ public class ProfileFragment extends DaggerFragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.inject(this, rootView);
 
-        final SharedPreferences prefs = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        mUid = prefs.getLong("uid", -1L);
-        mName = prefs.getString("name", "");
+        mUid = Constants.uid;
+        mName = Constants.name;
 
         mNameView.setText(mName);
 
@@ -75,7 +76,6 @@ public class ProfileFragment extends DaggerFragment {
             public void call(List<UserAO> result) {
                 // some internal error happened
                 if (result.size() == 0) {
-                    prefs.edit().putLong("uid", -1L).commit();
                     return;
                 }
                 UserAO user = result.get(0);

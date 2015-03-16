@@ -1,7 +1,6 @@
 package seaice.app.groupcontact.fragment;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +17,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import seaice.app.groupcontact.Constants;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.Callback;
@@ -38,9 +38,8 @@ public class FriendListFragment extends DaggerFragment {
         setHasOptionsMenu(true);
 
         final Context context = getActivity();
-        SharedPreferences prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        final Long uid = prefs.getLong("uid", -1);
-        final String name = prefs.getString("name", "");
+        final Long uid = Constants.uid;
+        final String name = Constants.name;
 
         View rootView = inflater.inflate(R.layout.fragment_friend_list, container, false);
         ButterKnife.inject(this, rootView);
@@ -74,7 +73,7 @@ public class FriendListFragment extends DaggerFragment {
         int id = item.getItemId();
 
         if (id == R.id.action_add_friend) {
-
+            // TODO: Add Friend Dialog Or New Activity...
             return true;
         }
 

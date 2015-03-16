@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import seaice.app.groupcontact.Constants;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
@@ -47,8 +48,7 @@ public class GroupListFragment extends DaggerFragment {
         final GroupListAdapter adapter = new GroupListAdapter(context);
         mGroupList.setAdapter(adapter);
 
-        // start a http call to load the group listGroup
-        Long uid = context.getSharedPreferences("prefs", Context.MODE_PRIVATE).getLong("uid", -1L);
+        Long uid = Constants.uid;
         mUserAPI.listGroup(uid, new Callback<List<GroupAO>>() {
             @Override
             public void call(List<GroupAO> result) {
@@ -57,7 +57,8 @@ public class GroupListFragment extends DaggerFragment {
                     // Special Case: Initialized Data.
                     if (group.getGid() == 1) {
                         context.getSharedPreferences("prefs", Context.MODE_PRIVATE).edit()
-                                .putString("accessToken_" + 1, "123456").commit();
+                                .putString("accessToken_" + 1, "123456").apply();
+                        Constants.accessTokens.put(1L, "123456");
                         break;
                     }
                 }
