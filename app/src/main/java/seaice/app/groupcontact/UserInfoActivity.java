@@ -50,7 +50,6 @@ public class UserInfoActivity extends ActionBarActivity {
         } catch (JSONException e) {
             // ignore this
         }
-
         setTitle(user.getName());
     }
 

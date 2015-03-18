@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ import butterknife.InjectView;
 import seaice.app.groupcontact.Constants;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.adapter.UserListAdapter;
-import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
 
@@ -47,15 +46,10 @@ public class FriendListFragment extends DaggerFragment {
         final UserListAdapter adapter = new UserListAdapter(context);
         mUserList.setAdapter(adapter);
 
-        mUserAPI.listFriend(uid, name, new Callback<List<UserAO>>() {
+        mUserAPI.listFriend(uid, name, new BaseCallback<List<UserAO>>(context) {
             @Override
             public void call(List<UserAO> result) {
                 adapter.setDataset(result);
-            }
-
-            @Override
-            public void error(String message) {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
         });
 

@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
-import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
 
@@ -49,7 +48,7 @@ public class GroupListFragment extends DaggerFragment {
         mGroupList.setAdapter(adapter);
 
         Long uid = Constants.uid;
-        mUserAPI.listGroup(uid, new Callback<List<GroupAO>>() {
+        mUserAPI.listGroup(uid, new BaseCallback<List<GroupAO>>(context) {
             @Override
             public void call(List<GroupAO> result) {
                 adapter.setDataset(result);
@@ -62,11 +61,6 @@ public class GroupListFragment extends DaggerFragment {
                         break;
                     }
                 }
-            }
-
-            @Override
-            public void error(String message) {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
         });
 

@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.Constants;
 import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
@@ -71,7 +71,7 @@ public class ProfileFragment extends DaggerFragment {
         mContext = getActivity();
 
         // find user
-        mUserAPI.find(mUid, mName, new Callback<List<UserAO>>() {
+        mUserAPI.find(mUid, mName, new BaseCallback<List<UserAO>>(mContext) {
             @Override
             public void call(List<UserAO> result) {
                 // some internal error happened
@@ -87,11 +87,6 @@ public class ProfileFragment extends DaggerFragment {
                 } catch (JSONException e) {
                     // ignore this;
                 }
-            }
-
-            @Override
-            public void error(String message) {
-                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
             }
         });
         return rootView;
@@ -122,7 +117,7 @@ public class ProfileFragment extends DaggerFragment {
             } catch (JSONException e) {
                 user.setExt("{}");
             }
-            mUserAPI.edit(user, new Callback<GeneralAO>() {
+            mUserAPI.edit(user, new BaseCallback<GeneralAO>(mContext) {
                 @Override
                 public void call(GeneralAO result) {
                     if (result.getId() == 0) {
@@ -133,12 +128,6 @@ public class ProfileFragment extends DaggerFragment {
                                 R.string.fail_save_user), Toast.LENGTH_LONG).show();
                     }
                 }
-
-                @Override
-                public void error(String message) {
-                    Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
-                }
-
             });
             return true;
         }

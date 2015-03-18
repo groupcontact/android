@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
+import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -69,15 +70,10 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
                     adapter.setDataset(new ArrayList<GroupAO>());
                     return;
                 }
-                mGroupAPI.search(key, new Callback<List<GroupAO>>() {
+                mGroupAPI.search(key, new BaseCallback<List<GroupAO>>(context) {
                     @Override
                     public void call(List<GroupAO> result) {
                         adapter.setDataset(result);
-                    }
-
-                    @Override
-                    public void error(String message) {
-                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                     }
                 });
             }

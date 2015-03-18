@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.UserListAdapter;
-import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
 
@@ -63,16 +62,11 @@ public class UserListActivity extends DaggerActivity {
         dialog.show();
 
         String accessToken = Constants.accessTokens.get(mGid);
-        mGroupAPI.list(mGid, accessToken, new Callback<List<UserAO>>() {
+        mGroupAPI.list(mGid, accessToken, new BaseCallback<List<UserAO>>(this) {
             @Override
             public void call(List<UserAO> result) {
                 mAdapter.setDataset(result);
                 dialog.dismiss();
-            }
-
-            @Override
-            public void error(String message) {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
         });
 

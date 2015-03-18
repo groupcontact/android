@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
-import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.ConfigAPI;
 import seaice.app.groupcontact.api.ao.ConfigAO;
 
@@ -31,8 +30,7 @@ public class StartupActivity extends DaggerActivity {
         getSupportActionBar().hide();
 
         final Context context = this;
-        mConfigAPI.load(new Callback<ConfigAO>() {
-
+        mConfigAPI.load(new BaseCallback<ConfigAO>(this) {
             @Override
             public void call(ConfigAO config) {
                 // save configuration into runtime constants
@@ -51,11 +49,6 @@ public class StartupActivity extends DaggerActivity {
                 }
                 Intent intent = new Intent(context, activityClass);
                 startActivity(intent);
-            }
-
-            @Override
-            public void error(String message) {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import seaice.app.groupcontact.api.Callback;
+import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
@@ -48,13 +47,12 @@ public class UserCreateActivity extends DaggerActivity {
         UserAO user = new UserAO();
         user.setName(mNameView.getText().toString());
         user.setPhone(mPhoneView.getText().toString());
-        mUserAPI.create(user, new Callback<GeneralAO>() {
-
+        mUserAPI.create(user, new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
                 // failed to load resource
                 if (result.getStatus() == -1) {
-                    Toast.makeText(context, result.getInfo(), Toast.LENGTH_LONG).show();
+                    error(result.getInfo());
                     return;
                 }
                 // yes, the user logged in
@@ -68,11 +66,6 @@ public class UserCreateActivity extends DaggerActivity {
                 // goes to the main activity
                 Intent intent = new Intent(context, MainActivity.class);
                 startActivity(intent);
-            }
-
-            @Override
-            public void error(String message) {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
         });
     }
