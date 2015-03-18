@@ -26,7 +26,6 @@ public class MainActivity extends ActionBarActivity {
     ViewPager mPager;
     @InjectView(R.id.pagerIndicator)
     PagerSlidingTabStrip mIndicator;
-
     private int mBackCount = 0;
 
     @Override
@@ -35,7 +34,10 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        mPager.setAdapter(new MainPagerAdapter(this.getSupportFragmentManager(), this));
+        MainPagerAdapter adapter = new MainPagerAdapter(this.getSupportFragmentManager());
+        adapter.setTitles(getResources().getStringArray(R.array.pager_titles));
+
+        mPager.setAdapter(adapter);
         mIndicator.setViewPager(mPager);
 
         // there are three pages in totally, so just increase the size for performance

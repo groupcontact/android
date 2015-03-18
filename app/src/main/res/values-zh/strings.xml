@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GroupContact</string>
+    <string name="app_name">群通讯录</string>
     <string name="action_settings">设置</string>
     <string name="enter_name">用户名</string>
     <string name="enter_phone">手机号</string>

@@ -37,11 +37,15 @@ public class StartupActivity extends DaggerActivity {
             public void call(ConfigAO config) {
                 // save configuration into runtime constants
                 Constants.baseUrl = config.getBaseUrl();
+
+                // check whether the user has logged in before.
                 SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
                 long uid = prefs.getLong("uid", -1);
                 Class<?> activityClass = UserCreateActivity.class;
+                // Yes, the user logged in before.
                 if (uid != -1) {
                     activityClass = MainActivity.class;
+                    // save the uid and name as Runtime Constants.
                     Constants.uid = uid;
                     Constants.name = prefs.getString("name", "");
                 }
