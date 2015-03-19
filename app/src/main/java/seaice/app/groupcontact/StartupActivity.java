@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.xiaomi.market.sdk.XiaomiUpdateAgent;
+
 import javax.inject.Inject;
 
 import seaice.app.groupcontact.api.BaseCallback;
@@ -25,6 +27,9 @@ public class StartupActivity extends DaggerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        XiaomiUpdateAgent.update(this);
+
         setContentView(R.layout.activity_startup);
 
         getSupportActionBar().hide();
