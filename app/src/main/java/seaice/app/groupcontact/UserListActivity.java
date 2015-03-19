@@ -20,6 +20,8 @@ import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.GroupAPI;
+import seaice.app.groupcontact.api.UserAPI;
+import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
 /**
@@ -31,6 +33,9 @@ public class UserListActivity extends DaggerActivity {
 
     @Inject
     GroupAPI mGroupAPI;
+
+    @Inject
+    UserAPI mUserAPI;
 
     @InjectView(R.id.userList)
     ListView mUserList;
@@ -86,6 +91,7 @@ public class UserListActivity extends DaggerActivity {
                 menu.setHeaderTitle(R.string.user_operation);
                 menu.add(0, 0, 0, R.string.user_operation_call);
                 menu.add(0, 0, 1, R.string.user_operation_sms);
+                menu.add(0, 0, 2, R.string.add_to_friend);
             }
         });
     }
@@ -117,6 +123,19 @@ public class UserListActivity extends DaggerActivity {
             Uri uri = Uri.parse("smsto:" + user.getPhone());
             Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
             startActivity(intent);
+        }
+        if (item.getOrder() == 2) {
+            // add friend
+            mUserAPI.addFriend(Constants.uid, user.getName(), user.getPhone(), new BaseCallback<GeneralAO>(this) {
+                @Override
+                public void call(GeneralAO result) {
+                    if (result.getStatus() == 0L) {
+                        error(getString(R.string.success_add_friend));
+                    } else {
+                        error(result.getInfo());
+                    }
+                }
+            });
         }
         return super.onContextItemSelected(item);
     }

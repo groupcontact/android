@@ -9,4 +9,11 @@
         android:title="@string/action_search"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/action_refresh_group"
+        android:icon="@mipmap/ic_menu_refresh"
+        android:orderInCategory="100"
+        android:title="@string/action_refresh"
+        app:showAsAction="ifRoom" />
+
 </menu>

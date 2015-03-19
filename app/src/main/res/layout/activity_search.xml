@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/searchKeyGroup"
-        android:divider="#FFCC00"
+        android:divider="#ccddcc"
         android:dividerHeight="1dp" />
 
 </RelativeLayout>

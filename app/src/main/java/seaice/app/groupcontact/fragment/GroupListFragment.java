@@ -35,6 +35,8 @@ public class GroupListFragment extends DaggerFragment {
     @InjectView(R.id.groupList)
     ListView mGroupList;
 
+    private GroupListAdapter mAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,25 +46,10 @@ public class GroupListFragment extends DaggerFragment {
         ButterKnife.inject(this, rootView);
 
         final Context context = getActivity();
-        final GroupListAdapter adapter = new GroupListAdapter(context);
-        mGroupList.setAdapter(adapter);
+        mAdapter = new GroupListAdapter(context);
+        mGroupList.setAdapter(mAdapter);
 
-        Long uid = Constants.uid;
-        mUserAPI.listGroup(uid, new BaseCallback<List<GroupAO>>(context) {
-            @Override
-            public void call(List<GroupAO> result) {
-                adapter.setDataset(result);
-                for (GroupAO group : result) {
-                    // Special Case: Initialized Data.
-                    if (group.getGid() == 1) {
-                        context.getSharedPreferences("prefs", Context.MODE_PRIVATE).edit()
-                                .putString("accessToken_" + 1, "123456").apply();
-                        Constants.accessTokens.put(1L, "123456");
-                        break;
-                    }
-                }
-            }
-        });
+        listGroup();
 
         mGroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,6 +84,31 @@ public class GroupListFragment extends DaggerFragment {
             return true;
         }
 
+        if (id == R.id.action_refresh_group) {
+            listGroup();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void listGroup() {
+        final Context context = getActivity();
+        Long uid = Constants.uid;
+        mUserAPI.listGroup(uid, new BaseCallback<List<GroupAO>>(context) {
+            @Override
+            public void call(List<GroupAO> result) {
+                mAdapter.setDataset(result);
+                for (GroupAO group : result) {
+                    // Special Case: Initialized Data.
+                    if (group.getGid() == 1) {
+                        context.getSharedPreferences("prefs", Context.MODE_PRIVATE).edit()
+                                .putString("accessToken_" + 1, "123456").apply();
+                        Constants.accessTokens.put(1L, "123456");
+                        break;
+                    }
+                }
+            }
+        });
     }
 }

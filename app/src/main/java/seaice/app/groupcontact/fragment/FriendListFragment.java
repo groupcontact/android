@@ -1,14 +1,19 @@
 package seaice.app.groupcontact.fragment;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -18,12 +23,14 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.Constants;
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.UserInfoActivity;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
+import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
-public class FriendListFragment extends DaggerFragment {
+public class FriendListFragment extends DaggerFragment implements AdapterView.OnItemClickListener {
 
     @Inject
     UserAPI mUserAPI;
@@ -31,27 +38,31 @@ public class FriendListFragment extends DaggerFragment {
     @InjectView(R.id.userList)
     ListView mUserList;
 
+    private UserListAdapter mAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        final Context context = getActivity();
-        final Long uid = Constants.uid;
-        final String name = Constants.name;
-
         View rootView = inflater.inflate(R.layout.fragment_friend_list, container, false);
         ButterKnife.inject(this, rootView);
 
-        final UserListAdapter adapter = new UserListAdapter(context);
-        mUserList.setAdapter(adapter);
+        mAdapter = new UserListAdapter(getActivity());
+        mUserList.setAdapter(mAdapter);
 
-        mUserAPI.listFriend(uid, name, new BaseCallback<List<UserAO>>(context) {
+        mUserList.setOnItemClickListener(this);
+        mUserList.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
-            public void call(List<UserAO> result) {
-                adapter.setDataset(result);
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                menu.setHeaderTitle(R.string.user_operation);
+                menu.add(0, 0, 0, R.string.user_operation_call);
+                menu.add(0, 0, 1, R.string.user_operation_sms);
+                menu.add(0, 0, 2, R.string.delete_friend);
             }
         });
+
+        listFriend();
 
         return rootView;
     }
@@ -68,10 +79,69 @@ public class FriendListFragment extends DaggerFragment {
 
         if (id == R.id.action_add_friend) {
             // TODO: Add Friend Dialog Or New Activity...
+            Toast.makeText(getActivity(), "添加好友功能，敬请期待", Toast.LENGTH_LONG).show();
+            return true;
+        }
+
+        if (id == R.id.action_refresh_friend) {
+            listFriend();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private void listFriend() {
+        Context context = getActivity();
+        Long uid = Constants.uid;
+        String name = Constants.name;
+
+        mUserAPI.listFriend(uid, name, new BaseCallback<List<UserAO>>(context) {
+            @Override
+            public void call(List<UserAO> result) {
+                mAdapter.setDataset(result);
+            }
+        });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        UserAO user = (UserAO) parent.getAdapter().getItem(position);
+        Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        UserAO user = (UserAO) mAdapter.getItem(info.position);
+        if (item.getOrder() == 0) {
+            // call
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + user.getPhone()));
+            startActivity(intent);
+        }
+        if (item.getOrder() == 1) {
+            // sms
+            Uri uri = Uri.parse("smsto:" + user.getPhone());
+            Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+            startActivity(intent);
+        }
+        if (item.getOrder() == 2) {
+            mUserAPI.deleteFriend(Constants.uid, Constants.name, user.getUid(), new BaseCallback<GeneralAO>(getActivity()) {
+                @Override
+                public void call(GeneralAO result) {
+                    if (result.getStatus() == 0) {
+                        error(getString(R.string.success_delete_friend));
+                        // delete from list view
+                        mAdapter.remove(info.position);
+                    } else {
+                        error(result.getInfo());
+                    }
+                }
+            });
+        }
+        return super.onContextItemSelected(item);
+    }
 }

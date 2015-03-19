@@ -25,8 +25,6 @@
     <string name="success_join_group">Succeed to Join</string>
     <string name="search_empty_result">No Results</string>
 
-    <string name="not_implemented">Not Implemented Now...</string>
-
     <string name="label_user_name">Name</string>
     <string name="label_user_phone">Phone</string>
     <string name="label_user_email">Email</string>
@@ -36,7 +34,6 @@
     <string name="fail_save_user">Failed to Save Your Modification</string>
     <string name="title_activity_search">SearchActivity</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_user_info">Profile</string>
 
     <string name="user_operation">Operation</string>
@@ -46,5 +43,9 @@
     <string name="loading_user_list">Loading...</string>
     <string name="tip_press_to_exit">Press Again to Exit</string>
     <string name="action_add_friend">Add Friend</string>
+    <string name="add_to_friend">Add As Friend</string>
+    <string name="success_add_friend">Add Friend Successfully</string>
+    <string name="delete_friend">Delete</string>
+    <string name="success_delete_friend">Delete Friend Successfully</string>
 
 </resources>

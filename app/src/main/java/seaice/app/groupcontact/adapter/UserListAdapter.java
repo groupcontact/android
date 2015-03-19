@@ -59,4 +59,9 @@ public class UserListAdapter extends BaseAdapter {
 
         return rootView;
     }
+
+    public void remove(int position) {
+        mDataset.remove(position);
+        notifyDataSetChanged();
+    }
 }

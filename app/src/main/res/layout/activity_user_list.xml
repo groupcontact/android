@@ -8,7 +8,7 @@
         android:id="@+id/userList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#FFCC00"
+        android:divider="#CCDDEE"
         android:dividerHeight="1dp" />
 
 </RelativeLayout>
