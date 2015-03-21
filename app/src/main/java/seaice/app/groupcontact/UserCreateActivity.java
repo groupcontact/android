@@ -59,9 +59,9 @@ public class UserCreateActivity extends DaggerActivity {
                 SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
                 Long uid = result.getId();
                 String name = mNameView.getText().toString();
-                prefs.edit().putLong("uid", uid).apply();
+                prefs.edit().putLong("uid", uid).commit();
                 Constants.uid = uid;
-                prefs.edit().putString("name", name).apply();
+                prefs.edit().putString("name", name).commit();
                 Constants.name = name;
                 // goes to the main activity
                 Intent intent = new Intent(context, MainActivity.class);

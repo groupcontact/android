@@ -1,7 +1,6 @@
 package seaice.app.groupcontact;
 
 import android.app.Application;
-import android.content.Context;
 
 import dagger.ObjectGraph;
 import seaice.app.groupcontact.api.APIModule;

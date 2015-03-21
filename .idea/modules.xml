@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/GroupContact.iml" filepath="$PROJECT_DIR$/GroupContact.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/groupcontact.iml" filepath="$PROJECT_DIR$/groupcontact.iml" />
     </modules>
   </component>
 </project>

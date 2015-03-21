@@ -14,7 +14,9 @@ import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.UserAO;
 
 /**
- * Created by zhb on 2015/3/11.
+ * The adapter provides data for a list view of user.
+ *
+ * @author zhb
  */
 public class UserListAdapter extends BaseAdapter {
 

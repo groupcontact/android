@@ -130,7 +130,7 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
                             } else {
                                 Toast.makeText(context, context.getResources().getString(
                                         R.string.success_join_group), Toast.LENGTH_LONG).show();
-                                prefs.edit().putString("accessToken_" + id, atNew).apply();
+                                prefs.edit().putString("accessToken_" + id, atNew).commit();
                                 Constants.accessTokens.put(id, atNew);
                             }
                         }
