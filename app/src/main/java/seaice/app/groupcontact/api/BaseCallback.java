@@ -4,7 +4,10 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
- * Created by zhb on 2015/3/18.
+ * The basic adapter for <code>Callback</code> interface, the error method has default implementation
+ * which just toast the message out.
+ *
+ * @author zhb
  */
 public class BaseCallback<T> implements Callback<T> {
 
@@ -16,7 +19,6 @@ public class BaseCallback<T> implements Callback<T> {
 
     @Override
     public void call(T result) {
-
     }
 
     @Override
