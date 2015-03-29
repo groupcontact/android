@@ -7,7 +7,7 @@
     <string name="title_activity_edit">Edit</string>
     <string name="title_activity_main">GroupContact</string>
     <string name="title_activity_user_list">UserList</string>
-    <string name="title_activity_create_user">Registration</string>
+    <string name="title_activity_create_user">Login</string>
 
     <string name="action_search">Search</string>
     <string name="action_save">Save</string>
@@ -32,7 +32,7 @@
     <string name="action_save_user">Save</string>
     <string name="success_save_user">Saved Successfully</string>
     <string name="fail_save_user">Failed to Save Your Modification</string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_search">SearchGroup</string>
 
     <string name="title_activity_user_info">Profile</string>
 
@@ -47,7 +47,7 @@
     <string name="success_add_friend">Add Friend Successfully</string>
     <string name="delete_friend">Delete</string>
     <string name="success_delete_friend">Delete Friend Successfully</string>
-    <string name="title_activity_user_add">UserAddActivity</string>
+    <string name="title_activity_user_add">AddFriend</string>
 
     <string name="action_add_user">Add Friend</string>
 
