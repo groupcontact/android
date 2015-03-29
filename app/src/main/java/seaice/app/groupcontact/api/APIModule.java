@@ -8,6 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.StartupActivity;
+import seaice.app.groupcontact.UserAddActivity;
 import seaice.app.groupcontact.UserCreateActivity;
 import seaice.app.groupcontact.UserListActivity;
 import seaice.app.groupcontact.api.impl.ConfigAPImpl;
@@ -24,7 +25,8 @@ import seaice.app.groupcontact.fragment.ProfileFragment;
         UserListActivity.class,
         FriendListFragment.class,
         GroupListFragment.class,
-        ProfileFragment.class
+        ProfileFragment.class,
+        UserAddActivity.class
 })
 public class APIModule {
 

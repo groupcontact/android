@@ -13,8 +13,8 @@
     <string name="action_save">Save</string>
     <string name="action_refresh">Refresh</string>
 
-    <string name="enter_name">Your Name</string>
-    <string name="enter_phone">Your Phone</string>
+    <string name="enter_name">Name(Real Name)</string>
+    <string name="enter_phone">Phone Number</string>
     <string name="action_create_user">Create</string>
 
     <string name="hint_search_group">Group Name</string>
@@ -47,5 +47,8 @@
     <string name="success_add_friend">Add Friend Successfully</string>
     <string name="delete_friend">Delete</string>
     <string name="success_delete_friend">Delete Friend Successfully</string>
+    <string name="title_activity_user_add">UserAddActivity</string>
+
+    <string name="action_add_user">Add Friend</string>
 
 </resources>

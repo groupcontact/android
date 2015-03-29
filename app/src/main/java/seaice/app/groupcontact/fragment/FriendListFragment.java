@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.Constants;
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.UserAddActivity;
 import seaice.app.groupcontact.UserInfoActivity;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
@@ -78,8 +79,8 @@ public class FriendListFragment extends DaggerFragment implements AdapterView.On
         int id = item.getItemId();
 
         if (id == R.id.action_add_friend) {
-            // TODO: Add Friend Dialog Or New Activity...
-            Toast.makeText(getActivity(), "添加好友功能，敬请期待", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getActivity(), UserAddActivity.class);
+            startActivity(intent);
             return true;
         }
 
