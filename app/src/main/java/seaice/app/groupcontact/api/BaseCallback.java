@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
- * The basic adapter for <code>Callback</code> interface, the error method has default implementation
+ * The basic adapter for <code>Callback</code> interface, the info method has default implementation
  * which just toast the message out.
  *
  * @author zhb
@@ -22,7 +22,7 @@ public class BaseCallback<T> implements Callback<T> {
     }
 
     @Override
-    public void error(String message) {
+    public void info(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
     }
 }

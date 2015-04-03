@@ -19,7 +19,7 @@ import seaice.app.groupcontact.api.ao.ConfigAO;
  *
  * @author zhb
  */
-public class StartupActivity extends DaggerActivity {
+public class StartupActivity extends BaseActivity {
 
     @Inject
     ConfigAPI mConfigAPI;

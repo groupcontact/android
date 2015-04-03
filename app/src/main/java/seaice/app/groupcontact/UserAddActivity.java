@@ -18,7 +18,7 @@ import seaice.app.groupcontact.api.ao.GeneralAO;
  *
  * @author zhb
  */
-public class UserAddActivity extends DaggerActivity {
+public class UserAddActivity extends BaseActivity {
 
     @InjectView(R.id.user_add_name)
     EditText mNameView;
@@ -47,10 +47,10 @@ public class UserAddActivity extends DaggerActivity {
             @Override
             public void call(GeneralAO result) {
                 if (result.getStatus() == -1) {
-                    error(result.getInfo());
+                    info(result.getInfo());
                     return;
                 }
-                error(getString(R.string.success_add_friend));
+                info(getString(R.string.success_add_friend));
                 // The question here is that do we suppose the user will add friend in batch mode
                 // finish();
             }

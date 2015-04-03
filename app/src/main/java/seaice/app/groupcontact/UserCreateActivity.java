@@ -21,7 +21,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
  *
  * @author zhb
  */
-public class UserCreateActivity extends DaggerActivity {
+public class UserCreateActivity extends BaseActivity {
 
     @InjectView(R.id.user_create_name)
     EditText mNameView;
@@ -52,7 +52,7 @@ public class UserCreateActivity extends DaggerActivity {
             public void call(GeneralAO result) {
                 // failed to load resource
                 if (result.getStatus() == -1) {
-                    error(result.getInfo());
+                    info(result.getInfo());
                     return;
                 }
                 // yes, the user logged in

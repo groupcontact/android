@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -134,11 +133,11 @@ public class FriendListFragment extends DaggerFragment implements AdapterView.On
                 @Override
                 public void call(GeneralAO result) {
                     if (result.getStatus() == 0) {
-                        error(getString(R.string.success_delete_friend));
+                        info(getString(R.string.success_delete_friend));
                         // delete from list view
                         mAdapter.remove(info.position);
                     } else {
-                        error(result.getInfo());
+                        info(result.getInfo());
                     }
                 }
             });

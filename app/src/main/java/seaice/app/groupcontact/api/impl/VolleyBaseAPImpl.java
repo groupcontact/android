@@ -83,7 +83,7 @@ public abstract class VolleyBaseAPImpl {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            mCallback.error(error.getMessage());
+            mCallback.info(error.getMessage());
         }
     }
 
@@ -105,7 +105,7 @@ public abstract class VolleyBaseAPImpl {
                 try {
                     result.add(parseResponse(response.getJSONObject(i), mTypedClass));
                 } catch (JSONException e) {
-                    mCallback.error(e.getMessage());
+                    mCallback.info(e.getMessage());
                 }
             }
             mCallback.call(result);

@@ -74,7 +74,7 @@ public class ProfileFragment extends DaggerFragment {
         mUserAPI.find(mUid, mName, new BaseCallback<List<UserAO>>(mContext) {
             @Override
             public void call(List<UserAO> result) {
-                // some internal error happened
+                // some internal info happened
                 if (result.size() == 0) {
                     return;
                 }

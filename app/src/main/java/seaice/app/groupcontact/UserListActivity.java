@@ -29,7 +29,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
  *
  * @author zhb
  */
-public class UserListActivity extends DaggerActivity {
+public class UserListActivity extends BaseActivity {
 
     @Inject
     GroupAPI mGroupAPI;
@@ -130,9 +130,9 @@ public class UserListActivity extends DaggerActivity {
                 @Override
                 public void call(GeneralAO result) {
                     if (result.getStatus() == 0L) {
-                        error(getString(R.string.success_add_friend));
+                        info(getString(R.string.success_add_friend));
                     } else {
-                        error(result.getInfo());
+                        info(result.getInfo());
                     }
                 }
             });

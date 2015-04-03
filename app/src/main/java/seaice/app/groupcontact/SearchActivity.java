@@ -31,7 +31,7 @@ import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
 
 
-public class SearchActivity extends DaggerActivity implements AdapterView.OnItemClickListener {
+public class SearchActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @Inject
     GroupAPI mGroupAPI;
@@ -136,7 +136,7 @@ public class SearchActivity extends DaggerActivity implements AdapterView.OnItem
                         }
 
                         @Override
-                        public void error(String message) {
+                        public void info(String message) {
                             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                         }
                     });
