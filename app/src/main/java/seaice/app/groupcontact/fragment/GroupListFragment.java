@@ -27,7 +27,7 @@ import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
 
-public class GroupListFragment extends DaggerFragment {
+public class GroupListFragment extends BaseFragment {
 
     @Inject
     UserAPI mUserAPI;

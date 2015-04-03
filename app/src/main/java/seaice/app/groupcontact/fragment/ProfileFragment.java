@@ -32,7 +32,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
  *
  * @author zhb
  */
-public class ProfileFragment extends DaggerFragment {
+public class ProfileFragment extends BaseFragment {
 
     @Inject
     UserAPI mUserAPI;

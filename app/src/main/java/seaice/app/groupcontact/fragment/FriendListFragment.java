@@ -30,7 +30,7 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
-public class FriendListFragment extends DaggerFragment implements AdapterView.OnItemClickListener {
+public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     @Inject
     UserAPI mUserAPI;
