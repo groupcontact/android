@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import seaice.app.groupcontact.GroupCreateActivity;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.StartupActivity;
 import seaice.app.groupcontact.UserAddActivity;
@@ -22,6 +23,7 @@ import seaice.app.groupcontact.fragment.ProfileFragment;
         StartupActivity.class,
         SearchActivity.class,
         UserCreateActivity.class,
+        GroupCreateActivity.class,
         UserListActivity.class,
         FriendListFragment.class,
         GroupListFragment.class,

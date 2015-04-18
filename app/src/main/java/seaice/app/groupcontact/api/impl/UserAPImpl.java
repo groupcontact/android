@@ -27,7 +27,7 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
     public void create(UserAO user, Callback<GeneralAO> cb) {
         Map<String, String> data = new HashMap<>();
         data.put("name", user.getName());
-        data.put("phone", user.getPhone());
+        data.put("phone_normal", user.getPhone());
 
         String url = Constants.baseUrl + "createUser";
         post(url, data, cb, GeneralAO.class);
@@ -38,7 +38,7 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
         Map<String, String> data = new HashMap<>();
         data.put("uid", user.getUid().toString());
         data.put("name", user.getName());
-        data.put("phone", user.getPhone());
+        data.put("phone_normal", user.getPhone());
         data.put("ext", user.getExt());
 
         String url = Constants.baseUrl + "editUser";

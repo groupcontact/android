@@ -50,5 +50,16 @@
     <string name="title_activity_user_add">AddFriend</string>
 
     <string name="action_add_user">Add Friend</string>
+    <string name="action_create_group">CreateGroup</string>
+    <string name="title_activity_group_create">GroupCreateActivity</string>
 
+    <string name="hello_world">Hello world!</string>
+    <string name="enter_group_modify">Modify Token</string>
+    <string name="enter_group_access">Access Token</string>
+    <string name="enter_group_name">Group Name</string>
+    <string name="enter_group_desc">Group Description</string>
+    <string name="success_create_user">Create Group Successfully..</string>
+    <string name="action_share">Share</string>
+
+    <string name="empty_now">Empty</string>
 </resources>

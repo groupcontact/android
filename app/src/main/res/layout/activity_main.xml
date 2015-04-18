@@ -10,7 +10,7 @@
         android:id="@+id/pagerIndicator"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@drawable/top_bg"
+        android:background="@drawable/nav_border"
         android:textSize="20dp"
         app:pstsDividerColor="#00000000"
         app:pstsIndicatorColor="#FF33B5E6"

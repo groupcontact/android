@@ -3,6 +3,7 @@ package seaice.app.groupcontact.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.Constants;
+import seaice.app.groupcontact.GroupCreateActivity;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
@@ -27,7 +29,7 @@ import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
 
-public class GroupListFragment extends BaseFragment {
+public class GroupListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     UserAPI mUserAPI;
@@ -37,19 +39,22 @@ public class GroupListFragment extends BaseFragment {
 
     private GroupListAdapter mAdapter;
 
+    private SwipeRefreshLayout mLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        View rootView = inflater.inflate(R.layout.fragment_group_list, container, false);
-        ButterKnife.inject(this, rootView);
+        mLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_group_list,
+                container, false);
+        ButterKnife.inject(this, mLayout);
 
         final Context context = getActivity();
         mAdapter = new GroupListAdapter(context);
         mGroupList.setAdapter(mAdapter);
 
-        listGroup();
+        onRefresh();
 
         mGroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,7 +68,9 @@ public class GroupListFragment extends BaseFragment {
             }
         });
 
-        return rootView;
+        mLayout.setOnRefreshListener(this);
+
+        return mLayout;
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -73,9 +80,6 @@ public class GroupListFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == R.id.action_search) {
@@ -84,20 +88,23 @@ public class GroupListFragment extends BaseFragment {
             return true;
         }
 
-        if (id == R.id.action_refresh_group) {
-            listGroup();
+        if (id == R.id.action_create_group) {
+            Intent intent = new Intent(getActivity(), GroupCreateActivity.class);
+            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void listGroup() {
+    @Override
+    public void onRefresh() {
         final Context context = getActivity();
         Long uid = Constants.uid;
         mUserAPI.listGroup(uid, new BaseCallback<List<GroupAO>>(context) {
             @Override
             public void call(List<GroupAO> result) {
+                mLayout.setRefreshing(false);
                 mAdapter.setDataset(result);
                 for (GroupAO group : result) {
                     // Special Case: Initialized Data.

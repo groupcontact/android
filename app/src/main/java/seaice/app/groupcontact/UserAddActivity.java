@@ -14,7 +14,7 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 
 /**
- * This screen help the user to add friend directly, by enter the name and phone number
+ * This screen help the user to add friend directly, by enter the name and phone_normal number
  *
  * @author zhb
  */

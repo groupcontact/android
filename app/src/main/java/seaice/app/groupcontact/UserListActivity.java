@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +31,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
  *
  * @author zhb
  */
-public class UserListActivity extends BaseActivity {
+public class UserListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     GroupAPI mGroupAPI;
@@ -42,15 +44,21 @@ public class UserListActivity extends BaseActivity {
 
     private UserListAdapter mAdapter;
 
+    @InjectView(R.id.refreshLayout)
+    SwipeRefreshLayout mLayout;
+
     private Long mGid;
+
+    private ProgressDialog mDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_friend_list);
+        setContentView(R.layout.activity_user_list);
 
         ButterKnife.inject(this);
 
+        mLayout.setOnRefreshListener(this);
         // enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAdapter = new UserListAdapter(this);
@@ -60,21 +68,6 @@ public class UserListActivity extends BaseActivity {
         setTitle(getIntent().getStringExtra("name"));
 
         final Context context = this;
-
-        final ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setMessage(getResources().getString(R.string.loading_user_list));
-        dialog.setCancelable(false);
-        dialog.show();
-
-        String accessToken = Constants.accessTokens.get(mGid);
-        mGroupAPI.list(mGid, accessToken, new BaseCallback<List<UserAO>>(this) {
-            @Override
-            public void call(List<UserAO> result) {
-                mAdapter.setDataset(result);
-                dialog.dismiss();
-            }
-        });
-
         mUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -94,8 +87,19 @@ public class UserListActivity extends BaseActivity {
                 menu.add(0, 0, 2, R.string.add_to_friend);
             }
         });
+
+        mDialog = new ProgressDialog(this);
+        mDialog.setMessage(getResources().getString(R.string.loading_user_list));
+        mDialog.setCancelable(false);
+        mDialog.show();
+
+        onRefresh();
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_user_list, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -138,5 +142,21 @@ public class UserListActivity extends BaseActivity {
             });
         }
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        String accessToken = Constants.accessTokens.get(mGid);
+        mGroupAPI.list(mGid, accessToken, new BaseCallback<List<UserAO>>(this) {
+            @Override
+            public void call(List<UserAO> result) {
+                if (mLayout.isRefreshing()) {
+                    mLayout.setRefreshing(false);
+                } else {
+                    mDialog.dismiss();
+                }
+                mAdapter.setDataset(result);
+            }
+        });
     }
 }

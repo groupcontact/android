@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/profile_group_name"
+            android:id="@+id/profile_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -42,10 +42,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/profile_group_phone"
+            android:id="@+id/profile_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/profile_group_name"
+            android:layout_below="@id/profile_name"
             android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <TextView
@@ -69,10 +69,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/profile_group_email"
+            android:id="@+id/profile_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/profile_group_phone"
+            android:layout_below="@id/profile_phone"
             android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <TextView
@@ -96,10 +96,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/profile_group_wechat"
+            android:id="@+id/profile_wechat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/profile_group_email"
+            android:layout_below="@id/profile_email"
             android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <TextView

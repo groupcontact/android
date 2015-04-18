@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">群通讯录</string>
     <string name="action_settings">设置</string>
-    <string name="enter_name">姓名(真实姓名)</string>
+    <string name="enter_name">姓名</string>
     <string name="enter_phone">手机号</string>
     <string name="logo_desc">首屏图片</string>
     <string name="title_activity_create_user">登录</string>
@@ -41,4 +41,14 @@
     <string name="success_delete_friend">成功取消好友关系</string>
     <string name="action_add_user">添加为好友</string>
     <string name="title_activity_user_add">添加好友</string>
+    <string name="action_create_group">创建群组</string>
+    <string name="enter_group_access">访问密码</string>
+    <string name="enter_group_desc">群组描述</string>
+    <string name="enter_group_modify">管理密码</string>
+    <string name="enter_group_name">群组名</string>
+    <string name="title_activity_group_create">创建群组</string>
+    <string name="success_create_user">创建成功</string>
+    <string name="hello_world">你好世界</string>
+    <string name="empty_now">暂未填写</string>
+    <string name="action_share">分享</string>
 </resources>

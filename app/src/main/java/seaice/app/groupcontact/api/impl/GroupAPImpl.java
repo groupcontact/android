@@ -21,6 +21,18 @@ public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
     }
 
     @Override
+    public void create(String name, String desc, String access, String modify, Callback<GeneralAO> cb) {
+        Map<String, String> data = new HashMap<>();
+        data.put("name", name);
+        data.put("desc", desc);
+        data.put("accessToken", access);
+        data.put("modifyToken", modify);
+
+        String url = Constants.baseUrl + "createGroup";
+        post(url, data, cb, GeneralAO.class);
+    }
+
+    @Override
     public void list(Long gid, String accessToken, Callback<List<UserAO>> cb) {
         String url = Constants.baseUrl + "listUser?gid=" + gid + "&accessToken=" + accessToken;
         getArray(url, cb, UserAO.class);

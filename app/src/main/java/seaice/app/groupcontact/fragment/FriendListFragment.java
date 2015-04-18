@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,7 +31,7 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
-public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     @Inject
     UserAPI mUserAPI;
@@ -40,13 +41,16 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
 
     private UserListAdapter mAdapter;
 
+    private SwipeRefreshLayout mLayout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
 
-        View rootView = inflater.inflate(R.layout.fragment_friend_list, container, false);
-        ButterKnife.inject(this, rootView);
+        mLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_friend_list, container, false);
+        ButterKnife.inject(this, mLayout);
+        mLayout.setOnRefreshListener(this);
 
         mAdapter = new UserListAdapter(getActivity());
         mUserList.setAdapter(mAdapter);
@@ -62,9 +66,9 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
             }
         });
 
-        listFriend();
+        onRefresh();
 
-        return rootView;
+        return mLayout;
     }
 
 
@@ -83,25 +87,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
             return true;
         }
 
-        if (id == R.id.action_refresh_friend) {
-            listFriend();
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    private void listFriend() {
-        Context context = getActivity();
-        Long uid = Constants.uid;
-        String name = Constants.name;
-
-        mUserAPI.listFriend(uid, name, new BaseCallback<List<UserAO>>(context) {
-            @Override
-            public void call(List<UserAO> result) {
-                mAdapter.setDataset(result);
-            }
-        });
     }
 
     @Override
@@ -143,5 +129,20 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
             });
         }
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        Context context = getActivity();
+        Long uid = Constants.uid;
+        String name = Constants.name;
+
+        mUserAPI.listFriend(uid, name, new BaseCallback<List<UserAO>>(context) {
+            @Override
+            public void call(List<UserAO> result) {
+                mLayout.setRefreshing(false);
+                mAdapter.setDataset(result);
+            }
+        });
     }
 }

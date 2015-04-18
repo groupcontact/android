@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,33 +16,26 @@ import seaice.app.groupcontact.api.ao.UserAO;
 
 public class UserInfoActivity extends ActionBarActivity {
 
-    @InjectView(R.id.editName)
-    EditText mNameView;
+    @InjectView(R.id.phone)
+    TextView mPhoneView;
 
-    @InjectView(R.id.editPhone)
-    EditText mPhoneView;
+    @InjectView(R.id.email)
+    TextView mEmailView;
 
-    @InjectView(R.id.editEmail)
-    EditText mEmailView;
-
-    @InjectView(R.id.editWechat)
-    EditText mWechatView;
+    @InjectView(R.id.wechat)
+    TextView mWechatView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_profile);
+
+        setContentView(R.layout.activity_user_info);
 
         ButterKnife.inject(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mPhoneView.setEnabled(false);
-        mEmailView.setEnabled(false);
-        mWechatView.setEnabled(false);
-
         UserAO user = getIntent().getParcelableExtra("user");
-        mNameView.setText(user.getName());
         mPhoneView.setText(user.getPhone());
         try {
             JSONObject extObj = new JSONObject(user.getExt());

@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 /**
  * The basic adapter for <code>Callback</code> interface, the info method has default implementation
- * which just toast the message out.
+ * which just toast the message_normal out.
  *
  * @author zhb
  */
