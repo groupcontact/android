@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -19,7 +18,7 @@ import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.utils.ViewAnimation;
+import seaice.app.groupcontact.utils.AnimationUtils;
 
 /**
  * create a user instance in the app..
@@ -85,7 +84,7 @@ public class UserCreateActivity extends BaseActivity {
                 mUserId = result.getId();
                 if (result.getStatus() == 1) {
                     // 再输入用户名
-                    ViewAnimation.expand(mNameView);
+                    AnimationUtils.expand(mNameView);
                     mNameView.requestFocus();
                     // 手机号输入和密码输入需要被禁掉
                     mPhoneView.setEnabled(false);

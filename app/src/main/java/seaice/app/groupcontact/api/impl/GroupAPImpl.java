@@ -35,12 +35,12 @@ public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
     @Override
     public void list(Long gid, String accessToken, Callback<List<UserAO>> cb) {
         String url = Constants.baseUrl + "listUser?gid=" + gid + "&accessToken=" + accessToken;
-        getArray(url, cb, UserAO.class);
+        getArray(url, cb, UserAO.class, null);
     }
 
     public void search(String name, Callback<List<GroupAO>> cb) {
         String url = Constants.baseUrl + "searchGroup?name=" + Uri.encode(name);
-        getArray(url, cb, GroupAO.class);
+        getArray(url, cb, GroupAO.class, null);
     }
 
     @Override

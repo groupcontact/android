@@ -53,8 +53,6 @@ public class ProfileFragment extends BaseFragment {
 
     private Long mUid;
 
-    private String mName;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,14 +62,10 @@ public class ProfileFragment extends BaseFragment {
         ButterKnife.inject(this, rootView);
 
         mUid = Constants.uid;
-        mName = Constants.name;
-
-        mNameView.setText(mName);
-
         mContext = getActivity();
 
         // find user
-        mUserAPI.find(mUid, mName, new BaseCallback<List<UserAO>>(mContext) {
+        mUserAPI.find(mUid, Constants.DEFAULT_KEY, new BaseCallback<List<UserAO>>(mContext) {
             @Override
             public void call(List<UserAO> result) {
                 // some internal info happened
@@ -79,6 +73,7 @@ public class ProfileFragment extends BaseFragment {
                     return;
                 }
                 UserAO user = result.get(0);
+                mNameView.setText(user.getName());
                 mPhoneView.setText(user.getPhone());
                 try {
                     JSONObject extObj = new JSONObject(user.getExt());
@@ -107,7 +102,7 @@ public class ProfileFragment extends BaseFragment {
         if (id == R.id.action_save) {
             UserAO user = new UserAO();
             user.setUid(mUid);
-            user.setName(mName);
+            user.setName(mNameView.getText().toString());
             user.setPhone(mPhoneView.getText().toString());
             JSONObject extObj = new JSONObject();
             try {

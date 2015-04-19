@@ -9,7 +9,7 @@ import android.view.animation.Transformation;
  * Animation copied from <a href="http://stackoverflow.com/questions/4946295/android-expand-collapse-animation">
  *     android-expand-collapse-animation</a>
  */
-public class ViewAnimation {
+public class AnimationUtils {
 
     public static void expand(final View v) {
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

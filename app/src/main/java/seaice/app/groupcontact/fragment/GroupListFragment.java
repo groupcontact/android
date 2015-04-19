@@ -101,20 +101,11 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
     public void onRefresh() {
         final Context context = getActivity();
         Long uid = Constants.uid;
-        mUserAPI.listGroup(uid, new BaseCallback<List<GroupAO>>(context) {
+        mUserAPI.listGroup(uid, Constants.DEFAULT_KEY, new BaseCallback<List<GroupAO>>(context) {
             @Override
             public void call(List<GroupAO> result) {
                 mLayout.setRefreshing(false);
                 mAdapter.setDataset(result);
-                for (GroupAO group : result) {
-                    // Special Case: Initialized Data.
-                    if (group.getGid() == 1) {
-                        context.getSharedPreferences("prefs", Context.MODE_PRIVATE).edit()
-                                .putString("accessToken_" + 1, "123456").apply();
-                        Constants.accessTokens.put(1L, "123456");
-                        break;
-                    }
-                }
             }
         });
     }

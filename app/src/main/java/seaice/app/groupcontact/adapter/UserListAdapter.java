@@ -12,6 +12,7 @@ import java.util.List;
 
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.utils.CipherUtils;
 
 /**
  * The adapter provides data for a list view of user.

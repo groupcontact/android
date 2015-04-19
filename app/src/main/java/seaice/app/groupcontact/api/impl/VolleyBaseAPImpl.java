@@ -50,15 +50,15 @@ public abstract class VolleyBaseAPImpl {
         return null;
     }
 
-    protected <T> void get(String url, Callback<T> cb, Class<T> typedClass) {
+    protected <T> void get(String url, Callback<T> cb, Class<T> typedClass, String key) {
         Request<String> request = new APIGetRequest(url, new APIErrorListener(cb),
-                new APIJSONObjectListener<>(cb, typedClass));
+                new APIJSONObjectListener<>(cb, typedClass), key);
         mQueue.add(request);
     }
 
-    protected <T> void getArray(String url, Callback<List<T>> cb, Class<T> typedClass) {
+    protected <T> void getArray(String url, Callback<List<T>> cb, Class<T> typedClass, String key) {
         Request<String> request = new APIGetRequest(url, new APIJSONArrayListener<>(cb, typedClass),
-                new APIErrorListener(cb));
+                new APIErrorListener(cb), key);
         mQueue.add(request);
     }
 
@@ -68,21 +68,9 @@ public abstract class VolleyBaseAPImpl {
         mQueue.add(request);
     }
 
-    protected <T> void postArray(String url, Map<String, String> params, Callback<List<T>> cb, Class<T> typedClass) {
-        Request<String> request = new APIPostRequest(url, params, new APIJSONArrayListener<>(cb, typedClass),
-                new APIErrorListener(cb));
-        mQueue.add(request);
-    }
-
     protected <T> void put(String url, Map<String, String> params, Callback<T> cb, Class<T> typedClass) {
         Request<String> request = new APIPutRequest(url, params, new APIErrorListener(cb),
                 new APIJSONObjectListener<>(cb, typedClass));
-        mQueue.add(request);
-    }
-
-    protected <T> void putArray(String url, Map<String, String> params, Callback<List<T>> cb, Class<T> typedClass) {
-        Request<String> request = new APIPutRequest(url, params, new APIJSONArrayListener<>(cb, typedClass),
-                new APIErrorListener(cb));
         mQueue.add(request);
     }
 

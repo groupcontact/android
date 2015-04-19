@@ -10,6 +10,10 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+import javax.crypto.Cipher;
+
+import seaice.app.groupcontact.utils.CipherUtils;
+
 /**
  * Created by zhb on 2015/3/11.
  */
@@ -22,11 +26,15 @@ public class APIGetRequest extends StringRequest {
      * @param listener
      * @param errorListener
      */
-    public APIGetRequest(String url, final Response.Listener<JSONArray> listener, final Response.ErrorListener errorListener) {
+    public APIGetRequest(String url, final Response.Listener<JSONArray> listener, final Response.ErrorListener errorListener,
+                         final String key) {
         super(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
+                    if (key != null) {
+                        response = CipherUtils.decrypt(response, key);
+                    }
                     listener.onResponse(new JSONArray(response));
                 } catch (JSONException e) {
                     errorListener.onErrorResponse(new VolleyError(e.getMessage()));
@@ -42,11 +50,15 @@ public class APIGetRequest extends StringRequest {
      * @param errorListener
      * @param listener
      */
-    public APIGetRequest(String url, final Response.ErrorListener errorListener, final Response.Listener<JSONObject> listener) {
+    public APIGetRequest(String url, final Response.ErrorListener errorListener, final Response.Listener<JSONObject> listener,
+                         final String key) {
         super(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
+                    if (key != null) {
+                        response = CipherUtils.decrypt(response, key);
+                    }
                     listener.onResponse(new JSONObject(response));
                 } catch (JSONException e) {
                     errorListener.onErrorResponse(new VolleyError(e.getMessage()));

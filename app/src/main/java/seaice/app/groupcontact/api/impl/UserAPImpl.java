@@ -46,16 +46,6 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
     }
 
     @Override
-    public void create(UserAO user, Callback<GeneralAO> cb) {
-        Map<String, String> data = new HashMap<>();
-        data.put("name", user.getName());
-        data.put("phone", user.getPhone());
-
-        String url = Constants.baseUrl + "createUser";
-        post(url, data, cb, GeneralAO.class);
-    }
-
-    @Override
     public void edit(UserAO user, Callback<GeneralAO> cb) {
         Map<String, String> data = new HashMap<>();
         data.put("uid", user.getUid().toString());
@@ -68,15 +58,15 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
     }
 
     @Override
-    public void listGroup(Long uid, Callback<List<GroupAO>> cb) {
-        String url = Constants.baseUrl + "listGroup?uid=" + uid;
-        getArray(url, cb, GroupAO.class);
+    public void listGroup(Long uid, String key, Callback<List<GroupAO>> cb) {
+        String url = URL + "/" + uid + "/groups?key=" + key;
+        getArray(url, cb, GroupAO.class, key);
     }
 
     @Override
-    public void listFriend(Long uid, String name, Callback<List<UserAO>> cb) {
-        String url = Constants.baseUrl + "listFriend?uid=" + uid + "&name=" + Uri.encode(name);
-        getArray(url, cb, UserAO.class);
+    public void listFriend(Long uid, String key, Callback<List<UserAO>> cb) {
+        String url = URL + "/" + uid + "/friends?key=" + key;
+        getArray(url, cb, UserAO.class, key);
     }
 
     @Override
@@ -102,8 +92,8 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
     }
 
     @Override
-    public void find(Long uid, String name, Callback<List<UserAO>> cb) {
-        String url = Constants.baseUrl + "findUser?uid=" + uid + "&name=" + Uri.encode(name);
-        getArray(url, cb, UserAO.class);
+    public void find(Long uid, String key, Callback<List<UserAO>> cb) {
+        String url = URL + "/" + uid + "?key=" + key;
+        getArray(url, cb, UserAO.class, key);
     }
 }

@@ -16,6 +16,6 @@ public class ConfigAPImpl extends VolleyBaseAPImpl implements ConfigAPI {
 
     @Override
     public void load(Callback<ConfigAO> cb) {
-        get(url, cb, ConfigAO.class);
+        get(url, cb, ConfigAO.class, null);
     }
 }

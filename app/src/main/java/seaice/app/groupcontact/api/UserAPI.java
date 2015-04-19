@@ -25,17 +25,15 @@ public interface UserAPI {
 
     public void save(UserAO user, String password, Callback<GeneralAO> cb);
 
-    public void create(UserAO user, Callback<GeneralAO> cb);
-
     public void edit(UserAO user, Callback<GeneralAO> cb);
 
-    public void listGroup(Long uid, Callback<List<GroupAO>> cb);
+    public void listGroup(Long uid, String key, Callback<List<GroupAO>> cb);
 
-    public void listFriend(Long uid, String name, Callback<List<UserAO>> cb);
+    public void listFriend(Long uid, String key, Callback<List<UserAO>> cb);
 
     public void addFriend(Long uid, String fname, String fphone, Callback<GeneralAO> cb);
 
     public void deleteFriend(Long uid, String name, Long fid, Callback<GeneralAO> cb);
 
-    public void find(Long uid, String name, Callback<List<UserAO>> cb);
+    public void find(Long uid, String key, Callback<List<UserAO>> cb);
 }
