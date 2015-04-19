@@ -20,6 +20,8 @@ public class Constants {
 
     public static String name = "";
 
+    public static String password = "";
+
     public static Map<Long, String> accessTokens = new HashMap<>();
 
 }

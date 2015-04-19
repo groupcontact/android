@@ -7,7 +7,7 @@
     <string name="title_activity_edit">Edit</string>
     <string name="title_activity_main">GroupContact</string>
     <string name="title_activity_user_list">UserList</string>
-    <string name="title_activity_create_user">Login</string>
+    <string name="title_activity_create_user">Login/Register</string>
 
     <string name="action_search">Search</string>
     <string name="action_save">Save</string>
@@ -15,7 +15,7 @@
 
     <string name="enter_name">Name(Real Name)</string>
     <string name="enter_phone">Phone Number</string>
-    <string name="action_create_user">Create</string>
+    <string name="action_create_user">Login/Register</string>
 
     <string name="hint_search_group">Group Name</string>
     <string name="hint_enter_token">Access Token</string>
@@ -62,4 +62,10 @@
     <string name="action_share">Share</string>
 
     <string name="empty_now">Empty</string>
+    <string name="enter_password">Password</string>
+    <string name="setup_name">Setup Your Name</string>
+    <string name="progress_wait">Loading</string>
+    <string name="user_create_save">Save</string>
+    <string name="success_login">Login Successfully</string>
+    <string name="success_register">Register Successfully</string>
 </resources>

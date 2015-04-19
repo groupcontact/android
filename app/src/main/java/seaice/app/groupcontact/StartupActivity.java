@@ -48,9 +48,8 @@ public class StartupActivity extends BaseActivity {
                 // Yes, the user logged in before.
                 if (uid != -1) {
                     activityClass = MainActivity.class;
-                    // save the uid and name as Runtime Constants.
                     Constants.uid = uid;
-                    Constants.name = prefs.getString("name", "");
+                    Constants.password = prefs.getString("password", "123456");
                 }
                 Intent intent = new Intent(context, activityClass);
                 startActivity(intent);

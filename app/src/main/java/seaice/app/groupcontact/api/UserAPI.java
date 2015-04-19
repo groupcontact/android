@@ -13,6 +13,18 @@ import seaice.app.groupcontact.api.ao.UserAO;
  */
 public interface UserAPI {
 
+    /**
+     * Register a User Instance.
+     *
+     * @param phone
+     * @param password
+     * @param cb
+     * @since v2
+     */
+    public void register(String phone, String password, Callback<GeneralAO> cb);
+
+    public void save(UserAO user, String password, Callback<GeneralAO> cb);
+
     public void create(UserAO user, Callback<GeneralAO> cb);
 
     public void edit(UserAO user, Callback<GeneralAO> cb);

@@ -23,6 +23,7 @@ import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.api.request.APIGetRequest;
 import seaice.app.groupcontact.api.request.APIPostRequest;
+import seaice.app.groupcontact.api.request.APIPutRequest;
 
 
 public abstract class VolleyBaseAPImpl {
@@ -69,6 +70,18 @@ public abstract class VolleyBaseAPImpl {
 
     protected <T> void postArray(String url, Map<String, String> params, Callback<List<T>> cb, Class<T> typedClass) {
         Request<String> request = new APIPostRequest(url, params, new APIJSONArrayListener<>(cb, typedClass),
+                new APIErrorListener(cb));
+        mQueue.add(request);
+    }
+
+    protected <T> void put(String url, Map<String, String> params, Callback<T> cb, Class<T> typedClass) {
+        Request<String> request = new APIPutRequest(url, params, new APIErrorListener(cb),
+                new APIJSONObjectListener<>(cb, typedClass));
+        mQueue.add(request);
+    }
+
+    protected <T> void putArray(String url, Map<String, String> params, Callback<List<T>> cb, Class<T> typedClass) {
+        Request<String> request = new APIPutRequest(url, params, new APIJSONArrayListener<>(cb, typedClass),
                 new APIErrorListener(cb));
         mQueue.add(request);
     }
