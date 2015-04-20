@@ -134,7 +134,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
             mUserAPI.addFriend(RuntimeVar.uid, RuntimeVar.password, user.getName(), user.getPhone(), new BaseCallback<GeneralAO>(this) {
                 @Override
                 public void call(GeneralAO result) {
-                    if (result.getStatus() == 0L) {
+                    if (result.getStatus() == 1) {
                         info(getString(R.string.success_add_friend));
                     } else {
                         info(result.getInfo());
