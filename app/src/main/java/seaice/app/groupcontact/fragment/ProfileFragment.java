@@ -112,10 +112,10 @@ public class ProfileFragment extends BaseFragment {
             } catch (JSONException e) {
                 user.setExt("{}");
             }
-            mUserAPI.edit(user, new BaseCallback<GeneralAO>(mContext) {
+            mUserAPI.save(user, Constants.password, new BaseCallback<GeneralAO>(mContext) {
                 @Override
                 public void call(GeneralAO result) {
-                    if (result.getStatus() == 0) {
+                    if (result.getStatus() == 1) {
                         Toast.makeText(mContext, mContext.getResources().getText(
                                 R.string.success_save_user), Toast.LENGTH_LONG).show();
                     } else {

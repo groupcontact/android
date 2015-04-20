@@ -22,8 +22,6 @@ public class Constants {
 
     public static String password = "";
 
-    public static Map<Long, String> accessTokens = new HashMap<>();
-
     public static final String DEFAULT_KEY = "groupcontact";
 
 }

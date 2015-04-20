@@ -11,10 +11,10 @@
     <string name="title_activity_user_list">用户列表</string>
     <string name="action_create_user">登录/注册</string>
     <string name="action_save_user">保存</string>
-    <string name="label_user_name">用户名</string>
-    <string name="label_user_phone">手机号</string>
-    <string name="label_user_email">邮箱</string>
-    <string name="label_user_wechat">微信</string>
+    <string name="label_user_name">用户名:</string>
+    <string name="label_user_phone">手机号:</string>
+    <string name="label_user_email">邮箱:</string>
+    <string name="label_user_wechat">微信:</string>
     <string name="fail_save_user">保存失败</string>
     <string name="success_save_user">保存成功</string>
     <string name="action_search">搜索</string>
@@ -57,4 +57,5 @@
     <string name="user_create_save">保存并继续</string>
     <string name="success_login">登录成功</string>
     <string name="success_register">注册成功</string>
+    <string name="label_user_password">密码:</string>
 </resources>

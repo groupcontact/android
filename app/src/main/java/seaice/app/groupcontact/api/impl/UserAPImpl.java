@@ -46,21 +46,33 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
     }
 
     @Override
-    public void edit(UserAO user, Callback<GeneralAO> cb) {
-        Map<String, String> data = new HashMap<>();
-        data.put("uid", user.getUid().toString());
-        data.put("name", user.getName());
-        data.put("phone", user.getPhone());
-        data.put("ext", user.getExt());
+    public void listGroup(Long uid, Callback<List<GroupAO>> cb) {
+        String url = URL + "/" + uid + "/groups";
+        getArray(url, cb, GroupAO.class, Constants.DEFAULT_KEY);
+    }
 
-        String url = Constants.baseUrl + "editUser";
+    @Override
+    public void joinGroup(Long uid, String password, Long gid, String accessToken, Callback<GeneralAO> cb) {
+        String url = URL + "/" + uid + "/groups";
+
+        Map<String, String> data = new HashMap<>();
+        data.put("password", password);
+        data.put("gid", gid.toString());
+        data.put("accessToken", accessToken);
+
         post(url, data, cb, GeneralAO.class);
     }
 
     @Override
-    public void listGroup(Long uid, Callback<List<GroupAO>> cb) {
+    public void deleteGroup(Long uid, String password, Long gid, String accessToken, Callback<GeneralAO> cb) {
         String url = URL + "/" + uid + "/groups";
-        getArray(url, cb, GroupAO.class, Constants.DEFAULT_KEY);
+
+        Map<String, String> data = new HashMap<>();
+        data.put("password", password);
+        data.put("gid", gid.toString());
+        data.put("accessToken", accessToken);
+
+        delete(url, data, cb, GeneralAO.class);
     }
 
     @Override

@@ -21,6 +21,7 @@ import seaice.app.groupcontact.api.ao.ConfigAO;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.api.request.APIDeleteRequest;
 import seaice.app.groupcontact.api.request.APIGetRequest;
 import seaice.app.groupcontact.api.request.APIPostRequest;
 import seaice.app.groupcontact.api.request.APIPutRequest;
@@ -70,6 +71,12 @@ public abstract class VolleyBaseAPImpl {
 
     protected <T> void put(String url, Map<String, String> params, Callback<T> cb, Class<T> typedClass) {
         Request<String> request = new APIPutRequest(url, params, new APIErrorListener(cb),
+                new APIJSONObjectListener<>(cb, typedClass));
+        mQueue.add(request);
+    }
+
+    protected <T> void delete(String url, Map<String, String> params, Callback<T> cb, Class<T> typedClass) {
+        Request<String> request = new APIDeleteRequest(url, params, new APIErrorListener(cb),
                 new APIJSONObjectListener<>(cb, typedClass));
         mQueue.add(request);
     }

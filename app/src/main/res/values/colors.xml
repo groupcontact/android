@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="default_ev_border_color">#CCCCCC</color>
+    <color name="default_ev_password_color">#CCCCCC</color>
+    <color name="passwordBorder">#8899AA</color>
+    <color name="passwordColor">#6d8b93</color>
 </resources>

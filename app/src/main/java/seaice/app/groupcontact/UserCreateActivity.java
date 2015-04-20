@@ -123,6 +123,7 @@ public class UserCreateActivity extends BaseActivity {
         prefs.edit().putLong("uid", mUserId).apply();
         prefs.edit().putString("password", mPasswordView.getText().toString()).apply();
         Constants.uid = mUserId;
+        Constants.password = mPasswordView.getText().toString();
 
         Intent intent = new Intent(UserCreateActivity.this, MainActivity.class);
         startActivity(intent);

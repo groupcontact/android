@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
+import seaice.app.groupcontact.view.PasswordView;
 
 
 public class SearchActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -107,55 +110,44 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
         final SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         final Long uid = Constants.uid;
-        String accessToken = prefs.getString("accessToken_" + id, "");
 
-        if (accessToken.equals("")) {
-            // Ask the user to enter the accessToken
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(group.getName());
-            final EditText vAccessToken = new EditText(this);
-            vAccessToken.setInputType(InputType.TYPE_MASK_CLASS | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            vAccessToken.setHint(getResources().getString(R.string.hint_enter_token));
-            builder.setView(vAccessToken);
-            builder.setPositiveButton(getResources().getString(R.string.join_group), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(final DialogInterface dialog, int which) {
-                    final String atNew = vAccessToken.getText().toString();
-                    mGroupAPI.join(uid, id, atNew, new Callback<GeneralAO>() {
-                        @Override
-                        public void call(GeneralAO result) {
-                            if (result.getStatus() != 0) {
-                                Toast.makeText(context, context.getResources().getString(
-                                        R.string.error_join_group), Toast.LENGTH_LONG).show();
-                            } else {
-                                Toast.makeText(context, context.getResources().getString(
-                                        R.string.success_join_group), Toast.LENGTH_LONG).show();
-                                prefs.edit().putString("accessToken_" + id, atNew).commit();
-                                Constants.accessTokens.put(id, atNew);
-                            }
-                        }
+        // Ask the user to enter the accessToken
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(group.getName());
+        LinearLayout container = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.dialog_password, null);
+        final EditText vAccessToken = (EditText) container.findViewById(R.id.enter_password);
+        builder.setView(container);
 
-                        @Override
-                        public void info(String message) {
-                            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        builder.setPositiveButton(getResources().getString(R.string.join_group), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, int which) {
+                final String atNew = vAccessToken.getText().toString();
+                mGroupAPI.join(uid, id, atNew, new Callback<GeneralAO>() {
+                    @Override
+                    public void call(GeneralAO result) {
+                        if (result.getStatus() != 0) {
+                            Toast.makeText(context, context.getResources().getString(
+                                    R.string.error_join_group), Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(context, context.getResources().getString(
+                                    R.string.success_join_group), Toast.LENGTH_LONG).show();
                         }
-                    });
-                }
-            });
-            builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            builder.show();
-        } else {
-            Constants.accessTokens.put(id, accessToken);
-            // Jump to the User List Activity
-            Intent intent = new Intent(this, UserListActivity.class);
-            intent.putExtra("gid", group.getGid());
-            intent.putExtra("name", group.getName());
-            startActivity(intent);
-        }
+                    }
+
+                    @Override
+                    public void info(String message) {
+                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 }
+
