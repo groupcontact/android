@@ -39,7 +39,7 @@ public class StartupActivity extends BaseActivity {
             @Override
             public void call(ConfigAO config) {
                 // save configuration into runtime constants
-                Constants.baseUrl = config.getBaseUrl();
+                RuntimeVar.baseUrl = config.getBaseUrl();
 
                 // check whether the user has logged in before.
                 SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
@@ -48,8 +48,8 @@ public class StartupActivity extends BaseActivity {
                 // Yes, the user logged in before.
                 if (uid != -1) {
                     activityClass = MainActivity.class;
-                    Constants.uid = uid;
-                    Constants.password = prefs.getString("password", "123456");
+                    RuntimeVar.uid = uid;
+                    RuntimeVar.password = prefs.getString("password", "123456");
                 }
                 Intent intent = new Intent(context, activityClass);
                 startActivity(intent);

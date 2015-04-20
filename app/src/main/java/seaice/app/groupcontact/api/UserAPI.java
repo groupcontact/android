@@ -29,13 +29,15 @@ public interface UserAPI {
 
     public void joinGroup(Long uid, String password, Long gid, String accessToken, Callback<GeneralAO> cb);
 
-    public void deleteGroup(Long uid, String password, Long gid, String accessToken, Callback<GeneralAO> cb);
+    public void leaveGroup(Long uid, String password, Long gid, String accessToken, Callback<GeneralAO> cb);
 
     public void listFriend(Long uid, Callback<List<UserAO>> cb);
 
-    public void addFriend(Long uid, String fname, String fphone, Callback<GeneralAO> cb);
+    public void addFriend(Long uid, String password, String name, String phone, Callback<GeneralAO> cb);
 
     public void deleteFriend(Long uid, String name, Long fid, Callback<GeneralAO> cb);
 
     public void find(Long uid, Callback<List<UserAO>> cb);
+
+    public void setPassword(Long uid, String oldp, String newp, Callback<GeneralAO> cb);
 }

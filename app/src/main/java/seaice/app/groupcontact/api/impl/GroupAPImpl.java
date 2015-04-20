@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import seaice.app.groupcontact.Constants;
+import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -30,19 +30,19 @@ public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
         data.put("accessToken", access);
         data.put("modifyToken", modify);
 
-        String url = Constants.baseUrl + "createGroup";
+        String url = RuntimeVar.baseUrl + "createGroup";
         post(url, data, cb, GeneralAO.class);
     }
 
     @Override
     public void list(Long gid, Callback<List<UserAO>> cb) {
         String url = URL + "/" + gid + "/members";
-        getArray(url, cb, UserAO.class, Constants.DEFAULT_KEY);
+        getArray(url, cb, UserAO.class, RuntimeVar.DEFAULT_KEY);
     }
 
     public void search(String name, Callback<List<GroupAO>> cb) {
         String url = URL + "?name=" + Uri.encode(name);
-        getArray(url, cb, GroupAO.class, Constants.DEFAULT_KEY);
+        getArray(url, cb, GroupAO.class, RuntimeVar.DEFAULT_KEY);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
         data.put("gid", gid.toString());
         data.put("accessToken", accessToken);
 
-        String url = Constants.baseUrl + "joinGroup";
+        String url = RuntimeVar.baseUrl + "joinGroup";
         post(url, data, cb, GeneralAO.class);
     }
 
@@ -62,7 +62,7 @@ public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
         data.put("uid", uid.toString());
         data.put("gid", gid.toString());
 
-        String url = Constants.baseUrl + "leaveGroup";
+        String url = RuntimeVar.baseUrl + "leaveGroup";
         post(url, data, cb, GeneralAO.class);
     }
 }

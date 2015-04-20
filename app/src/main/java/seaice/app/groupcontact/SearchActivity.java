@@ -3,11 +3,9 @@ package seaice.app.groupcontact;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +24,19 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
-import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.GroupAPI;
+import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
-import seaice.app.groupcontact.view.PasswordView;
 
 
 public class SearchActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @Inject
     GroupAPI mGroupAPI;
+
+    @Inject
+    UserAPI mUserAPI;
 
     @InjectView(R.id.searchKey)
     EditText mSearchKey;
@@ -109,7 +108,7 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
         final Context context = this;
 
         final SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        final Long uid = Constants.uid;
+        final Long uid = RuntimeVar.uid;
 
         // Ask the user to enter the accessToken
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -122,21 +121,14 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
             @Override
             public void onClick(final DialogInterface dialog, int which) {
                 final String atNew = vAccessToken.getText().toString();
-                mGroupAPI.join(uid, id, atNew, new Callback<GeneralAO>() {
+                mUserAPI.joinGroup(RuntimeVar.uid, RuntimeVar.password, id, atNew, new BaseCallback<GeneralAO>(context) {
                     @Override
                     public void call(GeneralAO result) {
-                        if (result.getStatus() != 0) {
-                            Toast.makeText(context, context.getResources().getString(
-                                    R.string.error_join_group), Toast.LENGTH_LONG).show();
+                        if (result.getStatus() == 1) {
+                            info(context.getString(R.string.success_join_group));
                         } else {
-                            Toast.makeText(context, context.getResources().getString(
-                                    R.string.success_join_group), Toast.LENGTH_LONG).show();
+                            info(result.getInfo());
                         }
-                    }
-
-                    @Override
-                    public void info(String message) {
-                        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                     }
                 });
             }

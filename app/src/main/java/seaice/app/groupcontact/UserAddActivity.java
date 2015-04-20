@@ -43,14 +43,14 @@ public class UserAddActivity extends BaseActivity {
     public void addFriend() {
         String name = mNameView.getText().toString();
         String phone = mPhoneView.getText().toString();
-        mUserAPI.addFriend(Constants.uid, name, phone, new BaseCallback<GeneralAO>(this) {
+        mUserAPI.addFriend(RuntimeVar.uid, RuntimeVar.password, name, phone, new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
-                if (result.getStatus() == -1) {
+                if (result.getStatus() == 1) {
+                    info(getString(R.string.success_add_friend));
+                } else {
                     info(result.getInfo());
-                    return;
                 }
-                info(getString(R.string.success_add_friend));
                 // The question here is that do we suppose the user will add friend in batch mode
                 // finish();
             }

@@ -10,16 +10,17 @@ import java.util.Map;
 /**
  * Created by zhb on 4/20/15.
  */
-public class APIDeleteRequest extends APIPostRequest {
+public class APIDeleteRequest extends APIGetRequest {
 
-    public APIDeleteRequest(String url, Map<String, String> params, Response.Listener<JSONArray> listener,
-                            Response.ErrorListener errorListener) {
-        super(url, params, listener, errorListener);
+
+    public APIDeleteRequest(String url, Response.Listener<JSONArray> listener, Response.ErrorListener errorListener,
+                            String key) {
+        super(url, listener, errorListener, key);
     }
 
-    public APIDeleteRequest(String url, Map<String, String> params, Response.ErrorListener errorListener,
-                            Response.Listener<JSONObject> listener) {
-        super(url, params, errorListener, listener);
+    public APIDeleteRequest(String url, Response.ErrorListener errorListener, Response.Listener<JSONObject> listener,
+                            String key) {
+        super(url, errorListener, listener, key);
     }
 
     public int getMethod() {

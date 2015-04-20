@@ -71,4 +71,5 @@
     <string name="label_user_password">Password</string>
     <string name="label_group_modify">Modify Password</string>
     <string name="label_group_access">Access Password</string>
+    <string name="action_reset_password">Reset Password</string>
 </resources>

@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import seaice.app.groupcontact.Constants;
+import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.GroupCreateActivity;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.SearchActivity;
@@ -100,7 +100,7 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         final Context context = getActivity();
-        Long uid = Constants.uid;
+        Long uid = RuntimeVar.uid;
         mUserAPI.listGroup(uid, new BaseCallback<List<GroupAO>>(context) {
             @Override
             public void call(List<GroupAO> result) {

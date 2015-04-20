@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import seaice.app.groupcontact.Constants;
+import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.UserAddActivity;
 import seaice.app.groupcontact.UserInfoActivity;
@@ -115,10 +115,10 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
             startActivity(intent);
         }
         if (item.getOrder() == 2) {
-            mUserAPI.deleteFriend(Constants.uid, Constants.name, user.getUid(), new BaseCallback<GeneralAO>(getActivity()) {
+            mUserAPI.deleteFriend(RuntimeVar.uid, RuntimeVar.password, user.getUid(), new BaseCallback<GeneralAO>(getActivity()) {
                 @Override
                 public void call(GeneralAO result) {
-                    if (result.getStatus() == 0) {
+                    if (result.getStatus() == 1) {
                         info(getString(R.string.success_delete_friend));
                         // delete from list view
                         mAdapter.remove(info.position);
@@ -134,7 +134,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     @Override
     public void onRefresh() {
         Context context = getActivity();
-        Long uid = Constants.uid;
+        Long uid = RuntimeVar.uid;
 
         mUserAPI.listFriend(uid, new BaseCallback<List<UserAO>>(context) {
             @Override

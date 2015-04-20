@@ -122,8 +122,8 @@ public class UserCreateActivity extends BaseActivity {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         prefs.edit().putLong("uid", mUserId).apply();
         prefs.edit().putString("password", mPasswordView.getText().toString()).apply();
-        Constants.uid = mUserId;
-        Constants.password = mPasswordView.getText().toString();
+        RuntimeVar.uid = mUserId;
+        RuntimeVar.password = mPasswordView.getText().toString();
 
         Intent intent = new Intent(UserCreateActivity.this, MainActivity.class);
         startActivity(intent);

@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author zhb
  */
-public class Constants {
+public class RuntimeVar {
 
     public static String baseUrl;
 

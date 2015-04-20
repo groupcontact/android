@@ -75,9 +75,9 @@ public abstract class VolleyBaseAPImpl {
         mQueue.add(request);
     }
 
-    protected <T> void delete(String url, Map<String, String> params, Callback<T> cb, Class<T> typedClass) {
-        Request<String> request = new APIDeleteRequest(url, params, new APIErrorListener(cb),
-                new APIJSONObjectListener<>(cb, typedClass));
+    protected <T> void delete(String url, Callback<T> cb, Class<T> typedClass) {
+        Request<String> request = new APIDeleteRequest(url, new APIErrorListener(cb),
+                new APIJSONObjectListener<>(cb, typedClass), null);
         mQueue.add(request);
     }
 

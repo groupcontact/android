@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import seaice.app.groupcontact.Constants;
+import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
@@ -61,7 +61,7 @@ public class ProfileFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.inject(this, rootView);
 
-        mUid = Constants.uid;
+        mUid = RuntimeVar.uid;
         mContext = getActivity();
 
         // find user
@@ -112,7 +112,7 @@ public class ProfileFragment extends BaseFragment {
             } catch (JSONException e) {
                 user.setExt("{}");
             }
-            mUserAPI.save(user, Constants.password, new BaseCallback<GeneralAO>(mContext) {
+            mUserAPI.save(user, RuntimeVar.password, new BaseCallback<GeneralAO>(mContext) {
                 @Override
                 public void call(GeneralAO result) {
                     if (result.getStatus() == 1) {
