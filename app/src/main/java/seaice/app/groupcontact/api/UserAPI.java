@@ -27,13 +27,13 @@ public interface UserAPI {
 
     public void edit(UserAO user, Callback<GeneralAO> cb);
 
-    public void listGroup(Long uid, String key, Callback<List<GroupAO>> cb);
+    public void listGroup(Long uid, Callback<List<GroupAO>> cb);
 
-    public void listFriend(Long uid, String key, Callback<List<UserAO>> cb);
+    public void listFriend(Long uid, Callback<List<UserAO>> cb);
 
     public void addFriend(Long uid, String fname, String fphone, Callback<GeneralAO> cb);
 
     public void deleteFriend(Long uid, String name, Long fid, Callback<GeneralAO> cb);
 
-    public void find(Long uid, String key, Callback<List<UserAO>> cb);
+    public void find(Long uid, Callback<List<UserAO>> cb);
 }

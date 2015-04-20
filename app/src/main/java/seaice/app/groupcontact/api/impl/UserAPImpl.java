@@ -58,15 +58,15 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
     }
 
     @Override
-    public void listGroup(Long uid, String key, Callback<List<GroupAO>> cb) {
-        String url = URL + "/" + uid + "/groups?key=" + key;
-        getArray(url, cb, GroupAO.class, key);
+    public void listGroup(Long uid, Callback<List<GroupAO>> cb) {
+        String url = URL + "/" + uid + "/groups";
+        getArray(url, cb, GroupAO.class, Constants.DEFAULT_KEY);
     }
 
     @Override
-    public void listFriend(Long uid, String key, Callback<List<UserAO>> cb) {
-        String url = URL + "/" + uid + "/friends?key=" + key;
-        getArray(url, cb, UserAO.class, key);
+    public void listFriend(Long uid, Callback<List<UserAO>> cb) {
+        String url = URL + "/" + uid + "/friends";
+        getArray(url, cb, UserAO.class, Constants.DEFAULT_KEY);
     }
 
     @Override
@@ -92,8 +92,8 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
     }
 
     @Override
-    public void find(Long uid, String key, Callback<List<UserAO>> cb) {
-        String url = URL + "/" + uid + "?key=" + key;
-        getArray(url, cb, UserAO.class, key);
+    public void find(Long uid, Callback<List<UserAO>> cb) {
+        String url = URL + "/" + uid;
+        getArray(url, cb, UserAO.class, Constants.DEFAULT_KEY);
     }
 }

@@ -100,6 +100,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         getMenuInflater().inflate(R.menu.menu_user_list, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -146,8 +147,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        String accessToken = Constants.accessTokens.get(mGid);
-        mGroupAPI.list(mGid, accessToken, new BaseCallback<List<UserAO>>(this) {
+        mGroupAPI.list(mGid, new BaseCallback<List<UserAO>>(this) {
             @Override
             public void call(List<UserAO> result) {
                 if (mLayout.isRefreshing()) {

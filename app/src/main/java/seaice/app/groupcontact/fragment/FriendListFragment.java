@@ -136,7 +136,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         Context context = getActivity();
         Long uid = Constants.uid;
 
-        mUserAPI.listFriend(uid, Constants.DEFAULT_KEY, new BaseCallback<List<UserAO>>(context) {
+        mUserAPI.listFriend(uid, new BaseCallback<List<UserAO>>(context) {
             @Override
             public void call(List<UserAO> result) {
                 mLayout.setRefreshing(false);

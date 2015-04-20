@@ -16,6 +16,8 @@ import seaice.app.groupcontact.api.ao.UserAO;
 
 public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
 
+    private static final String URL = "http://groupcontact.duapp.com/api/v2/groups";
+
     public GroupAPImpl(Context context) {
         super(context);
     }
@@ -33,14 +35,14 @@ public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
     }
 
     @Override
-    public void list(Long gid, String accessToken, Callback<List<UserAO>> cb) {
-        String url = Constants.baseUrl + "listUser?gid=" + gid + "&accessToken=" + accessToken;
-        getArray(url, cb, UserAO.class, null);
+    public void list(Long gid, Callback<List<UserAO>> cb) {
+        String url = URL + "/" + gid + "/members";
+        getArray(url, cb, UserAO.class, Constants.DEFAULT_KEY);
     }
 
     public void search(String name, Callback<List<GroupAO>> cb) {
-        String url = Constants.baseUrl + "searchGroup?name=" + Uri.encode(name);
-        getArray(url, cb, GroupAO.class, null);
+        String url = URL + "?name=" + Uri.encode(name);
+        getArray(url, cb, GroupAO.class, Constants.DEFAULT_KEY);
     }
 
     @Override

@@ -65,7 +65,7 @@ public class ProfileFragment extends BaseFragment {
         mContext = getActivity();
 
         // find user
-        mUserAPI.find(mUid, Constants.DEFAULT_KEY, new BaseCallback<List<UserAO>>(mContext) {
+        mUserAPI.find(mUid, new BaseCallback<List<UserAO>>(mContext) {
             @Override
             public void call(List<UserAO> result) {
                 // some internal info happened
