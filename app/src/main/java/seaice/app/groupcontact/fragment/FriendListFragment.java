@@ -119,7 +119,6 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
                 @Override
                 public void call(GeneralAO result) {
                     if (result.getStatus() == 1) {
-                        info(getString(R.string.success_delete_friend));
                         // delete from list view
                         mAdapter.remove(info.position);
                     } else {
