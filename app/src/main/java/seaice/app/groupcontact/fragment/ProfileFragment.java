@@ -1,6 +1,8 @@
 package seaice.app.groupcontact.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -100,33 +103,79 @@ public class ProfileFragment extends BaseFragment {
         int id = item.getItemId();
 
         if (id == R.id.action_save) {
-            UserAO user = new UserAO();
-            user.setUid(mUid);
-            user.setName(mNameView.getText().toString());
-            user.setPhone(mPhoneView.getText().toString());
-            JSONObject extObj = new JSONObject();
-            try {
-                extObj.put("email", mEmailView.getText().toString());
-                extObj.put("wechat", mWechatView.getText().toString());
-                user.setExt(extObj.toString());
-            } catch (JSONException e) {
-                user.setExt("{}");
-            }
-            mUserAPI.save(user, RuntimeVar.password, new BaseCallback<GeneralAO>(mContext) {
-                @Override
-                public void call(GeneralAO result) {
-                    if (result.getStatus() == 1) {
-                        Toast.makeText(mContext, mContext.getResources().getText(
-                                R.string.success_save_user), Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(mContext, mContext.getResources().getText(
-                                R.string.fail_save_user), Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+            save();
+            return true;
+        }
+
+        if (id == R.id.action_reset_password) {
+            resetPassword();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void save() {
+        UserAO user = new UserAO();
+        user.setUid(mUid);
+        user.setName(mNameView.getText().toString());
+        user.setPhone(mPhoneView.getText().toString());
+        JSONObject extObj = new JSONObject();
+        try {
+            extObj.put("email", mEmailView.getText().toString());
+            extObj.put("wechat", mWechatView.getText().toString());
+            user.setExt(extObj.toString());
+        } catch (JSONException e) {
+            user.setExt("{}");
+        }
+        mUserAPI.save(user, RuntimeVar.password, new BaseCallback<GeneralAO>(mContext) {
+            @Override
+            public void call(GeneralAO result) {
+                if (result.getStatus() == 1) {
+                    Toast.makeText(mContext, mContext.getResources().getText(
+                            R.string.success_save_user), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(mContext, mContext.getResources().getText(
+                            R.string.fail_save_user), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void resetPassword() {
+        // Ask the user to enter the accessToken
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getString(R.string.new_password));
+        LinearLayout container = (LinearLayout) LayoutInflater.from(getActivity()).inflate(
+                R.layout.dialog_reset_password, null);
+        final EditText oldPass = (EditText) container.findViewById(R.id.enter_old_password);
+        final EditText newPass = (EditText) container.findViewById(R.id.enter_new_password);
+        builder.setView(container);
+
+        builder.setPositiveButton(getResources().getString(R.string.reset_password), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(final DialogInterface dialog, int which) {
+                String oldPassword = oldPass.getText().toString();
+                final String newPassword = newPass.getText().toString();
+                mUserAPI.setPassword(RuntimeVar.uid, oldPassword, newPassword, new BaseCallback<GeneralAO>(getActivity()) {
+                    @Override
+                    public void call(GeneralAO result) {
+                        if (result.getStatus() == 1) {
+                            info(getString(R.string.success_reset_password));
+                            RuntimeVar.password = newPassword;
+                        } else {
+                            info(result.getInfo());
+                        }
+                    }
+                });
+            }
+        });
+        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 }

@@ -72,4 +72,9 @@
     <string name="label_group_modify">Modify Password</string>
     <string name="label_group_access">Access Password</string>
     <string name="action_reset_password">Reset Password</string>
+    <string name="new_password">New Password</string>
+    <string name="label_old_password">Old Password:</string>
+    <string name="label_new_password">New Password:</string>
+    <string name="reset_password">Reset</string>
+    <string name="success_reset_password">Reset Password Successfully</string>
 </resources>
