@@ -58,4 +58,6 @@
     <string name="success_login">登录成功</string>
     <string name="success_register">注册成功</string>
     <string name="label_user_password">密码:</string>
+    <string name="label_group_access">访问密码:</string>
+    <string name="label_group_modify">管理密码:</string>
 </resources>

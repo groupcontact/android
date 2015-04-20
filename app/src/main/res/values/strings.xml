@@ -69,4 +69,6 @@
     <string name="success_login">Login Successfully</string>
     <string name="success_register">Register Successfully</string>
     <string name="label_user_password">Password</string>
+    <string name="label_group_modify">Modify Password</string>
+    <string name="label_group_access">Access Password</string>
 </resources>
