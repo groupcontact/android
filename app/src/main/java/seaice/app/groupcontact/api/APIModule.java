@@ -11,6 +11,7 @@ import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.StartupActivity;
 import seaice.app.groupcontact.UserAddActivity;
 import seaice.app.groupcontact.UserCreateActivity;
+import seaice.app.groupcontact.UserInfoActivity;
 import seaice.app.groupcontact.UserListActivity;
 import seaice.app.groupcontact.api.impl.ConfigAPImpl;
 import seaice.app.groupcontact.api.impl.GroupAPImpl;
@@ -28,7 +29,8 @@ import seaice.app.groupcontact.fragment.ProfileFragment;
         FriendListFragment.class,
         GroupListFragment.class,
         ProfileFragment.class,
-        UserAddActivity.class
+        UserAddActivity.class,
+        UserInfoActivity.class
 })
 public class APIModule {
 

@@ -76,7 +76,7 @@
 
         <Button
             android:id="@+id/group_create_create"
-            style="@style/mybutton"
+            style="@style/btn_normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/group_create_modify"

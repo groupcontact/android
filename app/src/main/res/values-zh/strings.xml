@@ -34,7 +34,7 @@
     <string name="user_operation_sms">发送短信</string>
     <string name="loading_user_list">拼命加载中</string>
     <string name="tip_press_to_exit">再按一次退出</string>
-    <string name="action_add_friend">添加朋友</string>
+    <string name="action_add_friend">添加为好友</string>
     <string name="add_to_friend">添加为好友</string>
     <string name="success_add_friend">成功添加好友</string>
     <string name="delete_friend">取消好友</string>
@@ -66,4 +66,5 @@
     <string name="new_password">设置新密码</string>
     <string name="reset_password">设置</string>
     <string name="success_reset_password">更新密码成功</string>
+    <string name="action_remove_friend">删除好友</string>
 </resources>

@@ -74,17 +74,9 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
                 UserAO user = (UserAO) parent.getAdapter().getItem(position);
                 Intent intent = new Intent(context, UserInfoActivity.class);
                 intent.putExtra("user", user);
+                // 从群组列表进来
+                intent.putExtra("from", 0);
                 startActivity(intent);
-            }
-        });
-
-        mUserList.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                menu.setHeaderTitle(R.string.user_operation);
-                menu.add(0, 0, 0, R.string.user_operation_call);
-                menu.add(0, 0, 1, R.string.user_operation_sms);
-                menu.add(0, 0, 2, R.string.add_to_friend);
             }
         });
 
@@ -111,38 +103,6 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        UserAO user = (UserAO) mAdapter.getItem(info.position);
-        if (item.getOrder() == 0) {
-            // call
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + user.getPhone()));
-            startActivity(intent);
-        }
-        if (item.getOrder() == 1) {
-            // sms
-            Uri uri = Uri.parse("smsto:" + user.getPhone());
-            Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-            startActivity(intent);
-        }
-        if (item.getOrder() == 2) {
-            // add friend
-            mUserAPI.addFriend(RuntimeVar.uid, RuntimeVar.password, user.getName(), user.getPhone(), new BaseCallback<GeneralAO>(this) {
-                @Override
-                public void call(GeneralAO result) {
-                    if (result.getStatus() == 1) {
-                        info(getString(R.string.success_add_friend));
-                    } else {
-                        info(result.getInfo());
-                    }
-                }
-            });
-        }
-        return super.onContextItemSelected(item);
     }
 
     @Override
