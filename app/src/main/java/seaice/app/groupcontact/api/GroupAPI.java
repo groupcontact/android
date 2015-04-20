@@ -13,7 +13,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
  */
 public interface GroupAPI {
 
-    public void create(String name, String desc, String access, String modify, Callback<GeneralAO> cb);
+    public void create(Long uid, String password, GroupAO group, Callback<GeneralAO> cb);
 
     public void list(Long gid, Callback<List<UserAO>> cb);
 

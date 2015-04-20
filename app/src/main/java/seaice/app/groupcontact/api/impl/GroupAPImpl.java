@@ -13,6 +13,7 @@ import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.utils.CipherUtils;
 
 public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
 
@@ -23,15 +24,16 @@ public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
     }
 
     @Override
-    public void create(String name, String desc, String access, String modify, Callback<GeneralAO> cb) {
+    public void create(Long uid, String password, GroupAO group, Callback<GeneralAO> cb) {
         Map<String, String> data = new HashMap<>();
-        data.put("name", name);
-        data.put("desc", desc);
-        data.put("accessToken", access);
-        data.put("modifyToken", modify);
+        data.put("name", group.getName());
+        data.put("desc", group.getDesc());
+        data.put("accessToken", CipherUtils.encrypt(group.getAccessToken(), RuntimeVar.DEFAULT_KEY));
+        data.put("modifyToken", CipherUtils.encrypt(group.getModifyToken(), RuntimeVar.DEFAULT_KEY));
+        data.put("uid", uid.toString());
+        data.put("password", CipherUtils.encrypt(password, RuntimeVar.DEFAULT_KEY));
 
-        String url = RuntimeVar.baseUrl + "createGroup";
-        post(url, data, cb, GeneralAO.class);
+        post(URL, data, cb, GeneralAO.class);
     }
 
     @Override

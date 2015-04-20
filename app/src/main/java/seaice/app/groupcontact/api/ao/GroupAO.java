@@ -32,6 +32,9 @@ public class GroupAO implements Parcelable {
     private String name;
     private String desc;
 
+    private String accessToken;
+    private String modifyToken;
+
     public static GroupAO parse(JSONObject obj) {
         GroupAO group = new GroupAO();
         group.setGid(obj.optLong("id", -1L));
@@ -63,6 +66,22 @@ public class GroupAO implements Parcelable {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getModifyToken() {
+        return modifyToken;
+    }
+
+    public void setModifyToken(String modifyToken) {
+        this.modifyToken = modifyToken;
     }
 
     @Override

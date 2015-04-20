@@ -1,8 +1,6 @@
 package seaice.app.groupcontact;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
@@ -68,14 +66,19 @@ public class GroupCreateActivity extends BaseActivity {
         String access = mAccess.getText().toString();
         String modify = mModify.getText().toString();
 
-        mGroupAPI.create(name, desc, access, modify, new BaseCallback<GeneralAO>(this) {
+        GroupAO group = new GroupAO();
+        group.setName(name);
+        group.setDesc(desc);
+        group.setAccessToken(access);
+        group.setModifyToken(modify);
+
+        mGroupAPI.create(RuntimeVar.uid, RuntimeVar.password, group, new BaseCallback<GeneralAO>(this) {
             public void call(GeneralAO result) {
-                if (result.getStatus() == -1) {
-                    info(result.getInfo());
-                    return;
-                } else {
+                if (result.getStatus() == 1) {
                     info(getString(R.string.success_create_user));
                     finish();
+                } else {
+                    info(result.getInfo());
                 }
             }
         });
