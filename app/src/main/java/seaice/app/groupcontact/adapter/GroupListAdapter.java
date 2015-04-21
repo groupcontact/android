@@ -32,6 +32,10 @@ public class GroupListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public List<GroupAO> getDataset() {
+        return mDataset;
+    }
+
     @Override
     public int getCount() {
         return mDataset.size();

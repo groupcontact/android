@@ -1,5 +1,6 @@
 package seaice.app.groupcontact.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -32,6 +33,8 @@ import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
 public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+
+    private static final int MANAGE_FRIEND = 2;
 
     @Inject
     UserAPI mUserAPI;
@@ -74,7 +77,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
 
         if (id == R.id.action_add_friend) {
             Intent intent = new Intent(getActivity(), UserAddActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, MANAGE_FRIEND);
             return true;
         }
 
@@ -88,7 +91,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         intent.putExtra("user", user);
         // 从好友列表进来
         intent.putExtra("from", 1);
-        startActivity(intent);
+        startActivityForResult(intent, MANAGE_FRIEND);
     }
 
     @Override
@@ -103,5 +106,16 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
                 mAdapter.setDataset(result);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == MANAGE_FRIEND) {
+            if (resultCode == Activity.RESULT_OK) {
+                onRefresh();
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package seaice.app.groupcontact.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +20,9 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.GroupCreateActivity;
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
@@ -30,6 +31,8 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
 
 public class GroupListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+
+    private static final int CREATE_GROUP = 1;
 
     @Inject
     UserAPI mUserAPI;
@@ -90,7 +93,7 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
 
         if (id == R.id.action_create_group) {
             Intent intent = new Intent(getActivity(), GroupCreateActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, CREATE_GROUP);
             return true;
         }
 
@@ -108,5 +111,16 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
                 mAdapter.setDataset(result);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CREATE_GROUP) {
+            if (resultCode == Activity.RESULT_OK) {
+                onRefresh();
+            }
+        }
     }
 }
