@@ -25,7 +25,7 @@
     <string name="hint_enter_token">访问密码</string>
     <string name="cancel">取消</string>
     <string name="join_group">加入</string>
-    <string name="success_join_group">加入成功</string>
+    <string name="success_join_group">加入群组成功</string>
     <string name="error_join_group">加入失败</string>
     <string name="action_save">保存</string>
     <string name="title_activity_user_info">详情</string>
@@ -67,4 +67,6 @@
     <string name="reset_password">设置</string>
     <string name="success_reset_password">更新密码成功</string>
     <string name="action_remove_friend">删除好友</string>
+    <string name="action_leave_group">退出群组</string>
+    <string name="success_leave_group">退出群组成功</string>
 </resources>

@@ -78,4 +78,6 @@
     <string name="reset_password">Reset</string>
     <string name="success_reset_password">Reset Password Successfully</string>
     <string name="action_remove_friend">Remove Friend</string>
+    <string name="action_leave_group">Leave Group</string>
+    <string name="success_leave_group">Leave Group Successfully</string>
 </resources>

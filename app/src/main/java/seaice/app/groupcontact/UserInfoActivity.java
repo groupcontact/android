@@ -64,6 +64,10 @@ public class UserInfoActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mUser = getIntent().getParcelableExtra("user");
+        if (mUser.getUid() == RuntimeVar.uid) {
+            mAddButton.setVisibility(View.GONE);
+            mDeleteButton.setVisibility(View.GONE);
+        }
         mPhoneView.setText(mUser.getPhone());
         try {
             JSONObject extObj = new JSONObject(mUser.getExt());

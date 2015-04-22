@@ -66,10 +66,9 @@ public class UserAPImpl extends VolleyBaseAPImpl implements UserAPI {
     }
 
     @Override
-    public void leaveGroup(Long uid, String password, Long gid, String accessToken, Callback<GeneralAO> cb) {
+    public void leaveGroup(Long uid, String password, Long gid, Callback<GeneralAO> cb) {
         String url = URL + "/" + uid + "/groups?gid=" + gid + "&password=" +
-                CipherUtils.encrypt(password, RuntimeVar.DEFAULT_KEY) + "&accessToken=" +
-                CipherUtils.encrypt(accessToken, RuntimeVar.DEFAULT_KEY);
+                CipherUtils.encrypt(password, RuntimeVar.DEFAULT_KEY);
 
         delete(url, cb, GeneralAO.class);
     }

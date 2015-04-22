@@ -42,6 +42,13 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
     private SwipeRefreshLayout mLayout;
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        onRefresh();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);

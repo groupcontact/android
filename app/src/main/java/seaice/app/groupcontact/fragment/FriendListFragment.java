@@ -2,10 +2,8 @@ package seaice.app.groupcontact.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,14 +19,13 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.UserAddActivity;
 import seaice.app.groupcontact.UserInfoActivity;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
-import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
 public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
@@ -44,6 +41,13 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     private SwipeRefreshLayout mLayout;
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        onRefresh();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -52,7 +56,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         ButterKnife.inject(this, mLayout);
         mLayout.setOnRefreshListener(this);
 
-        mAdapter = new UserListAdapter(getActivity());
+        mAdapter = new UserListAdapter(getActivity(), false);
         mUserList.setAdapter(mAdapter);
 
         mUserList.setOnItemClickListener(this);

@@ -2,8 +2,8 @@
 <resources>
 
     <string-array name="pager_titles">
-        <item>Groups</item>
         <item>Friends</item>
+        <item>Groups</item>
         <item>Profile</item>
     </string-array>
 

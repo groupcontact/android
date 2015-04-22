@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -59,13 +60,15 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         ButterKnife.inject(this);
 
         mLayout.setOnRefreshListener(this);
+        mUserList.setVisibility(View.INVISIBLE);
         // enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mAdapter = new UserListAdapter(this);
-        mUserList.setAdapter(mAdapter);
 
         mGid = getIntent().getLongExtra("gid", -1L);
         setTitle(getIntent().getStringExtra("name"));
+
+        mAdapter = new UserListAdapter(this, true);
+        mUserList.setAdapter(mAdapter);
 
         final Context context = this;
         mUserList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,16 +85,16 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
 
         mDialog = new ProgressDialog(this);
         mDialog.setMessage(getResources().getString(R.string.loading_user_list));
-        mDialog.setCancelable(false);
+        mDialog.setCancelable(true);
         mDialog.show();
 
         onRefresh();
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_user_list, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_user_list, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -110,12 +113,27 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         mGroupAPI.list(mGid, new BaseCallback<List<UserAO>>(this) {
             @Override
             public void call(List<UserAO> result) {
+                mUserList.setVisibility(View.VISIBLE);
                 if (mLayout.isRefreshing()) {
                     mLayout.setRefreshing(false);
                 } else {
                     mDialog.dismiss();
                 }
                 mAdapter.setDataset(result);
+            }
+        });
+    }
+
+    public void leaveGroup() {
+        mUserAPI.leaveGroup(RuntimeVar.uid, RuntimeVar.password, mGid, new BaseCallback<GeneralAO>(this) {
+            @Override
+            public void call(GeneralAO result) {
+                if (result.getStatus() == 1) {
+                    info(getString(R.string.success_leave_group));
+                    finish();
+                } else {
+                    info(result.getInfo());
+                }
             }
         });
     }
