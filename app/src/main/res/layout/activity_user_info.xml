@@ -12,10 +12,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/info_border"
-            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/list_view_padding_bottom"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:paddingTop="@dimen/list_view_padding_top">
 
             <TextView
                 android:id="@+id/phoneLabel"
@@ -24,9 +24,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/label_margin_bottom"
+                android:layout_marginTop="@dimen/label_margin_top"
                 android:text="@string/label_user_phone"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/label_color" />
 
             <TextView
                 android:id="@+id/phone"
@@ -35,7 +37,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/phoneLabel"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginBottom="@dimen/content_margin_bottom"
+                android:layout_marginTop="@dimen/content_margin_top"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/content_color"
                 android:textIsSelectable="true" />
 
             <ImageView
@@ -64,10 +69,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/phone_container"
             android:background="@drawable/info_border"
-            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/list_view_padding_bottom"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:paddingTop="@dimen/list_view_padding_top">
 
             <TextView
                 android:id="@+id/emailLabel"
@@ -76,9 +81,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/label_margin_bottom"
+                android:layout_marginTop="@dimen/label_margin_top"
                 android:text="@string/label_user_email"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/label_color" />
 
             <TextView
                 android:id="@+id/email"
@@ -87,8 +94,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/emailLabel"
+                android:layout_marginBottom="@dimen/content_margin_bottom"
+                android:layout_marginTop="@dimen/content_margin_top"
                 android:hint="@string/empty_now"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/content_color"
                 android:textIsSelectable="true" />
 
             <ImageView
@@ -107,10 +117,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/email_container"
             android:background="@drawable/info_border"
-            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/list_view_padding_bottom"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin">
+            android:paddingTop="@dimen/list_view_padding_top">
 
             <TextView
                 android:id="@+id/wechatLabel"
@@ -119,9 +129,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/label_margin_bottom"
+                android:layout_marginTop="@dimen/label_margin_top"
                 android:text="@string/label_user_wechat"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/label_color" />
 
             <TextView
                 android:id="@+id/wechat"
@@ -130,9 +142,11 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/wechatLabel"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/content_margin_bottom"
+                android:layout_marginTop="@dimen/content_margin_top"
                 android:hint="@string/empty_now"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/content_color"
                 android:textIsSelectable="true" />
 
         </RelativeLayout>

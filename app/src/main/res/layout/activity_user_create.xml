@@ -24,7 +24,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:hint="@string/enter_phone"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:textColor="@color/edit_color" />
 
             <EditText
                 android:id="@+id/user_create_password"
@@ -34,7 +35,8 @@
                 android:layout_marginBottom="8dp"
                 android:hint="@string/enter_password"
                 android:inputType="numberPassword"
-                android:maxLength="6" />
+                android:maxLength="6"
+                android:textColor="@color/edit_color" />
 
             <EditText
                 android:id="@+id/user_create_name"
@@ -43,7 +45,8 @@
                 android:layout_below="@id/user_create_password"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/setup_name"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="@color/edit_color" />
 
         </RelativeLayout>
 

@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:hint="@string/enter_group_name" />
+            android:hint="@string/enter_group_name"
+            android:textColor="@color/edit_color" />
 
         <EditText
             android:id="@+id/group_create_desc"
@@ -25,7 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/group_create_name"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:hint="@string/enter_group_desc" />
+            android:hint="@string/enter_group_desc"
+            android:textColor="@color/edit_color" />
 
         <EditText
             android:id="@+id/group_create_access"
@@ -36,8 +38,7 @@
             android:hint="@string/enter_group_access"
             android:inputType="numberPassword"
             android:maxLength="6"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp" />
+            android:textColor="@color/edit_color" />
 
         <EditText
             android:id="@+id/group_create_modify"
@@ -48,8 +49,7 @@
             android:hint="@string/enter_group_modify"
             android:inputType="numberPassword"
             android:maxLength="6"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp" />
+            android:textColor="@color/edit_color" />
 
         <Button
             android:id="@+id/group_create_create"
