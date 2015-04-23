@@ -13,10 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,47 +168,4 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
     public String getUnderlyingPath() {
         return getString(R.string.group_storage);
     }
-
-    /*@Override
-    public void storeUnderlyingData() {
-        try {
-            FileOutputStream outputStream = getActivity().openFileOutput(getString(R.string.group_storage), Context.MODE_PRIVATE);
-            BufferedWriter output = new BufferedWriter(new OutputStreamWriter(outputStream));
-            List<GroupAO> groups = mAdapter.getDataset();
-            JSONArray groupsJSONArray = new JSONArray();
-            for(GroupAO group : groups) {
-                groupsJSONArray.put(group.toJSON());
-            }
-            output.write(groupsJSONArray.toString());
-            output.flush();
-            output.close();
-        } catch (IOException | JSONException e) {
-            Toast.makeText(getActivity(),getString(R.string.storage_failure),Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void loadUnderlyingData() {
-        try {
-            FileInputStream inputStream = getActivity().openFileInput(getString(R.string.group_storage));
-            BufferedReader input = new BufferedReader(new InputStreamReader(inputStream));
-            List<GroupAO> groups = new ArrayList<GroupAO>();
-            StringBuilder content = new StringBuilder();
-            String line = null;
-            while ((line = input.readLine()) != null) {
-                content.append(line);
-            }
-            JSONArray groupsJSONArray = new JSONArray(content.toString());
-            for (int i = 0; i < groupsJSONArray.length(); i++) {
-                groups.add(GroupAO.parse(groupsJSONArray.getJSONObject(i)));
-            }
-            mAdapter.setDataset(groups);
-            input.close();
-        } catch (FileNotFoundException e) {
-            mAdapter.setDataset(new ArrayList<GroupAO>());
-        } catch (IOException | JSONException e) {
-            mAdapter.setDataset(new ArrayList<GroupAO>());
-            Toast.makeText(getActivity(),getString(R.string.storage_load_failure),Toast.LENGTH_SHORT).show();
-        }
-    }*/
 }
