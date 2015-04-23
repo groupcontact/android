@@ -6,4 +6,6 @@ public interface Callback<AO> {
 
     public void info(String message);
 
+    public void error(String message);
+
 }

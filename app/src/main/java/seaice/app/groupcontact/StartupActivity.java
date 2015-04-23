@@ -38,6 +38,14 @@ public class StartupActivity extends BaseActivity {
         mConfigAPI.load(new BaseCallback<ConfigAO>(this) {
             @Override
             public void call(ConfigAO config) {
+                boolean networkStatus = true;
+
+                // there is an error accessing internet
+                if (config == null) {
+                    config = new ConfigAO();
+                    networkStatus = false;
+                }
+
                 // save configuration into runtime constants
                 RuntimeVar.baseUrl = config.getBaseUrl();
 
@@ -52,6 +60,7 @@ public class StartupActivity extends BaseActivity {
                     RuntimeVar.password = prefs.getString("password", "123456");
                 }
                 Intent intent = new Intent(context, activityClass);
+                intent.putExtra("NetworkStatus", networkStatus);
                 startActivity(intent);
             }
         });

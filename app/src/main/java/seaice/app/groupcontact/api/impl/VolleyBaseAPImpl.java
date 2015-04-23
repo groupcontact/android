@@ -91,7 +91,7 @@ public abstract class VolleyBaseAPImpl {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            mCallback.info(error.getMessage());
+            mCallback.error("Network Failure");
         }
     }
 

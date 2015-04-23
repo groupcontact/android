@@ -67,4 +67,11 @@
     <string name="reset_password">设置</string>
     <string name="success_reset_password">更新密码成功</string>
     <string name="action_remove_friend">删除好友</string>
+    <string name="internet_failure">无法连接网络</string>
+
+    <string name="storage_failure">存储信息失败</string>
+    <string name="storage_load_failure">载入信息失败</string>
+    <string name="group_storage">group.s</string>
+    <string name="friend_storage">friend.s</string>
+    <string name="profile_storage">profile.s</string>
 </resources>
