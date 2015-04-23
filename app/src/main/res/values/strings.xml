@@ -78,11 +78,14 @@
     <string name="reset_password">Reset</string>
     <string name="success_reset_password">Reset Password Successfully</string>
     <string name="action_remove_friend">Remove Friend</string>
-    <string name="internet_failure">Fail to Access Internet</string>
 
+    <string name="internet_failure">Fail to Access Internet</string>
     <string name="storage_failure">Fail to Store Information</string>
     <string name="storage_load_failure">Fail to Load Information</string>
     <string name="group_storage">group.s</string>
     <string name="friend_storage">friend.s</string>
     <string name="profile_storage">profile.s</string>
+
+    <string name="action_leave_group">Leave Group</string>
+    <string name="success_leave_group">Leave Group Successfully</string>
 </resources>

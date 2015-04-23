@@ -26,35 +26,22 @@
                 android:hint="@string/enter_phone"
                 android:inputType="phone" />
 
-            <TextView
-                android:id="@+id/user_create_password_label"
+            <EditText
+                android:id="@+id/user_create_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_create_phone"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:text="@string/label_user_password"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <seaice.app.groupcontact.view.PasswordView
-                android:id="@+id/user_create_password"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_below="@id/user_create_password_label"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/enter_password"
                 android:inputType="numberPassword"
-                android:maxLength="6"
-                app:borderColor="@color/passwordBorder"
-                app:passwordColor="@color/passwordColor"
-                app:passwordWidth="@dimen/custom_ev_password_width"/>
+                android:maxLength="6" />
 
             <EditText
                 android:id="@+id/user_create_name"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_below="@id/user_create_password"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="8dp"
                 android:hint="@string/setup_name"
                 android:inputType="text" />
 

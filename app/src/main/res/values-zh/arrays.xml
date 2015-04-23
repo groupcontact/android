@@ -2,8 +2,8 @@
 <resources>
 
     <string-array name="pager_titles">
-        <item>群组</item>
         <item>好友</item>
+        <item>群组</item>
         <item>我</item>
     </string-array>
 

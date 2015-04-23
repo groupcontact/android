@@ -18,9 +18,9 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new GroupListFragment();
-        } else if (position == 1) {
             return new FriendListFragment();
+        } else if (position == 1) {
+            return new GroupListFragment();
         } else if (position == 2) {
             return new ProfileFragment();
         } else {

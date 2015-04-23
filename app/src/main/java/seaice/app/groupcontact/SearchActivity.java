@@ -66,8 +66,8 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String key = mSearchKey.getText().toString();
-                if (key.trim().equals("")) {
+                String key = mSearchKey.getText().toString().trim();
+                if (key.equals("")) {
                     // do not allowed empty query
                     adapter.setDataset(new ArrayList<GroupAO>());
                     return;

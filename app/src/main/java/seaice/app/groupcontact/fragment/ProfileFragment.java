@@ -24,6 +24,10 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import butterknife.OnClick;
+import seaice.app.groupcontact.RuntimeVar;
+
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.api.BaseCallback;
@@ -107,15 +111,7 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        if (id == R.id.action_save) {
-            save();
-            return true;
-        }
 
         if (id == R.id.action_reset_password) {
             resetPassword();
@@ -125,7 +121,8 @@ public class ProfileFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void save() {
+    @OnClick(R.id.action_save_user)
+    public void save() {
         UserAO user = new UserAO();
         user.setUid(mUid);
         user.setName(mNameView.getText().toString());
@@ -158,21 +155,21 @@ public class ProfileFragment extends BaseFragment {
         builder.setTitle(getString(R.string.new_password));
         LinearLayout container = (LinearLayout) LayoutInflater.from(getActivity()).inflate(
                 R.layout.dialog_reset_password, null);
-        final EditText oldPass = (EditText) container.findViewById(R.id.enter_old_password);
         final EditText newPass = (EditText) container.findViewById(R.id.enter_new_password);
         builder.setView(container);
 
         builder.setPositiveButton(getResources().getString(R.string.reset_password), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
-                String oldPassword = oldPass.getText().toString();
                 final String newPassword = newPass.getText().toString();
-                mUserAPI.setPassword(RuntimeVar.uid, oldPassword, newPassword, new BaseCallback<GeneralAO>(getActivity()) {
+                mUserAPI.setPassword(RuntimeVar.uid, RuntimeVar.password, newPassword, new BaseCallback<GeneralAO>(getActivity()) {
                     @Override
                     public void call(GeneralAO result) {
                         if (result.getStatus() == 1) {
                             info(getString(R.string.success_reset_password));
                             RuntimeVar.password = newPassword;
+                            getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE).edit()
+                                    .putString("password", newPassword).apply();
                         } else {
                             info(result.getInfo());
                         }

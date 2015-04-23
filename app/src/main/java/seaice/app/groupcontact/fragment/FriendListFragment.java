@@ -1,4 +1,4 @@
-package seaice.app.groupcontact.fragment;
+﻿package seaice.app.groupcontact.fragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -45,6 +45,13 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     private UserListAdapter mAdapter;
 
     private SwipeRefreshLayout mLayout;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        onRefresh();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,7 +132,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
 
     @Override
     public void onAttach(Activity activity) {
-        mAdapter = new UserListAdapter(getActivity());
+        mAdapter = new UserListAdapter(getActivity(), false);
         super.onAttach(activity);
     }
 

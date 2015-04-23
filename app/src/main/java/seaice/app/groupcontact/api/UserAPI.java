@@ -29,7 +29,7 @@ public interface UserAPI {
 
     public void joinGroup(Long uid, String password, Long gid, String accessToken, Callback<GeneralAO> cb);
 
-    public void leaveGroup(Long uid, String password, Long gid, String accessToken, Callback<GeneralAO> cb);
+    public void leaveGroup(Long uid, String password, Long gid, Callback<GeneralAO> cb);
 
     public void listFriend(Long uid, Callback<List<UserAO>> cb);
 
