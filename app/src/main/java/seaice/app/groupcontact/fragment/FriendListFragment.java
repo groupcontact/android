@@ -1,4 +1,4 @@
-﻿package seaice.app.groupcontact.fragment;
+package seaice.app.groupcontact.fragment;
 
 import android.app.Activity;
 import android.content.Context;
