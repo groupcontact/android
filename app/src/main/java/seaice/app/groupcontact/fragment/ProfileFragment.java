@@ -17,7 +17,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,10 +25,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 import butterknife.OnClick;
-import seaice.app.groupcontact.RuntimeVar;
+import seaice.app.groupcontact.Var;
 
 import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -71,7 +69,7 @@ public class ProfileFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.inject(this, rootView);
 
-        mUid = RuntimeVar.uid;
+        mUid = Var.uid;
         mContext = getActivity();
 
         // find user
@@ -135,7 +133,7 @@ public class ProfileFragment extends BaseFragment {
         } catch (JSONException e) {
             user.setExt("{}");
         }
-        mUserAPI.save(user, RuntimeVar.password, new BaseCallback<GeneralAO>(mContext) {
+        mUserAPI.save(user, Var.password, new BaseCallback<GeneralAO>(mContext) {
             @Override
             public void call(GeneralAO result) {
                 if (result.getStatus() == 1) {
@@ -162,12 +160,12 @@ public class ProfileFragment extends BaseFragment {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
                 final String newPassword = newPass.getText().toString();
-                mUserAPI.setPassword(RuntimeVar.uid, RuntimeVar.password, newPassword, new BaseCallback<GeneralAO>(getActivity()) {
+                mUserAPI.setPassword(Var.uid, Var.password, newPassword, new BaseCallback<GeneralAO>(getActivity()) {
                     @Override
                     public void call(GeneralAO result) {
                         if (result.getStatus() == 1) {
                             info(getString(R.string.success_reset_password));
-                            RuntimeVar.password = newPassword;
+                            Var.password = newPassword;
                             getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE).edit()
                                     .putString("password", newPassword).apply();
                         } else {

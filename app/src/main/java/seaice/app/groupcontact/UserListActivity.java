@@ -3,16 +3,12 @@ package seaice.app.groupcontact;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -125,7 +121,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
     }
 
     public void leaveGroup() {
-        mUserAPI.leaveGroup(RuntimeVar.uid, RuntimeVar.password, mGid, new BaseCallback<GeneralAO>(this) {
+        mUserAPI.leaveGroup(Var.uid, Var.password, mGid, new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
                 if (result.getStatus() == 1) {

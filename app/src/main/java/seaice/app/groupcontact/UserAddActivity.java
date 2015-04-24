@@ -44,7 +44,7 @@ public class UserAddActivity extends BaseActivity {
     public void addFriend() {
         String name = mNameView.getText().toString();
         String phone = mPhoneView.getText().toString();
-        mUserAPI.addFriend(RuntimeVar.uid, RuntimeVar.password, name, phone, new BaseCallback<GeneralAO>(this) {
+        mUserAPI.addFriend(Var.uid, Var.password, name, phone, new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
                 if (result.getStatus() == 1) {

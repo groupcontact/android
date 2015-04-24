@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author zhb
  */
-public class RuntimeVar {
+public class Var {
 
     public static String baseUrl;
 
@@ -21,7 +21,5 @@ public class RuntimeVar {
     public static String name = "";
 
     public static String password = "";
-
-    public static final String DEFAULT_KEY = "groupcontact";
 
 }

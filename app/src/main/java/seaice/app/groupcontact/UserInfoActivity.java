@@ -3,12 +3,10 @@ package seaice.app.groupcontact;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,7 +62,7 @@ public class UserInfoActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mUser = getIntent().getParcelableExtra("user");
-        if (mUser.getUid() == RuntimeVar.uid) {
+        if (mUser.getUid() == Var.uid) {
             mAddButton.setVisibility(View.GONE);
             mDeleteButton.setVisibility(View.GONE);
         }
@@ -116,7 +114,7 @@ public class UserInfoActivity extends BaseActivity {
 
     @OnClick(R.id.action_add_friend)
     public void addFriend() {
-        mUserAPI.addFriend(RuntimeVar.uid, RuntimeVar.password, mUser.getName(), mUser.getPhone(),
+        mUserAPI.addFriend(Var.uid, Var.password, mUser.getName(), mUser.getPhone(),
                 new BaseCallback<GeneralAO>(this) {
                     public void call(GeneralAO result) {
                         if (result.getStatus() == 1) {
@@ -131,7 +129,7 @@ public class UserInfoActivity extends BaseActivity {
 
     @OnClick(R.id.action_remove_friend)
     public void deleteFriend() {
-        mUserAPI.deleteFriend(RuntimeVar.uid, RuntimeVar.password, mUser.getUid(),
+        mUserAPI.deleteFriend(Var.uid, Var.password, mUser.getUid(),
                 new BaseCallback<GeneralAO>(this) {
                     public void call(GeneralAO result) {
                         if (result.getStatus() == 1) {

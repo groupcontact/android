@@ -73,7 +73,7 @@ public class GroupCreateActivity extends BaseActivity {
         group.setAccessToken(access);
         group.setModifyToken(modify);
 
-        mGroupAPI.create(RuntimeVar.uid, RuntimeVar.password, group, new BaseCallback<GeneralAO>(this) {
+        mGroupAPI.create(Var.uid, Var.password, group, new BaseCallback<GeneralAO>(this) {
             public void call(GeneralAO result) {
                 if (result.getStatus() == 1) {
                     info(getString(R.string.success_create_user));

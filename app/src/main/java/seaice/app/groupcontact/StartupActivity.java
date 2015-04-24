@@ -47,7 +47,7 @@ public class StartupActivity extends BaseActivity {
                 }
 
                 // save configuration into runtime constants
-                RuntimeVar.baseUrl = config.getBaseUrl();
+                Var.baseUrl = config.getBaseUrl();
 
                 // check whether the user has logged in before.
                 SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
@@ -56,8 +56,8 @@ public class StartupActivity extends BaseActivity {
                 // Yes, the user logged in before.
                 if (uid != -1) {
                     activityClass = MainActivity.class;
-                    RuntimeVar.uid = uid;
-                    RuntimeVar.password = prefs.getString("password", "123456");
+                    Var.uid = uid;
+                    Var.password = prefs.getString("password", "123456");
                 }
                 Intent intent = new Intent(context, activityClass);
                 intent.putExtra("NetworkStatus", networkStatus);

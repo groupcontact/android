@@ -108,7 +108,7 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
         final Context context = this;
 
         final SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        final Long uid = RuntimeVar.uid;
+        final Long uid = Var.uid;
 
         // Ask the user to enter the accessToken
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -121,7 +121,7 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
             @Override
             public void onClick(final DialogInterface dialog, int which) {
                 final String atNew = vAccessToken.getText().toString();
-                mUserAPI.joinGroup(RuntimeVar.uid, RuntimeVar.password, id, atNew, new BaseCallback<GeneralAO>(context) {
+                mUserAPI.joinGroup(Var.uid, Var.password, id, atNew, new BaseCallback<GeneralAO>(context) {
                     @Override
                     public void call(GeneralAO result) {
                         if (result.getStatus() == 1) {
