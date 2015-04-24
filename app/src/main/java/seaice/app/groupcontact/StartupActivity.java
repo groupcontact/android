@@ -51,6 +51,7 @@ public class StartupActivity extends BaseActivity {
                     RuntimeVar.uid = uid;
                     RuntimeVar.password = prefs.getString("password", "123456");
                 }
+                activityClass = ScanActivity.class;
                 Intent intent = new Intent(context, activityClass);
                 startActivity(intent);
             }

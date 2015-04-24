@@ -23,6 +23,7 @@ import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.UserAddActivity;
 import seaice.app.groupcontact.UserInfoActivity;
+import seaice.app.groupcontact.adapter.AddFriendMenuAdapter;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;

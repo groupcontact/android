@@ -80,4 +80,5 @@
     <string name="action_remove_friend">Remove Friend</string>
     <string name="action_leave_group">Leave Group</string>
     <string name="success_leave_group">Leave Group Successfully</string>
+    <string name="title_activity_scan">ScanActivity</string>
 </resources>

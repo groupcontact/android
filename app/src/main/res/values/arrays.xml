@@ -6,5 +6,9 @@
         <item>Groups</item>
         <item>Profile</item>
     </string-array>
+    <string-array name="add_friend_menu">a
+        <item>Add Person</item>
+        <item>Scan QR Code</item>
+    </string-array>
 
 </resources>

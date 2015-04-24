@@ -7,5 +7,7 @@
     <color name="passwordColor">#6d8b93</color>
     <color name="label_color">#232323</color>
     <color name="content_color">#787878</color>
+    <color name="dark_label_color">#EFEFEF</color>
+    <color name="dark_color">#222222</color>
     <color name="edit_color">#565656</color>
 </resources>

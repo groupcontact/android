@@ -7,4 +7,9 @@
         <item>我</item>
     </string-array>
 
+    <string-array name="add_friend_menu">a
+        <item>添加好友</item>
+        <item>扫一扫</item>
+    </string-array>
+
 </resources>
