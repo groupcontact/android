@@ -1,5 +1,6 @@
 package seaice.app.groupcontact;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -48,11 +49,13 @@ public class UserAddActivity extends BaseActivity {
             public void call(GeneralAO result) {
                 if (result.getStatus() == 1) {
                     info(getString(R.string.success_add_friend));
+                    // The question here is that do we suppose the user will add friend in batch mode
+                    Intent returnIntent = new Intent();
+                    setResult(RESULT_OK, returnIntent);
+                    finish();
                 } else {
                     info(result.getInfo());
                 }
-                // The question here is that do we suppose the user will add friend in batch mode
-                // finish();
             }
         });
     }

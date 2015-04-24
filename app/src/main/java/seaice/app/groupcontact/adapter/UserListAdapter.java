@@ -39,6 +39,10 @@ public class UserListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public List<UserAO> getDataset() {
+        return mDataset;
+    }
+
     @Override
     public int getCount() {
         if (mIsFromGroup) {

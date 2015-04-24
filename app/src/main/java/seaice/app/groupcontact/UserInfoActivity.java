@@ -136,6 +136,8 @@ public class UserInfoActivity extends BaseActivity {
                     public void call(GeneralAO result) {
                         if (result.getStatus() == 1) {
                             info(getString(R.string.success_delete_friend));
+                            Intent returnIntent = new Intent();
+                            setResult(RESULT_OK, returnIntent);
                             finish();
                         } else {
                             info(result.getInfo());

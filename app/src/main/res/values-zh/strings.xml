@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">群通讯录</string>
     <string name="action_settings">设置</string>
@@ -67,6 +67,14 @@
     <string name="reset_password">设置</string>
     <string name="success_reset_password">更新密码成功</string>
     <string name="action_remove_friend">删除好友</string>
+
+    <string name="internet_failure">无法连接网络</string>
+    <string name="storage_failure">存储信息失败</string>
+    <string name="storage_load_failure">载入信息失败</string>
+    <string name="group_storage">group.s</string>
+    <string name="friend_storage">friend.s</string>
+    <string name="profile_storage">profile.s</string>
+
     <string name="action_leave_group">退出群组</string>
     <string name="success_leave_group">退出群组成功</string>
     <string name="title_activity_scan">扫描二维码</string>

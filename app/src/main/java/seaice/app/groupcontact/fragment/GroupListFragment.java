@@ -1,5 +1,6 @@
 package seaice.app.groupcontact.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,15 +14,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.GroupCreateActivity;
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
@@ -30,6 +34,8 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
 
 public class GroupListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+
+    private static final int CREATE_GROUP = 1;
 
     @Inject
     UserAPI mUserAPI;
@@ -58,7 +64,6 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
         ButterKnife.inject(this, mLayout);
 
         final Context context = getActivity();
-        mAdapter = new GroupListAdapter(context);
         mGroupList.setAdapter(mAdapter);
 
         onRefresh();
@@ -97,7 +102,7 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
 
         if (id == R.id.action_create_group) {
             Intent intent = new Intent(getActivity(), GroupCreateActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, CREATE_GROUP);
             return true;
         }
 
@@ -111,9 +116,56 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
         mUserAPI.listGroup(uid, new BaseCallback<List<GroupAO>>(context) {
             @Override
             public void call(List<GroupAO> result) {
+                // if there is no internet access, we should keep the current information by making no change
+                if (result == null) {
+                    return;
+                }
+
                 mLayout.setRefreshing(false);
                 mAdapter.setDataset(result);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CREATE_GROUP) {
+            if (resultCode == Activity.RESULT_OK) {
+                onRefresh();
+            }
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        mAdapter = new GroupListAdapter(activity);
+        super.onAttach(activity);
+    }
+
+    @Override
+    public String getUnderlyingData() throws Exception {
+        List<GroupAO> groups = mAdapter.getDataset();
+        JSONArray groupsJSONArray = new JSONArray();
+        for (GroupAO group : groups) {
+            groupsJSONArray.put(group.toJSON());
+        }
+        return groupsJSONArray.toString();
+    }
+
+    @Override
+    public void setUnderlyingData(String data) throws Exception {
+        List<GroupAO> groups = new ArrayList<GroupAO>();
+        JSONArray groupsJSONArray = new JSONArray(data);
+        for (int i = 0; i < groupsJSONArray.length(); i++) {
+            groups.add(GroupAO.parse(groupsJSONArray.getJSONObject(i)));
+        }
+        mAdapter.setDataset(groups);
+    }
+
+    @Override
+    public String getUnderlyingPath() {
+        return getString(R.string.group_storage);
     }
 }
