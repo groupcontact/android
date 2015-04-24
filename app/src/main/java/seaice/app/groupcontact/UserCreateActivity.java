@@ -126,6 +126,7 @@ public class UserCreateActivity extends BaseActivity {
         RuntimeVar.password = mPasswordView.getText().toString();
 
         Intent intent = new Intent(UserCreateActivity.this, MainActivity.class);
+        intent.putExtras(getIntent());
         startActivity(intent);
     }
 }

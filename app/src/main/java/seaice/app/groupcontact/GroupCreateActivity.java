@@ -1,5 +1,6 @@
 package seaice.app.groupcontact;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -76,6 +77,8 @@ public class GroupCreateActivity extends BaseActivity {
             public void call(GeneralAO result) {
                 if (result.getStatus() == 1) {
                     info(getString(R.string.success_create_user));
+                    Intent returnIntent = new Intent();
+                    setResult(RESULT_OK, returnIntent);
                     finish();
                 } else {
                     info(result.getInfo());

@@ -17,15 +17,19 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
 import butterknife.OnClick;
 import seaice.app.groupcontact.RuntimeVar;
+
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.RuntimeVar;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -53,6 +57,8 @@ public class ProfileFragment extends BaseFragment {
     @InjectView(R.id.editWechat)
     EditText mWechatView;
 
+    private UserAO currentUser;
+
     private Context mContext;
 
     private Long mUid;
@@ -72,11 +78,18 @@ public class ProfileFragment extends BaseFragment {
         mUserAPI.find(mUid, new BaseCallback<List<UserAO>>(mContext) {
             @Override
             public void call(List<UserAO> result) {
-                // some internal info happened
-                if (result.size() == 0) {
+                UserAO user;
+                if (result == null) {
+                    // no internet access
+                    user = currentUser;
+                } else if (result.size() == 0) {
+                    // some internal info happened
                     return;
+                } else {
+                    currentUser = result.get(0);
+                    user = currentUser;
                 }
-                UserAO user = result.get(0);
+
                 mNameView.setText(user.getName());
                 mPhoneView.setText(user.getPhone());
                 try {
@@ -171,5 +184,21 @@ public class ProfileFragment extends BaseFragment {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public String getUnderlyingData() throws Exception {
+        return currentUser.toJSON().toString();
+    }
+
+    @Override
+    public void setUnderlyingData(String data) throws Exception {
+        JSONObject obj = new JSONObject(data);
+        currentUser = UserAO.parse(obj);
+    }
+
+    @Override
+    public String getUnderlyingPath() {
+        return getString(R.string.profile_storage);
     }
 }

@@ -70,13 +70,17 @@
 
         <activity
             android:name=".UserAddActivity"
-            android:label="@string/title_activity_user_add" />
+            android:label="@string/title_activity_user_add"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GroupCreateActivity"
-            android:label="@string/title_activity_group_create" />
+            android:label="@string/title_activity_group_create"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ScanActivity"
-            android:label="@string/title_activity_scan" />
+            android:label="@string/title_activity_scan"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

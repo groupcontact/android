@@ -3,6 +3,7 @@ package seaice.app.groupcontact.api.ao;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -43,6 +44,16 @@ public class UserAO implements Parcelable {
         user.setExt(obj.optString("ext", "{}"));
 
         return user;
+    }
+
+    public JSONObject toJSON() throws JSONException {
+        JSONObject obj = new JSONObject();
+        obj.put("id", uid);
+        obj.put("name", name);
+        obj.put("phone", phone);
+        obj.put("ext", ext);
+
+        return obj;
     }
 
     public Long getUid() {

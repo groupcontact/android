@@ -1,5 +1,6 @@
 package seaice.app.groupcontact.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,6 +34,8 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
 
 public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+
+    private static final int MANAGE_FRIEND = 2;
 
     @Inject
     UserAPI mUserAPI;
@@ -57,7 +63,6 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         ButterKnife.inject(this, mLayout);
         mLayout.setOnRefreshListener(this);
 
-        mAdapter = new UserListAdapter(getActivity(), false);
         mUserList.setAdapter(mAdapter);
 
         mUserList.setOnItemClickListener(this);
@@ -79,7 +84,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
 
         if (id == R.id.action_add_friend) {
             Intent intent = new Intent(getActivity(), UserAddActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, MANAGE_FRIEND);
             return true;
         }
 
@@ -93,7 +98,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         intent.putExtra("user", user);
         // 从好友列表进来
         intent.putExtra("from", 1);
-        startActivity(intent);
+        startActivityForResult(intent, MANAGE_FRIEND);
     }
 
     @Override
@@ -104,9 +109,56 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         mUserAPI.listFriend(uid, new BaseCallback<List<UserAO>>(context) {
             @Override
             public void call(List<UserAO> result) {
+                // if there is no internet access, we should keep the current information by making no change
+                if (result == null) {
+                    return;
+                }
+
                 mLayout.setRefreshing(false);
                 mAdapter.setDataset(result);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == MANAGE_FRIEND) {
+            if (resultCode == Activity.RESULT_OK) {
+                onRefresh();
+            }
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        mAdapter = new UserListAdapter(getActivity(), false);
+        super.onAttach(activity);
+    }
+
+    @Override
+    public String getUnderlyingData() throws Exception {
+        List<UserAO> users = mAdapter.getDataset();
+        JSONArray usersJSONArray = new JSONArray();
+        for (UserAO user : users) {
+            usersJSONArray.put(user.toJSON());
+        }
+        return usersJSONArray.toString();
+    }
+
+    @Override
+    public void setUnderlyingData(String data) throws Exception {
+        List<UserAO> users = new ArrayList<UserAO>();
+        JSONArray usersJSONArray = new JSONArray(data);
+        for (int i = 0; i < usersJSONArray.length(); i++) {
+            users.add(UserAO.parse(usersJSONArray.getJSONObject(i)));
+        }
+        mAdapter.setDataset(users);
+    }
+
+    @Override
+    public String getUnderlyingPath() {
+        return getString(R.string.friend_storage);
     }
 }

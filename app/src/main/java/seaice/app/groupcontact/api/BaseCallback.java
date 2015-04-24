@@ -25,4 +25,10 @@ public class BaseCallback<T> implements Callback<T> {
     public void info(String message) {
         Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
     }
+
+    @Override
+    public void error(String message) {
+        info(message);
+        call(null);
+    }
 }
