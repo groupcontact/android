@@ -47,25 +47,4 @@ public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
         String url = URL + "?name=" + Uri.encode(name);
         getArray(url, cb, GroupAO.class, Let.DEFAULT_KEY);
     }
-
-    @Override
-    public void join(Long uid, Long gid, String accessToken, Callback<GeneralAO> cb) {
-        Map<String, String> data = new HashMap<>();
-        data.put("uid", uid.toString());
-        data.put("gid", gid.toString());
-        data.put("accessToken", accessToken);
-
-        String url = Var.baseUrl + "joinGroup";
-        post(url, data, cb, GeneralAO.class);
-    }
-
-    @Override
-    public void leave(Long uid, Long gid, Callback<GeneralAO> cb) {
-        Map<String, String> data = new HashMap<>();
-        data.put("uid", uid.toString());
-        data.put("gid", gid.toString());
-
-        String url = Var.baseUrl + "leaveGroup";
-        post(url, data, cb, GeneralAO.class);
-    }
 }

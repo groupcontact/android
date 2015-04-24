@@ -38,8 +38,7 @@ public class CipherUtils {
 
             byte[] cipherText = new byte[cipher.getOutputSize(input.length)];
             int ctLength = cipher.update(input, 0, input.length, cipherText, 0);
-            ctLength += cipher.doFinal(cipherText, ctLength);
-
+            cipher.doFinal(cipherText, ctLength);
             return parseByte2HexStr(cipherText);
         } catch (Exception e) {
             return null;
@@ -56,9 +55,9 @@ public class CipherUtils {
     }
 
     private static String parseByte2HexStr(byte buf[]) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < buf.length; i++) {
-            String hex = Integer.toHexString(buf[i] & 0xFF);
+        StringBuilder sb = new StringBuilder();
+        for (byte b : buf) {
+            String hex = Integer.toHexString(b & 0xFF);
             if (hex.length() == 1) {
                 hex = '0' + hex;
             }
