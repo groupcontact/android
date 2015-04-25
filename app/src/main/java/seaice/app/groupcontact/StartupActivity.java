@@ -8,12 +8,16 @@ import android.os.Bundle;
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 import java.io.File;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.ConfigAPI;
+import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.ConfigAO;
+import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.utils.FileUtils;
 
 /**
  * The startup activity display a placeholder screen while doing the background tasks(currently
@@ -25,6 +29,9 @@ public class StartupActivity extends BaseActivity {
 
     @Inject
     ConfigAPI mConfigAPI;
+
+    @Inject
+    UserAPI mUserAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +59,8 @@ public class StartupActivity extends BaseActivity {
                 // check whether the user has logged in before.
                 SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
                 long uid = prefs.getLong("uid", -1);
-                Class<?> activityClass = UserCreateActivity.class;
                 // Yes, the user logged in before.
                 if (uid != -1) {
-                    activityClass = MainActivity.class;
                     Var.uid = uid;
                     Var.password = prefs.getString("password", "123456");
                     String name = prefs.getString("name", null);
@@ -63,11 +68,33 @@ public class StartupActivity extends BaseActivity {
                         info(getString(R.string.network_required_for_upgrade));
                         return;
                     }
+                    loadUserInfo();
+                } else {
+                    Intent intent = new Intent(context, UserCreateActivity.class);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(context, activityClass);
-                startActivity(intent);
             }
         });
 
+    }
+
+    private void loadUserInfo() {
+        // load user info
+        mUserAPI.find(Var.uid, new BaseCallback<List<UserAO>>(this) {
+            @Override
+            public void call(List<UserAO> result) {
+                // 如果网络有错误，则从本地读取
+                if (result == null || result.size() == 0) {
+                    result = FileUtils.read(StartupActivity.this, Let.PROFILE_CACHE_PATH, UserAO.class);
+                } else {
+                    FileUtils.write(StartupActivity.this, Let.PROFILE_CACHE_PATH, result, UserAO.class, true);
+                    getSharedPreferences("prefs", MODE_PRIVATE).edit().putString("name", result.get(0)
+                            .getName()).apply();
+                }
+                Var.userAO = result.get(0);
+                Intent intent = new Intent(StartupActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

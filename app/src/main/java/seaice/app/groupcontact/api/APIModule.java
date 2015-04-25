@@ -33,8 +33,7 @@ import seaice.app.groupcontact.fragment.ProfileFragment;
         ProfileFragment.class,
         UserAddActivity.class,
         UserInfoActivity.class,
-        UserEditActivity.class,
-        MainActivity.class
+        UserEditActivity.class
 })
 public class APIModule {
 

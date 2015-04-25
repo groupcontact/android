@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,6 +21,7 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.AnimationUtils;
+import seaice.app.groupcontact.utils.FileUtils;
 
 /**
  * create a user instance in the app..
@@ -135,8 +136,26 @@ public class UserCreateActivity extends BaseActivity {
         Var.uid = mUserId;
         Var.password = mCodeView.getText().toString();
 
-        Intent intent = new Intent(UserCreateActivity.this, MainActivity.class);
-        intent.putExtras(getIntent());
-        startActivity(intent);
+        loadUserInfo();
+    }
+
+    private void loadUserInfo() {
+        // load user info
+        mUserAPI.find(Var.uid, new BaseCallback<List<UserAO>>(this) {
+            @Override
+            public void call(List<UserAO> result) {
+                // 如果网络有错误，则从本地读取
+                if (result == null || result.size() == 0) {
+                    result = FileUtils.read(UserCreateActivity.this, Let.PROFILE_CACHE_PATH, UserAO.class);
+                } else {
+                    FileUtils.write(UserCreateActivity.this, Let.PROFILE_CACHE_PATH, result, UserAO.class, true);
+                    getSharedPreferences("prefs", MODE_PRIVATE).edit().putString("name", result.get(0)
+                            .getName()).apply();
+                }
+                Var.userAO = result.get(0);
+                Intent intent = new Intent(UserCreateActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

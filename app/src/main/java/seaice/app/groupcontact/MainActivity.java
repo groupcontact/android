@@ -1,5 +1,7 @@
 package seaice.app.groupcontact;
 
+import android.app.ActionBar;
+import android.app.Notification;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -24,7 +26,7 @@ import seaice.app.groupcontact.view.PagerSlidingTabStrip;
  *
  * @author zhb
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends ActionBarActivity {
 
     // Support the press again to exit functionality..
     private static final int RESET_BACK_COUNT = 123456;
@@ -35,9 +37,6 @@ public class MainActivity extends BaseActivity {
     @InjectView(R.id.pagerIndicator)
     PagerSlidingTabStrip mIndicator;
     private int mBackCount = 0;
-
-    @Inject
-    UserAPI mUserAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,22 +52,6 @@ public class MainActivity extends BaseActivity {
 
         // there are three pages in totally, so just increase the size for performance
         mPager.setOffscreenPageLimit(2);
-
-        // load user info
-        mUserAPI.find(Var.uid, new BaseCallback<List<UserAO>>(this) {
-            @Override
-            public void call(List<UserAO> result) {
-                // 如果网络有错误，则从本地读取
-                if (result == null || result.size() == 0) {
-                    result = FileUtils.read(MainActivity.this, Let.PROFILE_CACHE_PATH, UserAO.class);
-                } else {
-                    FileUtils.write(MainActivity.this, Let.PROFILE_CACHE_PATH, result, UserAO.class, true);
-                    getSharedPreferences("prefs", MODE_PRIVATE).edit().putString("name", result.get(0)
-                            .getName()).apply();
-                }
-                Var.userAO = result.get(0);
-            }
-        });
     }
 
     @Override

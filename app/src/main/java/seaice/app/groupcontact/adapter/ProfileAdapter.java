@@ -53,7 +53,7 @@ public class ProfileAdapter extends BaseAdapter {
             avatarView.setImageBitmap(BitmapUtils.getCroppedBitmap(BitmapFactory.decodeResource(
                     mContext.getResources(), R.drawable.avatar)));
             TextView nameView = (TextView) rootView.findViewById(R.id.profile_name);
-            nameView.setText("周海兵");
+            nameView.setText(Var.userAO.getName());
         } else {
             rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
             TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
