@@ -38,7 +38,7 @@ public class QrcodeActivity extends ActionBarActivity {
 
         ButterKnife.inject(this);
 
-        String content = Var.userAO.getName() + ":" + Var.userAO.getPhone() + ":" +
+        String content = "friend:" + Var.userAO.getName() + ":" + Var.userAO.getPhone() + ":" +
                 System.currentTimeMillis();
 
         Bitmap bitMap = generateQRCode(CipherUtils.encrypt(content, Let.DEFAULT_KEY));

@@ -63,7 +63,8 @@ public class MainActivity extends BaseActivity {
                     result = FileUtils.read(MainActivity.this, Let.PROFILE_CACHE_PATH, UserAO.class);
                 } else {
                     FileUtils.write(MainActivity.this, Let.PROFILE_CACHE_PATH, result, UserAO.class, true);
-                    getSharedPreferences("prefs", MODE_PRIVATE).edit().putString("name", result.get(0).getName());
+                    getSharedPreferences("prefs", MODE_PRIVATE).edit().putString("name", result.get(0)
+                            .getName()).apply();
                 }
                 Var.userAO = result.get(0);
             }

@@ -113,8 +113,8 @@ public class ProfileFragment extends BaseFragment {
         } else {
             String[] tokens = result.split(":");
             Intent intent = new Intent(getActivity(), UserAddActivity.class);
-            intent.putExtra("name", tokens[0]);
-            intent.putExtra("phone", tokens[1]);
+            intent.putExtra("name", tokens[1]);
+            intent.putExtra("phone", tokens[2]);
             startActivity(intent);
         }
     }
