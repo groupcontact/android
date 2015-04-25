@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.umeng.fb.FeedbackAgent;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -72,6 +74,9 @@ public class ProfileFragment extends BaseFragment {
                 } else if (position == 2) {
                     Intent intent = new Intent(getActivity(), ScanActivity.class);
                     startActivityForResult(intent, SCAN_REQUEST_CODE);
+                } else if (position == 3) {
+                    FeedbackAgent agent = new FeedbackAgent(getActivity());
+                    agent.startFeedbackActivity();
                 }
             }
         });

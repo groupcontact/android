@@ -14,7 +14,7 @@
     <string-array name="profile_menu_texts">
         <item>我的二维码</item>
         <item>扫一扫</item>
-        <item>设置</item>
+        <item>意见反馈</item>
     </string-array>
 
 </resources>

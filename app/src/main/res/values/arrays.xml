@@ -13,7 +13,7 @@
     <string-array name="profile_menu_texts">
         <item>My QR Code</item>
         <item>Scan QR Code</item>
-        <item>Settings</item>
+        <item>Feedback</item>
     </string-array>
 
 </resources>
