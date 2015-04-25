@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import seaice.app.groupcontact.api.BaseCallback;
@@ -34,21 +36,19 @@ public class StartupActivity extends BaseActivity {
 
         getSupportActionBar().hide();
 
+        File file = new File(Let.APP_DIR);
+        file.mkdirs();
+
         final Context context = this;
         mConfigAPI.load(new BaseCallback<ConfigAO>(this) {
             @Override
             public void call(ConfigAO config) {
-                boolean networkStatus = true;
-
-                // there is an error accessing internet
                 if (config == null) {
-                    config = new ConfigAO();
-                    networkStatus = false;
+                    info(getString(R.string.error_network));
+                } else {
+                    // save configuration into runtime constants
+                    Var.config = config;
                 }
-
-                // save configuration into runtime constants
-                Var.baseUrl = config.getBaseUrl();
-
                 // check whether the user has logged in before.
                 SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
                 long uid = prefs.getLong("uid", -1);
@@ -58,12 +58,16 @@ public class StartupActivity extends BaseActivity {
                     activityClass = MainActivity.class;
                     Var.uid = uid;
                     Var.password = prefs.getString("password", "123456");
+                    String name = prefs.getString("name", null);
+                    if (name == null && config == null) {
+                        info(getString(R.string.network_required_for_upgrade));
+                        return;
+                    }
                 }
                 Intent intent = new Intent(context, activityClass);
-                intent.putExtra("NetworkStatus", networkStatus);
                 startActivity(intent);
             }
         });
-    }
 
+    }
 }

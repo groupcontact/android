@@ -1,8 +1,10 @@
 package seaice.app.groupcontact.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,28 +12,28 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import butterknife.OnClick;
-import seaice.app.groupcontact.Var;
-
+import seaice.app.groupcontact.Let;
+import seaice.app.groupcontact.QrcodeActivity;
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.ScanActivity;
+import seaice.app.groupcontact.UserAddActivity;
+import seaice.app.groupcontact.UserEditActivity;
+import seaice.app.groupcontact.Var;
+import seaice.app.groupcontact.adapter.ProfileAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
-import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.utils.CipherUtils;
 
 /**
  * User Profile Info Edit And Save.
@@ -43,23 +45,10 @@ public class ProfileFragment extends BaseFragment {
     @Inject
     UserAPI mUserAPI;
 
-    @InjectView(R.id.editName)
-    EditText mNameView;
+    @InjectView(R.id.profileList)
+    ListView mListView;
 
-    @InjectView(R.id.editPhone)
-    EditText mPhoneView;
-
-    @InjectView(R.id.editEmail)
-    EditText mEmailView;
-
-    @InjectView(R.id.editWechat)
-    EditText mWechatView;
-
-    private UserAO currentUser;
-
-    private Context mContext;
-
-    private Long mUid;
+    static final int SCAN_REQUEST_CODE = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,36 +58,24 @@ public class ProfileFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.inject(this, rootView);
 
-        mUid = Var.uid;
-        mContext = getActivity();
+        mListView.setAdapter(new ProfileAdapter(getActivity(), getStringArray(R.array.profile_menu_texts)));
 
-        // find user
-        mUserAPI.find(mUid, new BaseCallback<List<UserAO>>(mContext) {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void call(List<UserAO> result) {
-                UserAO user;
-                if (result == null) {
-                    // no internet access
-                    user = currentUser;
-                } else if (result.size() == 0) {
-                    // some internal info happened
-                    return;
-                } else {
-                    currentUser = result.get(0);
-                    user = currentUser;
-                }
-
-                mNameView.setText(user.getName());
-                mPhoneView.setText(user.getPhone());
-                try {
-                    JSONObject extObj = new JSONObject(user.getExt());
-                    mEmailView.setText(extObj.optString("email", ""));
-                    mWechatView.setText(extObj.optString("wechat", ""));
-                } catch (JSONException e) {
-                    // ignore this;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    Intent intent = new Intent(getActivity(), UserEditActivity.class);
+                    startActivity(intent);
+                } else if (position == 1) {
+                    Intent intent = new Intent(getActivity(), QrcodeActivity.class);
+                    startActivity(intent);
+                } else if (position == 2) {
+                    Intent intent = new Intent(getActivity(), ScanActivity.class);
+                    startActivityForResult(intent, SCAN_REQUEST_CODE);
                 }
             }
         });
+
         return rootView;
     }
 
@@ -119,33 +96,29 @@ public class ProfileFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.action_save_user)
-    public void save() {
-        UserAO user = new UserAO();
-        user.setUid(mUid);
-        user.setName(mNameView.getText().toString());
-        user.setPhone(mPhoneView.getText().toString());
-        JSONObject extObj = new JSONObject();
-        try {
-            extObj.put("email", mEmailView.getText().toString());
-            extObj.put("wechat", mWechatView.getText().toString());
-            user.setExt(extObj.toString());
-        } catch (JSONException e) {
-            user.setExt("{}");
-        }
-        mUserAPI.save(user, Var.password, new BaseCallback<GeneralAO>(mContext) {
-            @Override
-            public void call(GeneralAO result) {
-                if (result.getStatus() == 1) {
-                    Toast.makeText(mContext, mContext.getResources().getText(
-                            R.string.success_save_user), Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(mContext, mContext.getResources().getText(
-                            R.string.fail_save_user), Toast.LENGTH_LONG).show();
-                }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SCAN_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                handleScanResult(CipherUtils.decrypt(data.getStringExtra("result"), Let.DEFAULT_KEY));
             }
-        });
+        }
     }
+
+    private void handleScanResult(String result) {
+        if (result == null) {
+            Toast.makeText(getActivity(), getString(R.string.error_scan_qrcode), Toast.LENGTH_LONG).show();
+        } else {
+            String[] tokens = result.split(":");
+            Intent intent = new Intent(getActivity(), UserAddActivity.class);
+            intent.putExtra("name", tokens[0]);
+            intent.putExtra("phone", tokens[1]);
+            startActivity(intent);
+        }
+    }
+
 
     private void resetPassword() {
         // Ask the user to enter the accessToken
@@ -182,21 +155,5 @@ public class ProfileFragment extends BaseFragment {
             }
         });
         builder.show();
-    }
-
-    @Override
-    public String getUnderlyingData() throws Exception {
-        return currentUser.toJSON().toString();
-    }
-
-    @Override
-    public void setUnderlyingData(String data) throws Exception {
-        JSONObject obj = new JSONObject(data);
-        currentUser = UserAO.parse(obj);
-    }
-
-    @Override
-    public String getUnderlyingPath() {
-        return getString(R.string.profile_storage);
     }
 }

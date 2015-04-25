@@ -1,5 +1,6 @@
 package seaice.app.groupcontact.api.ao;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -15,7 +16,7 @@ public class GeneralAO {
 
     private Long id;
 
-    public static GeneralAO parse(JSONObject obj) {
+    public static GeneralAO fromJSON(JSONObject obj) {
         GeneralAO result = new GeneralAO();
 
         result.setStatus(obj.optInt("status", -1));
@@ -23,6 +24,18 @@ public class GeneralAO {
         result.setInfo(obj.optString("info", ""));
 
         return result;
+    }
+
+    public static JSONObject toJSON(GeneralAO ao) {
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("status", ao.getStatus());
+            obj.put("info", ao.getInfo());
+            obj.put("id", ao.getInfo());
+            return obj;
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     public Integer getStatus() {

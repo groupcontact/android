@@ -41,4 +41,8 @@
         <attr name="passwordRadius" format="dimension" />
     </declare-styleable>
 
+    <style name="list_normal">
+        <item name="android:divider">#CCDDEE</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
 </resources>

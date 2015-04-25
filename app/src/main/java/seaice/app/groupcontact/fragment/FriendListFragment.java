@@ -14,23 +14,22 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import seaice.app.groupcontact.Let;
 import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.UserAddActivity;
 import seaice.app.groupcontact.UserInfoActivity;
+import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.utils.FileUtils;
 
 public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -47,13 +46,6 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     private SwipeRefreshLayout mLayout;
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        onRefresh();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -62,11 +54,17 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         ButterKnife.inject(this, mLayout);
         mLayout.setOnRefreshListener(this);
 
+        mAdapter = new UserListAdapter(getActivity(), false);
+        List<UserAO> dataset = FileUtils.read(getActivity(), Let.FRIEND_CACHE_PATH, UserAO.class);
+        // No Cache
+        if (dataset == null || dataset.size() == 0) {
+            onRefresh();
+        } else {
+            mAdapter.setDataset(dataset);
+        }
+
         mUserList.setAdapter(mAdapter);
-
         mUserList.setOnItemClickListener(this);
-
-        onRefresh();
 
         return mLayout;
     }
@@ -103,18 +101,26 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     @Override
     public void onRefresh() {
         Context context = getActivity();
-        Long uid = Var.uid;
 
-        mUserAPI.listFriend(uid, new BaseCallback<List<UserAO>>(context) {
+        mUserAPI.listFriend(Var.uid, new BaseCallback<List<UserAO>>(context) {
             @Override
             public void call(List<UserAO> result) {
-                // if there is no internet access, we should keep the current information by making no change
                 if (result == null) {
-                    return;
+                    // 如果是第一次请求数据，则直接从本地读取
+                    if (mAdapter.getCount() == 0) {
+                        mAdapter.setDataset(FileUtils.read(getActivity(), Let.FRIEND_CACHE_PATH,
+                                UserAO.class));
+                    }
+                    // 用户想刷新，弹出提示
+                    else {
+                        info(getString(R.string.error_network));
+                    }
+                } else {
+                    FileUtils.write(getActivity(), Let.FRIEND_CACHE_PATH, result, UserAO.class,
+                            result.size() != mAdapter.getCount());
+                    mAdapter.setDataset(result);
                 }
-
                 mLayout.setRefreshing(false);
-                mAdapter.setDataset(result);
             }
         });
     }
@@ -130,34 +136,4 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         }
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        mAdapter = new UserListAdapter(getActivity(), false);
-        super.onAttach(activity);
-    }
-
-    @Override
-    public String getUnderlyingData() throws Exception {
-        List<UserAO> users = mAdapter.getDataset();
-        JSONArray usersJSONArray = new JSONArray();
-        for (UserAO user : users) {
-            usersJSONArray.put(user.toJSON());
-        }
-        return usersJSONArray.toString();
-    }
-
-    @Override
-    public void setUnderlyingData(String data) throws Exception {
-        List<UserAO> users = new ArrayList<UserAO>();
-        JSONArray usersJSONArray = new JSONArray(data);
-        for (int i = 0; i < usersJSONArray.length(); i++) {
-            users.add(UserAO.parse(usersJSONArray.getJSONObject(i)));
-        }
-        mAdapter.setDataset(users);
-    }
-
-    @Override
-    public String getUnderlyingPath() {
-        return getString(R.string.friend_storage);
-    }
 }

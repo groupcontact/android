@@ -4,10 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- ZXING -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -80,6 +82,14 @@
             android:name=".ScanActivity"
             android:label="@string/title_activity_scan"
             android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserEditActivity"
+            android:label="@string/title_activity_user_edit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QrcodeActivity"
+            android:label="@string/title_activity_qrcode"
             android:screenOrientation="portrait" />
     </application>
 

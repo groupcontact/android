@@ -117,6 +117,10 @@ public class UserInfoActivity extends BaseActivity {
         mUserAPI.addFriend(Var.uid, Var.password, mUser.getName(), mUser.getPhone(),
                 new BaseCallback<GeneralAO>(this) {
                     public void call(GeneralAO result) {
+                        if (result == null) {
+                            info(getString(R.string.error_network));
+                            return;
+                        }
                         if (result.getStatus() == 1) {
                             info(getString(R.string.success_add_friend));
                             finish();
@@ -132,6 +136,10 @@ public class UserInfoActivity extends BaseActivity {
         mUserAPI.deleteFriend(Var.uid, Var.password, mUser.getUid(),
                 new BaseCallback<GeneralAO>(this) {
                     public void call(GeneralAO result) {
+                        if (result == null) {
+                            info(getString(R.string.error_network));
+                            return;
+                        }
                         if (result.getStatus() == 1) {
                             info(getString(R.string.success_delete_friend));
                             Intent returnIntent = new Intent();

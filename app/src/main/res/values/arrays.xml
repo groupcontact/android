@@ -6,9 +6,14 @@
         <item>Groups</item>
         <item>Profile</item>
     </string-array>
-    <string-array name="add_friend_menu">a
+    <string-array name="add_friend_menu">
         <item>Add Person</item>
         <item>Scan QR Code</item>
+    </string-array>
+    <string-array name="profile_menu_texts">
+        <item>My QR Code</item>
+        <item>Scan QR Code</item>
+        <item>Settings</item>
     </string-array>
 
 </resources>

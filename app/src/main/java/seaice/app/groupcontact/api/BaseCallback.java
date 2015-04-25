@@ -28,7 +28,6 @@ public class BaseCallback<T> implements Callback<T> {
 
     @Override
     public void error(String message) {
-        info(message);
         call(null);
     }
 }

@@ -38,6 +38,12 @@ public class UserAddActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.inject(this);
+
+        String name = getIntent().getStringExtra("name");
+        String phone = getIntent().getStringExtra("phone");
+
+        mNameView.setText(name);
+        mPhoneView.setText(phone);
     }
 
     @OnClick(R.id.user_add_add)

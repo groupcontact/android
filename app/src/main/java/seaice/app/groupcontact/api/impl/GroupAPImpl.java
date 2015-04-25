@@ -18,7 +18,7 @@ import seaice.app.groupcontact.utils.CipherUtils;
 
 public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
 
-    private static final String URL = "http://groupcontact.duapp.com/api/v2/groups";
+    private static final String URL = Let.API_GROUP;
 
     public GroupAPImpl(Context context) {
         super(context);

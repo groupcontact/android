@@ -11,5 +11,10 @@
         <item>添加好友</item>
         <item>扫一扫</item>
     </string-array>
+    <string-array name="profile_menu_texts">
+        <item>我的二维码</item>
+        <item>扫一扫</item>
+        <item>设置</item>
+    </string-array>
 
 </resources>

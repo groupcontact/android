@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.ao.ConfigAO;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -40,13 +41,13 @@ public abstract class VolleyBaseAPImpl {
 
     private static <T> T parseResponse(JSONObject response, Class<T> typedClass) {
         if (typedClass.equals(GeneralAO.class)) {
-            return (T) GeneralAO.parse(response);
+            return (T) GeneralAO.fromJSON(response);
         } else if (typedClass.equals(UserAO.class)) {
-            return (T) UserAO.parse(response);
+            return (T) UserAO.fromJSON(response);
         } else if (typedClass.equals(GroupAO.class)) {
-            return (T) GroupAO.parse(response);
+            return (T) GroupAO.fromJSON(response);
         } else if (typedClass.equals(ConfigAO.class)) {
-            return (T) ConfigAO.parse(response);
+            return (T) ConfigAO.fromJSON(response);
         }
         return null;
     }
@@ -81,7 +82,7 @@ public abstract class VolleyBaseAPImpl {
         mQueue.add(request);
     }
 
-    public static class APIErrorListener implements Response.ErrorListener {
+    class APIErrorListener implements Response.ErrorListener {
 
         private Callback<?> mCallback;
 
@@ -91,11 +92,11 @@ public abstract class VolleyBaseAPImpl {
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            mCallback.error("Network Failure");
+            mCallback.error(mContext.getString(R.string.error_network));
         }
     }
 
-    public static class APIJSONArrayListener<T> implements Response.Listener<JSONArray> {
+    class APIJSONArrayListener<T> implements Response.Listener<JSONArray> {
 
         private Callback<List<T>> mCallback;
 
@@ -120,7 +121,7 @@ public abstract class VolleyBaseAPImpl {
         }
     }
 
-    public static class APIJSONObjectListener<T> implements Response.Listener<JSONObject> {
+    class APIJSONObjectListener<T> implements Response.Listener<JSONObject> {
 
         private Callback<T> mCallback;
 

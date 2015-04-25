@@ -109,12 +109,16 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         mGroupAPI.list(mGid, new BaseCallback<List<UserAO>>(this) {
             @Override
             public void call(List<UserAO> result) {
-                mUserList.setVisibility(View.VISIBLE);
                 if (mLayout.isRefreshing()) {
                     mLayout.setRefreshing(false);
                 } else {
                     mDialog.dismiss();
                 }
+                if (result == null) {
+                    info(getString(R.string.error_network));
+                    return;
+                }
+                mUserList.setVisibility(View.VISIBLE);
                 mAdapter.setDataset(result);
             }
         });

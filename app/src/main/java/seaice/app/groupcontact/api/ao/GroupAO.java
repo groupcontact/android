@@ -36,7 +36,7 @@ public class GroupAO implements Parcelable {
     private String accessToken;
     private String modifyToken;
 
-    public static GroupAO parse(JSONObject obj) {
+    public static GroupAO fromJSON(JSONObject obj) {
         GroupAO group = new GroupAO();
         group.setGid(obj.optLong("id", -1L));
         group.setName(obj.optString("name", ""));
@@ -45,13 +45,16 @@ public class GroupAO implements Parcelable {
         return group;
     }
 
-    public JSONObject toJSON() throws JSONException {
-        JSONObject obj = new JSONObject();
-        obj.put("id", gid);
-        obj.put("name", name);
-        obj.put("desc", desc);
-
-        return obj;
+    public static JSONObject toJSON(GroupAO group) {
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("id", group.getGid());
+            obj.put("name", group.getName());
+            obj.put("desc", group.getDesc());
+            return obj;
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     public String getName() {

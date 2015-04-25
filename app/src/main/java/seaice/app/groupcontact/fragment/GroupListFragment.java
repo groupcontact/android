@@ -14,9 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,14 +21,17 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.GroupCreateActivity;
+import seaice.app.groupcontact.Let;
 import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
+import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
+import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.utils.FileUtils;
 
 public class GroupListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -48,13 +48,6 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
     private SwipeRefreshLayout mLayout;
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        onRefresh();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -63,16 +56,21 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
                 container, false);
         ButterKnife.inject(this, mLayout);
 
-        final Context context = getActivity();
+        mAdapter = new GroupListAdapter(getActivity());
+        List<GroupAO> dataset = FileUtils.read(getActivity(), Let.GROUP_CACHE_PATH, GroupAO.class);
+        // No Cache
+        if (dataset == null || dataset.size() == 0) {
+            onRefresh();
+        } else {
+            mAdapter.setDataset(dataset);
+        }
         mGroupList.setAdapter(mAdapter);
-
-        onRefresh();
 
         mGroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // here the id is the group id, and here we jumps to the UserListActivity
-                Intent intent = new Intent(context, UserListActivity.class);
+                Intent intent = new Intent(getActivity(), UserListActivity.class);
                 GroupAO group = (GroupAO) parent.getAdapter().getItem(position);
                 intent.putExtra("gid", group.getGid());
                 intent.putExtra("name", group.getName());
@@ -116,13 +114,22 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
         mUserAPI.listGroup(uid, new BaseCallback<List<GroupAO>>(context) {
             @Override
             public void call(List<GroupAO> result) {
-                // if there is no internet access, we should keep the current information by making no change
                 if (result == null) {
-                    return;
+                    // 如果是第一次请求数据，则直接从本地读取
+                    if (mAdapter.getCount() == 0) {
+                        mAdapter.setDataset(FileUtils.read(getActivity(), Let.GROUP_CACHE_PATH,
+                                GroupAO.class));
+                    }
+                    // 用户想刷新，弹出提示
+                    else {
+                        info(getString(R.string.error_network));
+                    }
+                } else {
+                    FileUtils.write(getActivity(), Let.GROUP_CACHE_PATH, result, GroupAO.class,
+                            result.size() != mAdapter.getCount());
+                    mAdapter.setDataset(result);
                 }
-
                 mLayout.setRefreshing(false);
-                mAdapter.setDataset(result);
             }
         });
     }
@@ -136,36 +143,5 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
                 onRefresh();
             }
         }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        mAdapter = new GroupListAdapter(activity);
-        super.onAttach(activity);
-    }
-
-    @Override
-    public String getUnderlyingData() throws Exception {
-        List<GroupAO> groups = mAdapter.getDataset();
-        JSONArray groupsJSONArray = new JSONArray();
-        for (GroupAO group : groups) {
-            groupsJSONArray.put(group.toJSON());
-        }
-        return groupsJSONArray.toString();
-    }
-
-    @Override
-    public void setUnderlyingData(String data) throws Exception {
-        List<GroupAO> groups = new ArrayList<GroupAO>();
-        JSONArray groupsJSONArray = new JSONArray(data);
-        for (int i = 0; i < groupsJSONArray.length(); i++) {
-            groups.add(GroupAO.parse(groupsJSONArray.getJSONObject(i)));
-        }
-        mAdapter.setDataset(groups);
-    }
-
-    @Override
-    public String getUnderlyingPath() {
-        return getString(R.string.group_storage);
     }
 }

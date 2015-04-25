@@ -36,7 +36,7 @@ public class UserAO implements Parcelable {
     private String phone;
     private String ext;
 
-    public static UserAO parse(JSONObject obj) {
+    public static UserAO fromJSON(JSONObject obj) {
         UserAO user = new UserAO();
         user.setUid(obj.optLong("id", -1L));
         user.setName(obj.optString("name", ""));
@@ -46,14 +46,18 @@ public class UserAO implements Parcelable {
         return user;
     }
 
-    public JSONObject toJSON() throws JSONException {
-        JSONObject obj = new JSONObject();
-        obj.put("id", uid);
-        obj.put("name", name);
-        obj.put("phone", phone);
-        obj.put("ext", ext);
+    public static JSONObject toJSON(UserAO user) {
+        try {
+            JSONObject obj = new JSONObject();
+            obj.put("id", user.getUid());
+            obj.put("name", user.getName());
+            obj.put("phone", user.getPhone());
+            obj.put("ext", user.getExt());
 
-        return obj;
+            return obj;
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     public Long getUid() {

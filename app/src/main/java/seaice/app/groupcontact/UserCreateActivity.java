@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,8 +29,8 @@ import seaice.app.groupcontact.utils.AnimationUtils;
  */
 public class UserCreateActivity extends BaseActivity {
 
-    @InjectView(R.id.user_create_password)
-    EditText mPasswordView;
+    @InjectView(R.id.user_create_code)
+    EditText mCodeView;
 
     @InjectView(R.id.user_create_phone)
     EditText mPhoneView;
@@ -62,7 +64,7 @@ public class UserCreateActivity extends BaseActivity {
     @OnClick(R.id.user_create_create)
     public void createUser() {
         String phone = mPhoneView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String password = mCodeView.getText().toString();
         String name = mNameView.getText().toString();
 
         mDialog.setMessage(getString(R.string.progress_wait));
@@ -81,6 +83,10 @@ public class UserCreateActivity extends BaseActivity {
             @Override
             public void call(GeneralAO result) {
                 mDialog.dismiss();
+                if (result == null) {
+                    info(getString(R.string.error_network));
+                    return;
+                }
                 mUserId = result.getId();
                 if (result.getStatus() == 1) {
                     // 再输入用户名
@@ -88,7 +94,7 @@ public class UserCreateActivity extends BaseActivity {
                     mNameView.requestFocus();
                     // 手机号输入和密码输入需要被禁掉
                     mPhoneView.setEnabled(false);
-                    mPasswordView.setEnabled(false);
+                    mCodeView.setEnabled(false);
                     // 按钮文字也需要改成保存并继续
                     mCreateView.setText(getString(R.string.user_create_save));
                 } else if (result.getStatus() == 2) {
@@ -106,9 +112,13 @@ public class UserCreateActivity extends BaseActivity {
         user.setName(name);
         user.setPhone(phone);
         user.setExt("{}");
-        mUserAPI.save(user, mPasswordView.getText().toString(), new BaseCallback<GeneralAO>(this) {
+        mUserAPI.save(user, mCodeView.getText().toString(), new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
+                if (result == null) {
+                    info(getString(R.string.error_network));
+                    return;
+                }
                 if (result.getStatus() == 1) {
                     success();
                 } else {
@@ -121,9 +131,9 @@ public class UserCreateActivity extends BaseActivity {
     private void success() {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         prefs.edit().putLong("uid", mUserId).apply();
-        prefs.edit().putString("password", mPasswordView.getText().toString()).apply();
+        prefs.edit().putString("password", mCodeView.getText().toString()).apply();
         Var.uid = mUserId;
-        Var.password = mPasswordView.getText().toString();
+        Var.password = mCodeView.getText().toString();
 
         Intent intent = new Intent(UserCreateActivity.this, MainActivity.class);
         intent.putExtras(getIntent());

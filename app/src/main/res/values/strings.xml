@@ -7,7 +7,7 @@
     <string name="title_activity_edit">Edit</string>
     <string name="title_activity_main">GroupContact</string>
     <string name="title_activity_user_list">UserList</string>
-    <string name="title_activity_create_user">Login/Register</string>
+    <string name="title_activity_create_user">Login</string>
 
     <string name="action_search">Search</string>
     <string name="action_save">Save</string>
@@ -15,7 +15,7 @@
 
     <string name="enter_name">Name(Real Name)</string>
     <string name="enter_phone">Phone Number</string>
-    <string name="action_create_user">Login/Register</string>
+    <string name="action_create_user">Login</string>
 
     <string name="hint_search_group">Group Name</string>
     <string name="hint_enter_token">Access Token</string>
@@ -51,7 +51,7 @@
 
     <string name="action_add_user">Add Friend</string>
     <string name="action_create_group">CreateGroup</string>
-    <string name="title_activity_group_create">GroupCreateActivity</string>
+    <string name="title_activity_group_create">CreateGroup</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="enter_group_modify">Modify Token</string>
@@ -88,5 +88,13 @@
 
     <string name="action_leave_group">Leave Group</string>
     <string name="success_leave_group">Leave Group Successfully</string>
-    <string name="title_activity_scan">ScanActivity</string>
+    <string name="title_activity_scan">ScanQRCode</string>
+    <string name="action_send_code">SendCode</string>
+    <string name="enter_code">EnterCode</string>
+    <string name="error_network">Network Disconnected</string>
+    <string name="title_activity_user_edit">EditUser</string>
+    <string name="title_activity_qrcode">My QR Code</string>
+    <string name="tip_scan_add_friend">Scan this code to add me as friend</string>
+    <string name="network_required_for_upgrade">Please Connect to Network for Upgrade</string>
+    <string name="error_scan_qrcode">The QR Code Can not be Recognized</string>
 </resources>
