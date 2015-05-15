@@ -38,7 +38,13 @@ public class MainPagerAdapter extends FragmentPagerAdapter implements TabBarAdap
 
     @Override
     public int getIcon(int position) {
-        return R.raw.me;
+        if (position == 0) {
+            return R.raw.friend;
+        } else if (position == 1) {
+            return R.raw.group;
+        } else {
+            return R.raw.me;
+        }
     }
 
     @Override

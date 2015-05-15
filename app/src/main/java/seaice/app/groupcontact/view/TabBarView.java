@@ -297,7 +297,7 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
         // 范围检查
         if (mTabIndex >= 0 && mTabIndex < mAdapter.getCount()) {
             mTitleList.get(mTabIndex).setTextColor(mTitleColor);
-            mIconList.get(mTabIndex).setImageDrawable(getInterDrawable(to, 0));
+            mIconList.get(mTabIndex).setImageDrawable(getInterDrawable(mTabIndex, 0));
         }
         if (to >= 0 && to < mAdapter.getCount()) {
             mTitleList.get(to).setTextColor(mTitleSelectedColor);
