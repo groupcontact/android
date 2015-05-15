@@ -2,6 +2,8 @@ package seaice.app.groupcontact;
 
 import android.app.Application;
 
+import com.umeng.analytics.MobclickAgent;
+
 import dagger.ObjectGraph;
 import seaice.app.groupcontact.api.APIModule;
 
@@ -18,5 +20,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         objectGraph = ObjectGraph.create(new APIModule(this));
+
+        MobclickAgent.openActivityDurationTrack(false);
     }
 }

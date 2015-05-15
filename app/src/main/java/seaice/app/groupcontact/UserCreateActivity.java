@@ -132,30 +132,17 @@ public class UserCreateActivity extends BaseActivity {
     private void success() {
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         prefs.edit().putLong("uid", mUserId).apply();
-        prefs.edit().putString("password", mCodeView.getText().toString()).apply();
-        Var.uid = mUserId;
-        Var.password = mCodeView.getText().toString();
+        String name = mNameView.getText().toString();
+        prefs.edit().putString("name", name).apply();
+        String password = mCodeView.getText().toString();
+        prefs.edit().putString("password", password).apply();
 
-        loadUserInfo();
+        Intent data = new Intent();
+        data.putExtra("uid", mUserId);
+        data.putExtra("name", name);
+        data.putExtra("password", password);
+        setResult(Let.REQUEST_CODE_CREATE_USER, data);
+        finish();
     }
 
-    private void loadUserInfo() {
-        // load user info
-        mUserAPI.find(Var.uid, new BaseCallback<List<UserAO>>(this) {
-            @Override
-            public void call(List<UserAO> result) {
-                // 如果网络有错误，则从本地读取
-                if (result == null || result.size() == 0) {
-                    result = FileUtils.read(UserCreateActivity.this, Let.PROFILE_CACHE_PATH, UserAO.class);
-                } else {
-                    FileUtils.write(UserCreateActivity.this, Let.PROFILE_CACHE_PATH, result, UserAO.class, true);
-                    getSharedPreferences("prefs", MODE_PRIVATE).edit().putString("name", result.get(0)
-                            .getName()).apply();
-                }
-                Var.userAO = result.get(0);
-                Intent intent = new Intent(UserCreateActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 }

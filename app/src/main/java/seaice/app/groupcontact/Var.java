@@ -23,6 +23,8 @@ public class Var {
 
     public static Long uid = -1L;
 
+    public static String name = "";
+
     public static String password = "";
 
 }

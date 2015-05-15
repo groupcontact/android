@@ -19,4 +19,12 @@ public class Let {
     public static final String APP_DIR = Environment.getExternalStorageDirectory() + "/GroupContact/";
 
     public static final int APP_VERSION = 3;
+
+    public static final int REQUEST_CODE_CREATE_USER = 1;
+
+    public static final int REQUEST_CODE_ADD_FRIEND = 2;
+
+    public static final int REQUEST_CODE_CREATE_GROUP = 3;
+
+    public static final int REQUEST_CODE_JOIN_GROUP = 4;
 }

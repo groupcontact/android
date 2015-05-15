@@ -1,5 +1,6 @@
 package seaice.app.groupcontact;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -61,24 +62,41 @@ public class StartupActivity extends BaseActivity {
                 long uid = prefs.getLong("uid", -1);
                 // Yes, the user logged in before.
                 if (uid != -1) {
-                    Var.uid = uid;
-                    Var.password = prefs.getString("password", "123456");
+                    String password = prefs.getString("password", "123456");
+                    // 升级前没有存储name字段
                     String name = prefs.getString("name", null);
                     if (name == null && config == null) {
                         info(getString(R.string.network_required_for_upgrade));
                         return;
                     }
-                    loadUserInfo();
+                    loadUserInfo(uid, name, password);
                 } else {
                     Intent intent = new Intent(context, UserCreateActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, Let.REQUEST_CODE_CREATE_USER);
                 }
             }
         });
-
     }
 
-    private void loadUserInfo() {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Let.REQUEST_CODE_CREATE_USER) {
+            if (resultCode == Activity.RESULT_OK) {
+                long uid = data.getLongExtra("uid", -1);
+                String name = data.getStringExtra("name");
+                String password = data.getStringExtra("password");
+                loadUserInfo(uid, name, password);
+                super.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+        finish();
+    }
+
+    private void loadUserInfo(long uid, String name, String password) {
+        Var.uid = uid;
+        Var.name = name;
+        Var.password = password;
+
         // load user info
         mUserAPI.find(Var.uid, new BaseCallback<List<UserAO>>(this) {
             @Override

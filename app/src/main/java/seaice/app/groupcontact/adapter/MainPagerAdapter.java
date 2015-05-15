@@ -4,11 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.fragment.FriendListFragment;
 import seaice.app.groupcontact.fragment.GroupListFragment;
 import seaice.app.groupcontact.fragment.ProfileFragment;
+import seaice.app.groupcontact.view.TabBarAdapter;
 
-public class MainPagerAdapter extends FragmentPagerAdapter {
+public class MainPagerAdapter extends FragmentPagerAdapter implements TabBarAdapter {
+
     private String[] mTitles;
 
     public MainPagerAdapter(FragmentManager fm) {
@@ -31,6 +34,16 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return mTitles.length;
+    }
+
+    @Override
+    public int getIcon(int position) {
+        return R.raw.me;
+    }
+
+    @Override
+    public String getTitle(int position) {
+        return getPageTitle(position).toString();
     }
 
     @Override

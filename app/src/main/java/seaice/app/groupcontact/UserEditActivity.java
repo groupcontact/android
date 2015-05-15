@@ -85,6 +85,10 @@ public class UserEditActivity extends BaseActivity {
         mUserAPI.save(user, Var.password, new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
+                if (result == null) {
+                    info(getString(R.string.error_network));
+                    return;
+                }
                 if (result.getStatus() == 1) {
                     Toast.makeText(mContext, mContext.getResources().getText(
                             R.string.success_save_user), Toast.LENGTH_LONG).show();

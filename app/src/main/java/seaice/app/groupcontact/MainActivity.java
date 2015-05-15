@@ -20,6 +20,7 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.FileUtils;
 import seaice.app.groupcontact.view.PagerSlidingTabStrip;
+import seaice.app.groupcontact.view.TabBarView;
 
 /**
  * The First Screen In Action: Three Tabs(Groups, Friends, Profile)
@@ -34,8 +35,8 @@ public class MainActivity extends ActionBarActivity {
 
     @InjectView(R.id.pager)
     ViewPager mPager;
-    @InjectView(R.id.pagerIndicator)
-    PagerSlidingTabStrip mIndicator;
+    @InjectView(R.id.tabBar)
+    TabBarView mTabBarView;
     private int mBackCount = 0;
 
     @Override
@@ -48,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
         adapter.setTitles(getResources().getStringArray(R.array.pager_titles));
 
         mPager.setAdapter(adapter);
-        mIndicator.setViewPager(mPager);
+        mTabBarView.setViewPager(mPager);
 
         // there are three pages in totally, so just increase the size for performance
         mPager.setOffscreenPageLimit(2);
