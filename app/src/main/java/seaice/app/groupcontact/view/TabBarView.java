@@ -29,14 +29,17 @@ import seaice.app.groupcontact.utils.ColorUtils;
  */
 public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
-    /* 表示当前显示的是第几个tab */
-    private int mTabIndex = 0;
+    /* 表示当前显示的是第几个tab, -1表示不可用 */
+    private int mTabIndex = -1;
 
     /* 模型数据 */
     private TabBarAdapter mAdapter;
 
     /* ViewPager实例 */
     private ViewPager mPager;
+
+    /* tab变化监听器 */
+    private OnTabChangeListener mListener;
 
     /* 标题TextView的列表 */
     private List<TextView> mTitleList;
@@ -99,8 +102,18 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
      */
     public void setViewPager(ViewPager pager) {
         mPager = pager;
-        mAdapter = (TabBarAdapter) pager.getAdapter();
         pager.setOnPageChangeListener(this);
+
+        setAdapter((TabBarAdapter) pager.getAdapter());
+    }
+
+    /**
+     * 如果不是使用ViewPager, 则只需要设置adapter就可以
+     *
+     * @param adapter
+     */
+    public void setAdapter(TabBarAdapter adapter) {
+        mAdapter = adapter;
 
         /* 重置初始状态 */
         removeAllViews();
@@ -122,6 +135,20 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
             mTitleList.add(title);
             addView(tab, getTabLayoutParams());
         }
+
+        // 当前tab设置为第一个
+        changeTab(0);
+    }
+
+    /* tab变化的监听器 */
+    public interface OnTabChangeListener {
+
+        public void onTabChange(int from, int to);
+    }
+
+    /* 当不是使用ViewPager时, 这里是另外一种替代方式 */
+    public void setOnTabChangeListener(OnTabChangeListener listener) {
+        mListener = listener;
     }
 
     /**
@@ -171,15 +198,8 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
 
     @Override
     public void onPageScrolled(int position, float offset, int positionOffsetPixels) {
-        if (offset == 0f) {
-            mTitleList.get(mTabIndex).setTextColor(mTitleColor);
-            mIconList.get(mTabIndex).setImageDrawable(getInterDrawable(position, 0));
-            mTitleList.get(position).setTextColor(mTitleSelectedColor);
-            mIconList.get(position).setImageDrawable(getInterDrawable(position, 1));
-            mTabIndex = position;
-            return;
-        }
-        if (!mUseAnimation) {
+        if (offset == 0f || !mUseAnimation) {
+            changeTab(position);
             return;
         }
         /* 选中色到普通色 */
@@ -258,7 +278,31 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
     @Override
     public void onClick(View v) {
         int position = indexOfChild(v);
-        mPager.setCurrentItem(position, false);
+        if (mListener != null) {
+            mListener.onTabChange(mTabIndex, position);
+        }
+        if (mPager != null) {
+            mPager.setCurrentItem(position, false);
+        } else {
+            /* 手动修改Tab */
+            changeTab(position);
+        }
     }
 
+    /* 变换Tab */
+    protected void changeTab(int to) {
+        if (mTabIndex == to) {
+            return;
+        }
+        // 范围检查
+        if (mTabIndex >= 0 && mTabIndex < mAdapter.getCount()) {
+            mTitleList.get(mTabIndex).setTextColor(mTitleColor);
+            mIconList.get(mTabIndex).setImageDrawable(getInterDrawable(to, 0));
+        }
+        if (to >= 0 && to < mAdapter.getCount()) {
+            mTitleList.get(to).setTextColor(mTitleSelectedColor);
+            mIconList.get(to).setImageDrawable(getInterDrawable(to, 1));
+            mTabIndex = to;
+        }
+    }
 }
