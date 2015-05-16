@@ -1,25 +1,14 @@
 package seaice.app.groupcontact;
 
-import android.app.ActionBar;
-import android.app.Notification;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.MainPagerAdapter;
-import seaice.app.groupcontact.api.BaseCallback;
-import seaice.app.groupcontact.api.UserAPI;
-import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.utils.FileUtils;
-import seaice.app.groupcontact.view.PagerSlidingTabStrip;
 import seaice.app.groupcontact.view.TabBarView;
 
 /**

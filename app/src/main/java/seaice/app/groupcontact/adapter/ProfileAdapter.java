@@ -27,6 +27,11 @@ public class ProfileAdapter extends BaseAdapter {
     public ProfileAdapter(Context context, String[] textList) {
         mContext = context;
         mTextList = textList;
+        mDrawableList = new Integer[]{
+                R.drawable.qrcode,
+                R.drawable.scan,
+                R.drawable.feedback
+        };
     }
 
     @Override
@@ -57,9 +62,9 @@ public class ProfileAdapter extends BaseAdapter {
         } else {
             rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
             TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
-//            ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
+            ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
             textView.setText(mTextList[position - 1]);
-//            imageView.setImageResource(mDrawableList[position - 1]);
+            imageView.setImageResource(mDrawableList[position - 1]);
         }
         return rootView;
     }
