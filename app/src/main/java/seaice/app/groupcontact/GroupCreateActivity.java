@@ -39,9 +39,6 @@ public class GroupCreateActivity extends BaseActivity {
         setContentView(R.layout.activity_group_create);
 
         ButterKnife.inject(this);
-
-        // enable home button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

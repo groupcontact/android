@@ -35,8 +35,6 @@ public class UserAddActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_add);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ButterKnife.inject(this);
 
         String name = getIntent().getStringExtra("name");

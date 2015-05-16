@@ -51,8 +51,6 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
         ButterKnife.inject(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         final GroupListAdapter adapter = new GroupListAdapter(this);
         mSearchResult.setAdapter(adapter);
 

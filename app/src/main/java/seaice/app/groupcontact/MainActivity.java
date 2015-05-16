@@ -2,13 +2,14 @@ package seaice.app.groupcontact;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.MainPagerAdapter;
+import seaice.app.groupcontact.view.NavBarView;
 import seaice.app.groupcontact.view.TabBarView;
 
 /**
@@ -16,7 +17,7 @@ import seaice.app.groupcontact.view.TabBarView;
  *
  * @author zhb
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends FragmentActivity {
 
     // Support the press again to exit functionality..
     private static final int RESET_BACK_COUNT = 123456;
@@ -26,6 +27,8 @@ public class MainActivity extends ActionBarActivity {
     ViewPager mPager;
     @InjectView(R.id.tabBar)
     TabBarView mTabBarView;
+    @InjectView(R.id.navBar)
+    NavBarView mNavBarView;
     private int mBackCount = 0;
 
     @Override
@@ -34,11 +37,20 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        MainPagerAdapter adapter = new MainPagerAdapter(this.getSupportFragmentManager());
-        adapter.setTitles(getResources().getStringArray(R.array.pager_titles));
+        final String[] titles = getResources().getStringArray(R.array.pager_titles);
+        MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());
+        adapter.setTitles(titles);
 
         mPager.setAdapter(adapter);
         mTabBarView.setViewPager(mPager);
+
+        mTabBarView.setOnTabChangeListener(new TabBarView.OnTabChangeListener() {
+            @Override
+            public void onTabChange(int from, int to) {
+                mNavBarView.setTitle(titles[to]);
+            }
+        });
+        mNavBarView.setTitle(titles[0]);
 
         // there are three pages in totally, so just increase the size for performance
         mPager.setOffscreenPageLimit(2);

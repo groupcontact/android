@@ -143,7 +143,7 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
     /* tab变化的监听器 */
     public interface OnTabChangeListener {
 
-        public void onTabChange(int from, int to);
+        void onTabChange(int from, int to);
     }
 
     /* 当不是使用ViewPager时, 这里是另外一种替代方式 */
@@ -278,9 +278,6 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
     @Override
     public void onClick(View v) {
         int position = indexOfChild(v);
-        if (mListener != null) {
-            mListener.onTabChange(mTabIndex, position);
-        }
         if (mPager != null) {
             mPager.setCurrentItem(position, false);
         } else {
@@ -302,7 +299,11 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
         if (to >= 0 && to < mAdapter.getCount()) {
             mTitleList.get(to).setTextColor(mTitleSelectedColor);
             mIconList.get(to).setImageDrawable(getInterDrawable(to, 1));
+            if (mListener != null) {
+                mListener.onTabChange(mTabIndex, to);
+            }
             mTabIndex = to;
         }
+
     }
 }

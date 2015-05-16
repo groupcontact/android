@@ -57,8 +57,6 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
 
         mLayout.setOnRefreshListener(this);
         mUserList.setVisibility(View.INVISIBLE);
-        // enable home button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mGid = getIntent().getLongExtra("gid", -1L);
         setTitle(getIntent().getStringExtra("name"));

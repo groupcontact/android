@@ -59,8 +59,6 @@ public class UserInfoActivity extends BaseActivity {
             mDeleteButton.setVisibility(View.GONE);
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mUser = getIntent().getParcelableExtra("user");
         if (mUser.getUid() == Var.uid) {
             mAddButton.setVisibility(View.GONE);

@@ -1,9 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="seaice.app.groupcontact.MainActivity">
+
+    <seaice.app.groupcontact.view.NavBarView
+        android:id="@+id/navBar"
+        android:background="@color/navBarColor"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
     <seaice.app.groupcontact.view.TabBarView
         android:id="@+id/tabBar"
@@ -23,6 +28,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@id/navBar" />
 
 </RelativeLayout>

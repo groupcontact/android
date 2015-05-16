@@ -41,8 +41,6 @@ public class UserEditActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_edit);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ButterKnife.inject(this);
 
         UserAO user = Var.userAO;

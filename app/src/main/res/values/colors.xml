@@ -10,4 +10,6 @@
     <color name="dark_label_color">#EFEFEF</color>
     <color name="dark_color">#222222</color>
     <color name="edit_color">#565656</color>
+    <color name="navBarColor">#33BBEE</color>
+    <color name="background">#FFE8E8E8</color>
 </resources>

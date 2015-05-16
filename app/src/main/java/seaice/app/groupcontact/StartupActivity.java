@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
@@ -41,8 +43,6 @@ public class StartupActivity extends BaseActivity {
         XiaomiUpdateAgent.update(this);
 
         setContentView(R.layout.activity_startup);
-
-        getSupportActionBar().hide();
 
         File file = new File(Let.APP_DIR);
         file.mkdirs();
