@@ -4,68 +4,74 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.utils.BitmapUtils;
+import seaice.app.groupcontact.view.TableAdapter;
 
-/**
- * Created by zhb on 4/25/15.
- */
-public class ProfileAdapter extends BaseAdapter {
+public class ProfileAdapter extends TableAdapter {
 
     String[] mTextList;
 
     Integer[] mDrawableList;
 
-    Context mContext;
-
     public ProfileAdapter(Context context, String[] textList) {
-        mContext = context;
+        super(context);
+
         mTextList = textList;
         mDrawableList = new Integer[]{
                 R.drawable.qrcode,
                 R.drawable.scan,
                 R.drawable.feedback
         };
+
+        notifyDataSetChanged();
     }
 
     @Override
-    public int getCount() {
-        return mTextList.length + 1;
+    public int getSectionCount() {
+        return 2;
     }
 
     @Override
-    public Object getItem(int position) {
+    public int getRowCount(int section) {
+        return section == 0 ? 1 : 3;
+    }
+
+    @Override
+    public View getRow(int section, int row) {
+        if (section == 0) {
+            return getMainView();
+        }
+        if (section == 1) {
+            return getMenuView(row);
+        }
         return null;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
+    private View getMainView() {
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_avatar, null);
+        ImageView avatarView = (ImageView) rootView.findViewById(R.id.profile_avatar);
+        avatarView.setImageBitmap(BitmapUtils.getCroppedBitmap(BitmapFactory.decodeResource(
+                mContext.getResources(), R.drawable.avatar)));
+        TextView nameView = (TextView) rootView.findViewById(R.id.profile_name);
+        nameView.setText(Var.userAO.getName());
+        TextView phoneView = (TextView) rootView.findViewById(R.id.profile_phone);
+        phoneView.setText(Var.userAO.getPhone());
+        return rootView;
     }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View rootView;
-        if (position == 0) {
-            rootView = LayoutInflater.from(mContext).inflate(R.layout.item_avatar, null);
-            ImageView avatarView = (ImageView) rootView.findViewById(R.id.profile_avatar);
-            avatarView.setImageBitmap(BitmapUtils.getCroppedBitmap(BitmapFactory.decodeResource(
-                    mContext.getResources(), R.drawable.avatar)));
-            TextView nameView = (TextView) rootView.findViewById(R.id.profile_name);
-            nameView.setText(Var.userAO.getName());
-        } else {
-            rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
-            TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
-            ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
-            textView.setText(mTextList[position - 1]);
-            imageView.setImageResource(mDrawableList[position - 1]);
-        }
+    private View getMenuView(int row) {
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
+        TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
+        textView.setText(mTextList[row]);
+        imageView.setImageResource(mDrawableList[row]);
         return rootView;
     }
 }

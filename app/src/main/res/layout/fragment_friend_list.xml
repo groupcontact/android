@@ -4,9 +4,8 @@
     android:layout_height="match_parent"
     tools:context="seaice.app.groupcontact.fragment.FriendListFragment">
 
-    <ListView
+    <seaice.app.groupcontact.view.TableView
         android:id="@+id/userList"
-        style="@style/list_normal"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

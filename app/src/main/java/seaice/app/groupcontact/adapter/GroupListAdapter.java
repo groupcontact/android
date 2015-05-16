@@ -3,8 +3,6 @@ package seaice.app.groupcontact.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,49 +10,36 @@ import java.util.List;
 
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.GroupAO;
+import seaice.app.groupcontact.view.TableAdapter;
 
-/**
- * Created by zhb on 2015/3/11.
- */
-public class GroupListAdapter extends BaseAdapter {
+public class GroupListAdapter extends TableAdapter {
 
-    private Context mContext;
-
-    private List<GroupAO> mDataset;
+    private List<GroupAO> mDataSet;
 
     public GroupListAdapter(Context context) {
-        mContext = context;
-        mDataset = new ArrayList<GroupAO>();
+        super(context);
+        mDataSet = new ArrayList<>();
     }
 
-    public void setDataset(List<GroupAO> dataset) {
-        mDataset = dataset;
+    public void setDataSet(List<GroupAO> dataset) {
+        mDataSet = dataset;
         notifyDataSetChanged();
     }
 
-    public List<GroupAO> getDataset() {
-        return mDataset;
+    @Override
+    public int getSectionCount() {
+        return 1;
     }
 
     @Override
-    public int getCount() {
-        return mDataset.size();
+    public int getRowCount(int section) {
+        return mDataSet.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return mDataset.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return mDataset.get(position).getGid();
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getRow(int section, int row) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_group, null);
-        GroupAO groupAO = mDataset.get(position);
+        GroupAO groupAO = mDataSet.get(row);
 
         TextView vNameView = (TextView) rootView.findViewById(R.id.groupName);
         vNameView.setText(groupAO.getName());
@@ -62,5 +47,14 @@ public class GroupListAdapter extends BaseAdapter {
         vDescView.setText(groupAO.getDesc());
 
         return rootView;
+    }
+
+    @Override
+    public List<Object> getDataSet() {
+        List<Object> dataSet = new ArrayList<>();
+        for (int i = 0; i < mDataSet.size(); ++i) {
+            dataSet.add(mDataSet.get(i));
+        }
+        return dataSet;
     }
 }

@@ -97,4 +97,5 @@
     <string name="tip_scan_add_friend">Scan this code to add me as friend</string>
     <string name="network_required_for_upgrade">Please Connect to Network for Upgrade</string>
     <string name="error_scan_qrcode">The QR Code Can not be Recognized</string>
+    <string name="avatarContentDesc">Avatar</string>
 </resources>

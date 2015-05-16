@@ -69,13 +69,13 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
                 String key = mSearchKey.getText().toString().trim();
                 if (key.equals("")) {
                     // do not allowed empty query
-                    adapter.setDataset(new ArrayList<GroupAO>());
+                    adapter.setDataSet(new ArrayList<GroupAO>());
                     return;
                 }
                 mGroupAPI.search(key, new BaseCallback<List<GroupAO>>(context) {
                     @Override
                     public void call(List<GroupAO> result) {
-                        adapter.setDataset(result);
+                        adapter.setDataSet(result);
                     }
                 });
             }

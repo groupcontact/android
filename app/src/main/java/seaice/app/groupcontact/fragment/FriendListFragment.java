@@ -30,6 +30,7 @@ import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.FileUtils;
+import seaice.app.groupcontact.view.TableView;
 
 public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -39,7 +40,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     UserAPI mUserAPI;
 
     @InjectView(R.id.userList)
-    ListView mUserList;
+    TableView mUserList;
 
     private UserListAdapter mAdapter;
 
@@ -60,7 +61,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         if (dataset == null || dataset.size() == 0) {
             onRefresh();
         } else {
-            mAdapter.setDataset(dataset);
+            mAdapter.setDataSet(dataset);
         }
 
         mUserList.setAdapter(mAdapter);
@@ -108,7 +109,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
                 if (result == null) {
                     // 如果是第一次请求数据，则直接从本地读取
                     if (mAdapter.getCount() == 0) {
-                        mAdapter.setDataset(FileUtils.read(getActivity(), Let.FRIEND_CACHE_PATH,
+                        mAdapter.setDataSet(FileUtils.read(getActivity(), Let.FRIEND_CACHE_PATH,
                                 UserAO.class));
                     }
                     // 用户想刷新，弹出提示
@@ -118,7 +119,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
                 } else {
                     FileUtils.write(getActivity(), Let.FRIEND_CACHE_PATH, result, UserAO.class,
                             result.size() != mAdapter.getCount());
-                    mAdapter.setDataset(result);
+                    mAdapter.setDataSet(result);
                 }
                 mLayout.setRefreshing(false);
             }

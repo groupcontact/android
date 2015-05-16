@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -22,6 +21,7 @@ import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.view.TableView;
 
 /**
  * The Screen Shows the listGroup of users in the specified group.
@@ -37,7 +37,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
     UserAPI mUserAPI;
 
     @InjectView(R.id.userList)
-    ListView mUserList;
+    TableView mUserList;
 
     private UserListAdapter mAdapter;
 
@@ -119,7 +119,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
                     return;
                 }
                 mUserList.setVisibility(View.VISIBLE);
-                mAdapter.setDataset(result);
+                mAdapter.setDataSet(result);
             }
         });
     }

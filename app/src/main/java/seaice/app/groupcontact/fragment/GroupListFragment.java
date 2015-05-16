@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -30,8 +29,8 @@ import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
-import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.FileUtils;
+import seaice.app.groupcontact.view.TableView;
 
 public class GroupListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -41,7 +40,7 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
     UserAPI mUserAPI;
 
     @InjectView(R.id.groupList)
-    ListView mGroupList;
+    TableView mGroupList;
 
     private GroupListAdapter mAdapter;
 
@@ -62,7 +61,7 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
         if (dataset == null || dataset.size() == 0) {
             onRefresh();
         } else {
-            mAdapter.setDataset(dataset);
+            mAdapter.setDataSet(dataset);
         }
         mGroupList.setAdapter(mAdapter);
 
@@ -117,7 +116,7 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
                 if (result == null) {
                     // 如果是第一次请求数据，则直接从本地读取
                     if (mAdapter.getCount() == 0) {
-                        mAdapter.setDataset(FileUtils.read(getActivity(), Let.GROUP_CACHE_PATH,
+                        mAdapter.setDataSet(FileUtils.read(getActivity(), Let.GROUP_CACHE_PATH,
                                 GroupAO.class));
                     }
                     // 用户想刷新，弹出提示
@@ -127,7 +126,7 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
                 } else {
                     FileUtils.write(getActivity(), Let.GROUP_CACHE_PATH, result, GroupAO.class,
                             result.size() != mAdapter.getCount());
-                    mAdapter.setDataset(result);
+                    mAdapter.setDataSet(result);
                 }
                 mLayout.setRefreshing(false);
             }

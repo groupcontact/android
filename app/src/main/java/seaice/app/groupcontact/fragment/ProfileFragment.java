@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.umeng.fb.FeedbackAgent;
@@ -36,6 +35,7 @@ import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.utils.CipherUtils;
+import seaice.app.groupcontact.view.TableView;
 
 /**
  * User Profile Info Edit And Save.
@@ -48,7 +48,7 @@ public class ProfileFragment extends BaseFragment {
     UserAPI mUserAPI;
 
     @InjectView(R.id.profileList)
-    ListView mListView;
+    TableView mTableView;
 
     static final int SCAN_REQUEST_CODE = 1;
 
@@ -60,21 +60,23 @@ public class ProfileFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.inject(this, rootView);
 
-        mListView.setAdapter(new ProfileAdapter(getActivity(), getStringArray(R.array.profile_menu_texts)));
+        mTableView.setAdapter(new ProfileAdapter(getActivity(), getStringArray(R.array.profile_menu_texts)));
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mTableView.setOnCellClickListener(new TableView.OnCellClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
+            public void onCellClick(AdapterView<?> parent, View view, int section, int row, long id) {
+                if (section == 0) {
                     Intent intent = new Intent(getActivity(), UserEditActivity.class);
                     startActivity(intent);
-                } else if (position == 1) {
+                    return;
+                }
+                if (row == 0) {
                     Intent intent = new Intent(getActivity(), QrcodeActivity.class);
                     startActivity(intent);
-                } else if (position == 2) {
+                } else if (row == 1) {
                     Intent intent = new Intent(getActivity(), ScanActivity.class);
                     startActivityForResult(intent, SCAN_REQUEST_CODE);
-                } else if (position == 3) {
+                } else {
                     FeedbackAgent agent = new FeedbackAgent(getActivity());
                     agent.startFeedbackActivity();
                 }
