@@ -21,56 +21,59 @@ import seaice.app.groupcontact.view.TableAdapter;
  */
 public class UserListAdapter extends TableAdapter {
 
-    private List<UserAO> mDataset;
+    private List<UserAO> mDataSet;
 
     private boolean mIsFromGroup;
 
     public UserListAdapter(Context context, boolean isFromGroup) {
         super(context);
 
-        mDataset = new ArrayList<>();
+        mDataSet = new ArrayList<>();
         mIsFromGroup = isFromGroup;
     }
 
     public void setDataSet(List<UserAO> dataSet) {
-        mDataset = dataSet;
+        mDataSet = dataSet;
         notifyDataSetChanged();
     }
 
     public List<Object> getDataSet() {
         List<Object> dataSet = new ArrayList<>();
-        for (int i = 0; i < mDataset.size(); ++i) {
-            dataSet.add(mDataset.get(i));
+        for (int i = 0; i < mDataSet.size(); ++i) {
+            dataSet.add(mDataSet.get(i));
         }
         return dataSet;
     }
 
     @Override
     public View getFooter() {
+        View rootView;
         if (!mIsFromGroup) {
-            return null;
-
+            rootView = LayoutInflater.from(mContext).inflate(R.layout.item_dataset_count, null);
+            TextView dataCount = (TextView) rootView.findViewById(R.id.dataCount);
+            dataCount.setText("总共" + mDataSet.size() + "位好友");
+        } else {
+            rootView = LayoutInflater.from(mContext).inflate(R.layout.item_leave, null);
+            Button button = (Button) rootView.findViewById(R.id.action_leave_group);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((UserListActivity) mContext).leaveGroup();
+                }
+            });
         }
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_leave, null);
-        Button button = (Button) rootView.findViewById(R.id.action_leave_group);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((UserListActivity) mContext).leaveGroup();
-            }
-        });
         return rootView;
     }
 
     @Override
     public int getRowCount(int section) {
-        return mDataset == null ? 0 : mDataset.size();
+        return mDataSet == null ? 0 : mDataSet.size();
     }
 
     @Override
     public View getRow(int section, int row) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_user, null);
-        UserAO userAO = mDataset.get(row);
+        UserAO userAO = mDataSet.get(row);
 
         TextView vNameView = (TextView) rootView.findViewById(R.id.userName);
         vNameView.setText(userAO.getName());
@@ -86,7 +89,7 @@ public class UserListAdapter extends TableAdapter {
     }
 
     public void remove(int position) {
-        mDataset.remove(position);
+        mDataSet.remove(position);
         notifyDataSetChanged();
     }
 }

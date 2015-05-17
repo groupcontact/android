@@ -1,11 +1,11 @@
 package seaice.app.groupcontact;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -22,7 +22,7 @@ import butterknife.InjectView;
 import seaice.app.groupcontact.utils.BitmapUtils;
 import seaice.app.groupcontact.utils.CipherUtils;
 
-public class QrcodeActivity extends ActionBarActivity {
+public class QrcodeActivity extends Activity {
 
     @InjectView(R.id.resultQRCode)
     ImageView mQrcodeView;
@@ -33,8 +33,6 @@ public class QrcodeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.inject(this);
 

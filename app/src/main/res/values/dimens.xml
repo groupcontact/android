@@ -9,7 +9,7 @@
     <dimen name="content_margin_bottom">0dp</dimen>
     <dimen name="content_margin_top">2dp</dimen>
     <dimen name="field_container_margin">8dp</dimen>
-    <dimen name="menu_margin">8dp</dimen>
+    <dimen name="menu_margin">16dp</dimen>
     <dimen name="menu_padding">8dp</dimen>
 
     <dimen name="default_ev_border_width">5dp</dimen>

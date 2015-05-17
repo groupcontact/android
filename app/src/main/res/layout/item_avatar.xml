@@ -30,8 +30,9 @@
             android:id="@+id/profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/content_color" />
+            android:textColor="@color/label_color" />
 
         <TextView
             android:id="@+id/profile_phone"
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="18205082827"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/content_color" />
+            android:textColor="@color/label_color" />
 
     </LinearLayout>
 

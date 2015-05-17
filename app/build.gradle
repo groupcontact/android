@@ -40,7 +40,7 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.mcxiaoke.volley:library:1.0.11'
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
@@ -49,4 +49,5 @@ dependencies {
     compile "com.google.zxing:android-core:3.2.0"
     compile 'com.umeng:fb:5.1.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.rengwuxian.materialedittext:library:2.1.3'
 }

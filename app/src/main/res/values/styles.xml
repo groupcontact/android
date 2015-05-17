@@ -1,9 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.NoTitleBar">
-        <item name="android:windowBackground">@color/background</item>
-        <item name="android:colorBackground">@color/background</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">?attr/colorPrimary</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+    </style>
+
+    <style name="PreAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
     </style>
 
     <style name="btn_normal" parent="@android:style/Widget.Button">

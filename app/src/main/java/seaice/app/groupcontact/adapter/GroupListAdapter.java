@@ -37,6 +37,14 @@ public class GroupListAdapter extends TableAdapter {
     }
 
     @Override
+    public View getFooter() {
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_dataset_count, null);
+        TextView dataCount = (TextView) rootView.findViewById(R.id.dataCount);
+        dataCount.setText("总共" + mDataSet.size() + "个群组");
+        return rootView;
+    }
+
+    @Override
     public View getRow(int section, int row) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_group, null);
         GroupAO groupAO = mDataSet.get(row);

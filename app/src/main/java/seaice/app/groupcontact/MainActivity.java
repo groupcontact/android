@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -51,6 +52,12 @@ public class MainActivity extends FragmentActivity {
             }
         });
         mNavBarView.setTitle(titles[0]);
+        mNavBarView.addRightBarItem(R.mipmap.ic_action_add, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // there are three pages in totally, so just increase the size for performance
         mPager.setOffscreenPageLimit(2);

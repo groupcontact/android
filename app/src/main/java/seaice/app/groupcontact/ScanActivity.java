@@ -1,5 +1,6 @@
 package seaice.app.groupcontact;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -8,7 +9,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,7 +25,7 @@ import seaice.app.groupcontact.zxing.decoding.CaptureActivityHandler;
 import seaice.app.groupcontact.zxing.decoding.InactivityTimer;
 import seaice.app.groupcontact.zxing.view.ViewfinderView;
 
-public class ScanActivity extends ActionBarActivity implements SurfaceHolder.Callback {
+public class ScanActivity extends Activity implements SurfaceHolder.Callback {
 
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
@@ -44,8 +44,6 @@ public class ScanActivity extends ActionBarActivity implements SurfaceHolder.Cal
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        getSupportActionBar().hide();
 
         setContentView(R.layout.activity_scan);
 

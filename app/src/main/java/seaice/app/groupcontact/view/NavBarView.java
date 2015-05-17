@@ -3,6 +3,8 @@ package seaice.app.groupcontact.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +23,9 @@ public class NavBarView extends RelativeLayout {
 
     int mTitleSize = DEFAULT_TITLE_SIZE;
     private static final int DEFAULT_TITLE_SIZE = 22;
+
+    int mBarItemMargin = DEFAULT_BAR_ITEM_MARGIN;
+    private static final int DEFAULT_BAR_ITEM_MARGIN = 16;
 
     public NavBarView(Context context) {
         super(context);
@@ -62,14 +67,40 @@ public class NavBarView extends RelativeLayout {
         return params;
     }
 
-    /* 设置左边按钮 */
-    protected void addLeftButton() {
+    /* 设置左边按钮, 文字形式的按钮 */
+    public void addLeftBarItem(String text) {
 
     }
 
-    /* 设置右边按钮 */
-    protected void addRightButton() {
+    /* 设置左边按钮, 图片形式的按钮 */
+    public void addLeftBarItem(int imgResId) {
 
+    }
+
+    /* 设置前一个页面的标题, 在这里其实就是Android中的Home Button */
+    public void setBackTitle(String backTitle) {
+
+    }
+
+    /* 设置右边按钮, 文字形式的按钮 */
+    public void addRightBarItem(String text) {
+
+    }
+
+    /* 设置右边按钮, 图片形式的按钮 */
+    public void addRightBarItem(int imgResId, OnClickListener listener) {
+        ImageView barItem = new ImageView(getContext());
+        barItem.setImageResource(imgResId);
+        barItem.setOnClickListener(listener);
+        addView(barItem, getRightBarItemLayoutParams());
+    }
+
+    protected LayoutParams getRightBarItemLayoutParams() {
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(ALIGN_PARENT_RIGHT);
+        params.setMargins(0, 0, mBarItemMargin, 0);
+        params.addRule(CENTER_VERTICAL);
+        return params;
     }
 
     public void setTitle(String title) {
