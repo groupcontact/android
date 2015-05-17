@@ -2,6 +2,7 @@ package seaice.app.groupcontact;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,12 +21,16 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.FileUtils;
+import seaice.app.groupcontact.view.NavBarView;
 
 
 public class UserEditActivity extends BaseActivity {
 
     @Inject
     UserAPI mUserAPI;
+
+    @InjectView(R.id.navBar)
+    NavBarView mNavBarView;
 
     @InjectView(R.id.editPhone)
     EditText mPhoneView;
@@ -52,6 +57,13 @@ public class UserEditActivity extends BaseActivity {
         } catch (JSONException e) {
             // ignore this;
         }
+
+        mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
     }
 
     @Override
@@ -66,8 +78,7 @@ public class UserEditActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.action_save_user)
-    public void save() {
+    private void save() {
         final UserAO user = new UserAO();
         user.setUid(Var.uid);
         user.setName(Var.userAO.getName());

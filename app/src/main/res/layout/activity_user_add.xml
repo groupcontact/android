@@ -1,38 +1,50 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="seaice.app.groupcontact.UserCreateActivity">
 
-    <EditText
-        android:id="@+id/user_add_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:hint="@string/enter_name"
-        android:textColor="@color/edit_color" />
+    <seaice.app.groupcontact.view.NavBarView
+        android:id="@+id/navBar"
+        style="@style/NavBar"
+        app:navTitle="@string/title_activity_user_add" />
 
-    <EditText
-        android:id="@+id/user_add_phone"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_add_name"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:hint="@string/enter_phone"
-        android:inputType="phone"
-        android:textColor="@color/edit_color" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/navBar"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-    <Button
-        android:id="@+id/user_add_add"
-        style="@style/btn_normal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user_add_phone"
-        android:text="@string/action_add_user" />
+        <EditText
+            android:id="@+id/user_add_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="@string/enter_name"
+            android:textColor="@color/edit_color" />
 
+        <EditText
+            android:id="@+id/user_add_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_add_name"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="@string/enter_phone"
+            android:inputType="phone"
+            android:textColor="@color/edit_color" />
+
+        <Button
+            android:id="@+id/user_add_add"
+            style="@style/btn_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_add_phone"
+            android:text="@string/action_add_user" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

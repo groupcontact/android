@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.utils.BitmapUtils;
 import seaice.app.groupcontact.utils.CipherUtils;
+import seaice.app.groupcontact.view.NavBarView;
 
 public class QrcodeActivity extends Activity {
 

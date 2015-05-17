@@ -3,17 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/list_view_padding_bottom"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/list_view_padding_top">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/dataCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/content_color" />
+        android:textColor="@color/tipColor"
+        android:textSize="@dimen/tipSize" />
 
 </LinearLayout>

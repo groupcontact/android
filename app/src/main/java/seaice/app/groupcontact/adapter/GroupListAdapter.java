@@ -3,7 +3,11 @@ package seaice.app.groupcontact.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +52,14 @@ public class GroupListAdapter extends TableAdapter {
     public View getRow(int section, int row) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_group, null);
         GroupAO groupAO = mDataSet.get(row);
+        String name = groupAO.getName();
 
+        ImageView vAvatarView = (ImageView) rootView.findViewById(R.id.groupAvatar);
+        vAvatarView.setImageDrawable(TextDrawable.builder()
+                .buildRoundRect(name.substring(0, 1),
+                        ColorGenerator.MATERIAL.getColor(name), 0));
         TextView vNameView = (TextView) rootView.findViewById(R.id.groupName);
-        vNameView.setText(groupAO.getName());
+        vNameView.setText(name);
         TextView vDescView = (TextView) rootView.findViewById(R.id.groupDesc);
         vDescView.setText(groupAO.getDesc());
 

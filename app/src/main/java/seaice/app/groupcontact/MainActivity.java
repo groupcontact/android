@@ -108,11 +108,13 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
 
     private void addFriend() {
         Intent intent = new Intent(this, UserAddActivity.class);
+        intent.putExtra("title", mTitles[0]);
         startActivityForResult(intent, Let.REQUEST_CODE_ADD_FRIEND);
     }
 
     private void createGroup() {
         Intent intent = new Intent(this, GroupCreateActivity.class);
+        intent.putExtra("title", mTitles[1]);
         startActivityForResult(intent, Let.REQUEST_CODE_CREATE_GROUP);;
     }
 
@@ -121,7 +123,6 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
         if (requestCode == Let.REQUEST_CODE_ADD_FRIEND) {
 
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

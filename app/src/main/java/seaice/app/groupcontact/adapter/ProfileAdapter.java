@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
+
 import java.util.List;
 
 import seaice.app.groupcontact.R;
@@ -60,8 +63,12 @@ public class ProfileAdapter extends TableAdapter {
     private View getMainView() {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_avatar, null);
         ImageView avatarView = (ImageView) rootView.findViewById(R.id.profile_avatar);
-        avatarView.setImageBitmap(BitmapUtils.getCroppedBitmap(BitmapFactory.decodeResource(
-                mContext.getResources(), R.drawable.avatar)));
+//        avatarView.setImageBitmap(BitmapUtils.getCroppedBitmap(BitmapFactory.decodeResource(
+//                mContext.getResources(), R.drawable.avatar)));
+        String name = Var.userAO.getName();
+        avatarView.setImageDrawable(TextDrawable.builder()
+                .buildRoundRect(name.substring(name.length() - 1),
+                        ColorGenerator.MATERIAL.getColor(name), 0));
         TextView nameView = (TextView) rootView.findViewById(R.id.profile_name);
         nameView.setText(Var.userAO.getName());
         TextView phoneView = (TextView) rootView.findViewById(R.id.profile_phone);
@@ -82,8 +89,8 @@ public class ProfileAdapter extends TableAdapter {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
         TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
         ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
-        textView.setText(row == 0 ? "修改密码" : "退出登录");
-        imageView.setImageResource(row == 0 ? R.drawable.qrcode : R.drawable.feedback);
+        textView.setText(row == 0 ? "修改密码" : "切换账号");
+        imageView.setImageResource(row == 0 ? R.drawable.password : R.drawable.exit);
         return rootView;
     }
 }

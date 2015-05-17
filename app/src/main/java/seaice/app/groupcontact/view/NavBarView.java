@@ -2,6 +2,7 @@ package seaice.app.groupcontact.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -101,6 +102,16 @@ public class NavBarView extends RelativeLayout {
         if (mLeftText != null) {
             setLeftItem(mLeftText);
         }
+
+        Context context = getContext();
+        if (context instanceof Activity) {
+            Activity activity = (Activity) context;
+            Intent data = activity.getIntent();
+            String backTitle = data.getStringExtra("title");
+            if (backTitle != null) {
+                setBackTitle(backTitle);
+            }
+        }
     }
 
     private TextView getTextView(String text, boolean title) {
@@ -120,8 +131,16 @@ public class NavBarView extends RelativeLayout {
 
     /* 设置左边按钮, 文字形式的按钮 */
     public void setLeftItem(String text) {
+        LinearLayout container = new LinearLayout(getContext());
+        container.setGravity(Gravity.CENTER);
         TextView textView = getTextView(text, false);
-        setLeftItem(textView);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+        params.setMargins((int) mItemMargin, 0, (int) mItemMargin, 0);
+        container.addView(textView, params);
+        container.setBackgroundResource(mItemBackground);
+        container.setClickable(true);
+        setLeftItem(container);
     }
 
     /* 设置左边按钮, 图片形式的按钮 */
@@ -196,8 +215,16 @@ public class NavBarView extends RelativeLayout {
 
     /* 设置右边按钮, 文字形式的按钮 */
     public void setRightItem(String text) {
+        LinearLayout container = new LinearLayout(getContext());
+        container.setGravity(Gravity.CENTER);
         TextView textView = getTextView(text, false);
-        setRightItem(textView);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+        params.setMargins((int) mItemMargin, 0, (int) mItemMargin, 0);
+        container.addView(textView, params);
+        container.setBackgroundResource(mItemBackground);
+        container.setClickable(true);
+        setRightItem(container);
     }
 
     /* 设置右边按钮, 图片形式的按钮 */

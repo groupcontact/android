@@ -1,5 +1,6 @@
 package seaice.app.groupcontact;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -25,5 +26,21 @@ public class BaseActivity extends FragmentActivity {
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        if (intent.getStringExtra("title") == null) {
+            intent.putExtra("title", getTitle());
+        }
+        super.startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        if (intent.getStringExtra("title") == null) {
+            intent.putExtra("title", getTitle());
+        }
+        super.startActivity(intent);
     }
 }

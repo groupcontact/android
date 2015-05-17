@@ -63,8 +63,9 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         mUserList.setVisibility(View.INVISIBLE);
 
         mGid = getIntent().getLongExtra("gid", -1L);
-        mNavBarView.setTitle(getIntent().getStringExtra("name"));
-        mNavBarView.setBackTitle("群组");
+        String title = getIntent().getStringExtra("name");
+        setTitle(title);
+        mNavBarView.setTitle(title);
 
         mAdapter = new UserListAdapter(this, true);
         mUserList.setAdapter(mAdapter);

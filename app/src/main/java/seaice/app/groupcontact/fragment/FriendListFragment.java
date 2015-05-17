@@ -6,13 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -22,7 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.Let;
 import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.UserAddActivity;
 import seaice.app.groupcontact.UserInfoActivity;
 import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.adapter.UserListAdapter;
@@ -32,7 +27,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.FileUtils;
 import seaice.app.groupcontact.view.TableView;
 
-public class FriendListFragment extends BaseFragment implements TableView.OnCellClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int MANAGE_FRIEND = 2;
 
@@ -63,19 +58,9 @@ public class FriendListFragment extends BaseFragment implements TableView.OnCell
         }
 
         mUserList.setAdapter(mAdapter);
-        mUserList.setOnCellClickListener(this);
+        mUserList.setOnItemClickListener(this);
 
         return mLayout;
-    }
-
-    @Override
-    public void onCellClick(AdapterView<?> parent, View view, int section, int row, long id) {
-        UserAO user = (UserAO) parent.getAdapter().getItem(row);
-        Intent intent = new Intent(getActivity(), UserInfoActivity.class);
-        intent.putExtra("user", user);
-        // 从好友列表进来
-        intent.putExtra("from", 1);
-        startActivityForResult(intent, MANAGE_FRIEND);
     }
 
     @Override
@@ -116,4 +101,13 @@ public class FriendListFragment extends BaseFragment implements TableView.OnCell
         }
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        UserAO user = (UserAO) parent.getAdapter().getItem(position);
+        Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+        intent.putExtra("user", user);
+        // 从好友列表进来
+        intent.putExtra("from", 1);
+        startActivityForResult(intent, MANAGE_FRIEND);
+    }
 }

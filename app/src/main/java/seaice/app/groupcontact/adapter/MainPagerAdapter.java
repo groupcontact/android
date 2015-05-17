@@ -1,5 +1,6 @@
 package seaice.app.groupcontact.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,15 +21,19 @@ public class MainPagerAdapter extends FragmentPagerAdapter implements TabBarAdap
 
     @Override
     public Fragment getItem(int position) {
+        Fragment fragment;
         if (position == 0) {
-            return new FriendListFragment();
+            fragment = new FriendListFragment();
         } else if (position == 1) {
-            return new GroupListFragment();
-        } else if (position == 2) {
-            return new ProfileFragment();
+            fragment = new GroupListFragment();
         } else {
-            return null;
+            fragment = new ProfileFragment();
         }
+        Bundle args = new Bundle();
+        args.putString("title", mTitles[position]);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override

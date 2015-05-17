@@ -1,10 +1,8 @@
 package seaice.app.groupcontact.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.UserListActivity;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.view.TableAdapter;
 
@@ -81,20 +78,11 @@ public class UserListAdapter extends TableAdapter {
     @Override
     public View getFooter() {
         View rootView;
-        if (!mIsFromGroup) {
-            rootView = LayoutInflater.from(mContext).inflate(R.layout.item_dataset_count, null);
-            TextView dataCount = (TextView) rootView.findViewById(R.id.dataCount);
-            dataCount.setText("总共" + mDataSet.size() + "位好友");
-        } else {
-            rootView = LayoutInflater.from(mContext).inflate(R.layout.item_leave, null);
-            Button button = (Button) rootView.findViewById(R.id.action_leave_group);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((UserListActivity) mContext).leaveGroup();
-                }
-            });
-        }
+
+        rootView = LayoutInflater.from(mContext).inflate(R.layout.item_dataset_count, null);
+        TextView dataCount = (TextView) rootView.findViewById(R.id.dataCount);
+        dataCount.setText("总共" + mDataSet.size() + "位" + (mIsFromGroup ? "成员" : "好友"));
+
         return rootView;
     }
 
