@@ -7,8 +7,10 @@
         <item name="colorPrimaryDark">@android:color/black</item>
     </style>
 
-    <style name="PreAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-
+    <style name="NavBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:background">@color/navBarColor</item>
     </style>
 
     <style name="btn_normal" parent="@android:style/Widget.Button">

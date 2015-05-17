@@ -1,6 +1,7 @@
 package seaice.app.groupcontact.view;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -176,6 +177,7 @@ public abstract class TableAdapter extends BaseAdapter {
     protected View getSectionTextView(String text) {
         LinearLayout container = new LinearLayout(mContext);
         container.setOrientation(LinearLayout.HORIZONTAL);
+        container.setGravity(Gravity.CENTER_VERTICAL);
         TextView textView = new TextView(mContext);
         textView.setText(text);
         container.addView(textView, getSectionTextLayoutParams());
@@ -183,8 +185,10 @@ public abstract class TableAdapter extends BaseAdapter {
     }
 
     protected LinearLayout.LayoutParams getSectionTextLayoutParams() {
-        return new LinearLayout.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins((int) (mContext.getResources().getDisplayMetrics().density * 16), 0, 0, 0);
+        return params;
     }
 
     @Override

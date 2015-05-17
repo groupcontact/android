@@ -1,5 +1,6 @@
 package seaice.app.groupcontact;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
@@ -18,7 +19,7 @@ import seaice.app.groupcontact.view.TabBarView;
  *
  * @author zhb
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements TabBarView.OnTabChangeListener {
 
     // Support the press again to exit functionality..
     private static final int RESET_BACK_COUNT = 123456;
@@ -32,32 +33,23 @@ public class MainActivity extends FragmentActivity {
     NavBarView mNavBarView;
     private int mBackCount = 0;
 
+    String[] mTitles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
-        final String[] titles = getResources().getStringArray(R.array.pager_titles);
+        mTitles = getResources().getStringArray(R.array.pager_titles);
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());
-        adapter.setTitles(titles);
+        adapter.setTitles(mTitles);
 
         mPager.setAdapter(adapter);
         mTabBarView.setViewPager(mPager);
 
-        mTabBarView.setOnTabChangeListener(new TabBarView.OnTabChangeListener() {
-            @Override
-            public void onTabChange(int from, int to) {
-                mNavBarView.setTitle(titles[to]);
-            }
-        });
-        mNavBarView.setTitle(titles[0]);
-        mNavBarView.addRightBarItem(R.mipmap.ic_action_add, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+        mTabBarView.setOnTabChangeListener(this);
+        mNavBarView.setTitle(mTitles[0]);
 
         // there are three pages in totally, so just increase the size for performance
         mPager.setOffscreenPageLimit(2);
@@ -83,5 +75,53 @@ public class MainActivity extends FragmentActivity {
             // the second press, exit application
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onTabChange(int from, int to) {
+        mNavBarView.setTitle(mTitles[to]);
+
+        if (to == 0) {
+            if (from == 2) {
+                mNavBarView.setRightItem(R.mipmap.ic_action_add);
+            }
+            mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    addFriend();
+                }
+            });
+        } else if (to == 1) {
+            if (from == 2) {
+                mNavBarView.setRightItem(R.mipmap.ic_action_add);
+            }
+            mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    createGroup();
+                }
+            });
+        } else {
+            mNavBarView.removeRightItem();
+        }
+    }
+
+    private void addFriend() {
+        Intent intent = new Intent(this, UserAddActivity.class);
+        startActivityForResult(intent, Let.REQUEST_CODE_ADD_FRIEND);
+    }
+
+    private void createGroup() {
+        Intent intent = new Intent(this, GroupCreateActivity.class);
+        startActivityForResult(intent, Let.REQUEST_CODE_CREATE_GROUP);;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Let.REQUEST_CODE_ADD_FRIEND) {
+
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

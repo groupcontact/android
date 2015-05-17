@@ -12,4 +12,18 @@
     <declare-styleable name="TableView">
 
     </declare-styleable>
+
+    <declare-styleable name="NavBarView">
+        <attr name="navTitle" format="string" />
+        <attr name="navTitleColor" format="color" />
+        <attr name="navTitleSize" format="dimension" />
+        <attr name="navPressColor" format="color" />
+        <attr name="navItemMargin" format="dimension" />
+        <attr name="navRightIcon" format="reference" />
+        <attr name="navLeftIcon" format="reference" />
+        <attr name="navRightText" format="string" />
+        <attr name="navLeftText" format="string" />
+        <attr name="navItemBackground" format="reference" />
+        <attr name="navItemTextSize" format="dimension" />
+    </declare-styleable>
 </resources>

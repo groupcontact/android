@@ -32,7 +32,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.FileUtils;
 import seaice.app.groupcontact.view.TableView;
 
-public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class FriendListFragment extends BaseFragment implements TableView.OnCellClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final int MANAGE_FRIEND = 2;
 
@@ -49,8 +49,6 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-
         mLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_friend_list, container, false);
         ButterKnife.inject(this, mLayout);
         mLayout.setOnRefreshListener(this);
@@ -65,33 +63,14 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         }
 
         mUserList.setAdapter(mAdapter);
-        mUserList.setOnItemClickListener(this);
+        mUserList.setOnCellClickListener(this);
 
         return mLayout;
     }
 
-
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_friend_list, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_add_friend) {
-            Intent intent = new Intent(getActivity(), UserAddActivity.class);
-            startActivityForResult(intent, MANAGE_FRIEND);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        UserAO user = (UserAO) parent.getAdapter().getItem(position);
+    public void onCellClick(AdapterView<?> parent, View view, int section, int row, long id) {
+        UserAO user = (UserAO) parent.getAdapter().getItem(row);
         Intent intent = new Intent(getActivity(), UserInfoActivity.class);
         intent.putExtra("user", user);
         // 从好友列表进来
@@ -130,7 +109,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == MANAGE_FRIEND) {
+        if (requestCode == Let.REQUEST_CODE_ADD_FRIEND) {
             if (resultCode == Activity.RESULT_OK) {
                 onRefresh();
             }

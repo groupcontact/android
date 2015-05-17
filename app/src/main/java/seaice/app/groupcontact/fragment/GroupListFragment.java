@@ -49,8 +49,6 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-
         mLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_group_list,
                 container, false);
         ButterKnife.inject(this, mLayout);
@@ -85,25 +83,6 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_group_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_search) {
-            Intent intent = new Intent(getActivity(), SearchActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        if (id == R.id.action_create_group) {
-            Intent intent = new Intent(getActivity(), GroupCreateActivity.class);
-            startActivityForResult(intent, CREATE_GROUP);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

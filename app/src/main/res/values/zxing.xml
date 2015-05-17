@@ -15,7 +15,6 @@
     <!-- Android standard ICS color -->
     <color name="viewfinder_mask">#60000000</color>
 
-    <dimen name="standard_padding">8dip</dimen>
     <dimen name="half_padding">4dip</dimen>
 
     <string name="scan_text">Place a barcode inside the viewfinder rectangle to scan it.</string>

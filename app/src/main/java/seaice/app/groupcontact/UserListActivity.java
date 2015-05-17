@@ -21,6 +21,7 @@ import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.view.NavBarView;
 import seaice.app.groupcontact.view.TableView;
 
 /**
@@ -35,6 +36,9 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
 
     @Inject
     UserAPI mUserAPI;
+
+    @InjectView(R.id.navBar)
+    NavBarView mNavBarView;
 
     @InjectView(R.id.userList)
     TableView mUserList;
@@ -59,7 +63,8 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         mUserList.setVisibility(View.INVISIBLE);
 
         mGid = getIntent().getLongExtra("gid", -1L);
-        setTitle(getIntent().getStringExtra("name"));
+        mNavBarView.setTitle(getIntent().getStringExtra("name"));
+        mNavBarView.setBackTitle("群组");
 
         mAdapter = new UserListAdapter(this, true);
         mUserList.setAdapter(mAdapter);
