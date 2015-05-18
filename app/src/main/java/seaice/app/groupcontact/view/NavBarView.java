@@ -3,6 +3,7 @@ package seaice.app.groupcontact.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.utils.AppUtils;
 
 /**
  * 仿iOS中Navigation Bar式样的View
@@ -31,7 +33,7 @@ public class NavBarView extends RelativeLayout {
     int mItemBackground;
     private static final int DEFAULT_ITEM_BACKGROUND = R.drawable.navbar_item_bg;
     float mItemTextSize;
-    private static final float DEFAULT_ITEM_TEXT_SIZE = 18f;
+    private static final float DEFAULT_ITEM_TEXT_SIZE = 9f;
 
     /* 左按钮 */
     View mLeftItem;
@@ -45,14 +47,18 @@ public class NavBarView extends RelativeLayout {
     private static final int DEFAULT_RIGHT_ICON = -1;
     String mRightText;
 
+    /* 是否有Back Title */
+    boolean mHasBackTitle;
+    private static final boolean DEFAULT_HAS_BACK_TITLE = true;
+
     int mTitleColor = DEFAULT_TITLE_COLOR;
     private static final int DEFAULT_TITLE_COLOR = Color.parseColor("#FFFFFFFF");
 
     float mTitleSize = DEFAULT_TITLE_SIZE;
-    private static final float DEFAULT_TITLE_SIZE = 20f;
+    private static final float DEFAULT_TITLE_SIZE = 10f;
 
     float mItemMargin = DEFAULT_ITEM_MARGIN;
-    private static final float DEFAULT_ITEM_MARGIN = 16;
+    private static final float DEFAULT_ITEM_MARGIN = 8;
 
     public NavBarView(Context context) {
         super(context);
@@ -74,17 +80,23 @@ public class NavBarView extends RelativeLayout {
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.NavBarView, defStyle, 0);
 
+        Resources r = getResources();
         mTitle = a.getString(R.styleable.NavBarView_navTitle);
         mRightIcon = a.getResourceId(R.styleable.NavBarView_navRightIcon, DEFAULT_RIGHT_ICON);
         mLeftIcon = a.getResourceId(R.styleable.NavBarView_navLeftIcon, DEFAULT_LEFT_ICON);
         mRightText = a.getString(R.styleable.NavBarView_navRightText);
         mLeftText = a.getString(R.styleable.NavBarView_navLeftText);
         mTitleColor = a.getColor(R.styleable.NavBarView_navTitleColor, DEFAULT_TITLE_COLOR);
-        mTitleSize = a.getDimension(R.styleable.NavBarView_navTitleSize, DEFAULT_TITLE_SIZE);
-        mItemMargin = a.getDimension(R.styleable.NavBarView_navItemMargin, DEFAULT_ITEM_MARGIN);
+        mTitleSize = a.getDimension(R.styleable.NavBarView_navTitleSize,
+                AppUtils.getPix(getContext(), DEFAULT_TITLE_SIZE));
+        mItemMargin = a.getDimension(R.styleable.NavBarView_navItemMargin,
+                AppUtils.getPix(getContext(), DEFAULT_ITEM_MARGIN));
         mItemBackground = a.getResourceId(R.styleable.NavBarView_navItemBackground,
                 DEFAULT_ITEM_BACKGROUND);
-        mItemTextSize = a.getDimension(R.styleable.NavBarView_navItemTextSize, DEFAULT_ITEM_TEXT_SIZE);
+        mItemTextSize = a.getDimension(R.styleable.NavBarView_navItemTextSize,
+                AppUtils.getPix(getContext(), DEFAULT_ITEM_TEXT_SIZE));
+        mHasBackTitle = a.getBoolean(R.styleable.NavBarView_navHasBackTitle, DEFAULT_HAS_BACK_TITLE);
+
 
         a.recycle();
 
@@ -103,13 +115,15 @@ public class NavBarView extends RelativeLayout {
             setLeftItem(mLeftText);
         }
 
-        Context context = getContext();
-        if (context instanceof Activity) {
-            Activity activity = (Activity) context;
-            Intent data = activity.getIntent();
-            String backTitle = data.getStringExtra("title");
-            if (backTitle != null) {
-                setBackTitle(backTitle);
+        if (mHasBackTitle) {
+            Context context = getContext();
+            if (context instanceof Activity) {
+                Activity activity = (Activity) context;
+                Intent data = activity.getIntent();
+                String backTitle = data.getStringExtra("title");
+                if (backTitle != null) {
+                    setBackTitle(backTitle);
+                }
             }
         }
     }
@@ -162,6 +176,9 @@ public class NavBarView extends RelativeLayout {
 
     /* 设置前一个页面的标题, 在这里其实就是Android中的Home Button */
     public void setBackTitle(String backTitle) {
+        if (!mHasBackTitle) {
+            return;
+        }
         LinearLayout container = new LinearLayout(getContext());
         container.setOrientation(LinearLayout.HORIZONTAL);
         container.setClickable(true);

@@ -86,4 +86,6 @@
     <string name="network_required_for_upgrade">请连接网络以完成升级</string>
     <string name="cancel">取消</string>
     <string name="error_scan_qrcode">该二维码不是有效地用户二维码</string>
+    <string name="action_confirm">确定</string>
+    <string name="action_add">添加</string>
 </resources>

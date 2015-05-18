@@ -1,6 +1,8 @@
 package seaice.app.groupcontact.utils;
 
+import android.content.Context;
 import android.os.Environment;
+import android.util.TypedValue;
 
 public class AppUtils {
 
@@ -21,5 +23,11 @@ public class AppUtils {
             return true;
         }
         return false;
+    }
+
+    public static float getPix(Context context, float dip) {
+        float pix = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dip, context.getResources().getDisplayMetrics());
+        return pix;
     }
 }

@@ -2,18 +2,18 @@ package seaice.app.groupcontact;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
+import seaice.app.groupcontact.view.NavBarView;
 
 
 public class GroupCreateActivity extends BaseActivity {
@@ -33,31 +33,24 @@ public class GroupCreateActivity extends BaseActivity {
     @InjectView(R.id.group_create_modify)
     EditText mModify;
 
+    @InjectView(R.id.navBar)
+    NavBarView mNavBarView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_create);
 
         ButterKnife.inject(this);
+
+        mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createGroup();
+            }
+        });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == android.R.id.home) {
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick(R.id.group_create_create)
     public void createGroup() {
         String name = mName.getText().toString();
         String desc = mDesc.getText().toString();

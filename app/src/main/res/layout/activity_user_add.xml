@@ -8,6 +8,7 @@
     <seaice.app.groupcontact.view.NavBarView
         android:id="@+id/navBar"
         style="@style/NavBar"
+        app:navRightIcon="@mipmap/ic_action_tick"
         app:navTitle="@string/title_activity_user_add" />
 
     <RelativeLayout
@@ -36,14 +37,6 @@
             android:hint="@string/enter_phone"
             android:inputType="phone"
             android:textColor="@color/edit_color" />
-
-        <Button
-            android:id="@+id/user_add_add"
-            style="@style/btn_normal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/user_add_phone"
-            android:text="@string/action_add_user" />
 
     </RelativeLayout>
 

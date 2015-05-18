@@ -6,8 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
@@ -28,6 +27,9 @@ public class QrcodeActivity extends Activity {
     @InjectView(R.id.resultQRCode)
     ImageView mQrcodeView;
 
+    @InjectView(R.id.navBar)
+    NavBarView mNavBarView;
+
     private static final String QRCODE_FILE_PATH = Let.APP_DIR + "qrcode.jpg";
 
     @Override
@@ -44,37 +46,17 @@ public class QrcodeActivity extends Activity {
         mQrcodeView.setImageBitmap(bitMap);
 
         BitmapUtils.saveBitmapToFile(bitMap, QRCODE_FILE_PATH);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_qrcode, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_share) {
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(QRCODE_FILE_PATH)));
-            shareIntent.setType("image/jpeg");
-            startActivity(shareIntent);
-            return true;
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == android.R.id.home) {
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(QRCODE_FILE_PATH)));
+                shareIntent.setType("image/jpeg");
+                startActivity(shareIntent);
+            }
+        });
     }
 
     private Bitmap bitMatrix2Bitmap(BitMatrix matrix) {

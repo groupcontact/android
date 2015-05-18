@@ -8,6 +8,8 @@
     <seaice.app.groupcontact.view.NavBarView
         android:id="@+id/navBar"
         style="@style/NavBar"
+        app:navHasBackTitle="false"
+        app:navLeftText="@string/app_name"
         app:navRightIcon="@mipmap/ic_action_add" />
 
     <seaice.app.groupcontact.view.TabBarView

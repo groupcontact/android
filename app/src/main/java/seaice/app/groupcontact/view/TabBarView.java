@@ -1,6 +1,7 @@
 package seaice.app.groupcontact.view;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.utils.AppUtils;
 import seaice.app.groupcontact.utils.ColorUtils;
 
 /**
@@ -55,10 +57,10 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
     private static final int DEFAULT_TITLE_SELECTED_COLOR = Color.parseColor("#FF33BBEE");
     /* 标题的大小 */
     float mTitleSize;
-    private static final float DEFAULT_TITLE_SIZE = -1;
+    private static final float DEFAULT_TITLE_SIZE = 0;
     /* 图标的大小 */
     float mIconSize;
-    private static final float DEFAULT_ICON_SIZE = 48;
+    private static final int DEFAULT_ICON_SIZE = 28;
     /* 是否使用动画 */
     boolean mUseAnimation;
     private static final boolean DEFAULT_USE_ANIMATION = true;
@@ -78,11 +80,14 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
                 attrs, R.styleable.TabBarView);
 
         /* 获取属性配置 */
+        Resources r = getResources();
         mTitleColor = a.getColor(R.styleable.TabBarView_titleColor, DEFAULT_TITLE_COLOR);
         mTitleSelectedColor = a.getColor(R.styleable.TabBarView_titleSelectedColor,
                 DEFAULT_TITLE_SELECTED_COLOR);
-        mTitleSize = a.getDimension(R.styleable.TabBarView_titleSize, DEFAULT_TITLE_SIZE);
-        mIconSize = a.getDimension(R.styleable.TabBarView_iconSize, DEFAULT_ICON_SIZE);
+        mTitleSize = a.getDimension(R.styleable.TabBarView_titleSize,
+                AppUtils.getPix(getContext(), DEFAULT_TITLE_SIZE));
+        mIconSize = a.getDimension(R.styleable.TabBarView_iconSize,
+                AppUtils.getPix(getContext(), DEFAULT_ICON_SIZE));
         mUseAnimation = a.getBoolean(R.styleable.TabBarView_animate, DEFAULT_USE_ANIMATION);
 
         a.recycle();
@@ -131,6 +136,9 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
             mIconList.add(icon);
             TextView title = new TextView(getContext());
             title.setText(mAdapter.getTitle(i));
+            if (mTitleSize != 0) {
+                title.setTextSize(mTitleSize);
+            }
             tab.addView(title, getTitleLayoutParams());
             mTitleList.add(title);
             addView(tab, getTabLayoutParams());

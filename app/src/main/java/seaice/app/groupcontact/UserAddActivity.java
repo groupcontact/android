@@ -3,16 +3,17 @@ package seaice.app.groupcontact;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
+import seaice.app.groupcontact.view.NavBarView;
 
 /**
  * This screen help the user to add friend directly, by enter the name and phone_normal number
@@ -30,6 +31,9 @@ public class UserAddActivity extends BaseActivity {
     @Inject
     UserAPI mUserAPI;
 
+    @InjectView(R.id.navBar)
+    NavBarView mNavBarView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +46,15 @@ public class UserAddActivity extends BaseActivity {
 
         mNameView.setText(name);
         mPhoneView.setText(phone);
+
+        mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFriend();
+            }
+        });
     }
 
-    @OnClick(R.id.user_add_add)
     public void addFriend() {
         String name = mNameView.getText().toString();
         String phone = mPhoneView.getText().toString();

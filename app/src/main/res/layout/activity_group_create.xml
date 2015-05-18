@@ -7,13 +7,14 @@
 
     <seaice.app.groupcontact.view.NavBarView
         android:id="@+id/navBar"
-        app:navTitle="@string/title_activity_group_create"
-        style="@style/NavBar" />
+        style="@style/NavBar"
+        app:navRightIcon="@mipmap/ic_action_tick"
+        app:navTitle="@string/title_activity_group_create" />
 
     <ScrollView
-        android:layout_below="@id/navBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/navBar">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -61,14 +62,6 @@
                 android:inputType="numberPassword"
                 android:maxLength="6"
                 android:textColor="@color/edit_color" />
-
-            <Button
-                android:id="@+id/group_create_create"
-                style="@style/btn_normal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/group_create_modify"
-                android:text="@string/action_create_group" />
 
         </RelativeLayout>
 

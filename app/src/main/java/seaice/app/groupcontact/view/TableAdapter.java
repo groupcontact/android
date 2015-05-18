@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.utils.AppUtils;
 
 public abstract class TableAdapter extends BaseAdapter {
 
@@ -187,7 +188,7 @@ public abstract class TableAdapter extends BaseAdapter {
     protected LinearLayout.LayoutParams getSectionTextLayoutParams() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins((int) (mContext.getResources().getDisplayMetrics().density * 16), 0, 0, 0);
+        params.setMargins((int) (AppUtils.getPix(mContext, 16)), 0, 0, 0);
         return params;
     }
 

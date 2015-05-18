@@ -50,6 +50,12 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
 
         mTabBarView.setOnTabChangeListener(this);
         mNavBarView.setTitle(mTitles[0]);
+        mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFriend();
+            }
+        });
 
         // there are three pages in totally, so just increase the size for performance
         mPager.setOffscreenPageLimit(2);
@@ -115,7 +121,8 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
     private void createGroup() {
         Intent intent = new Intent(this, GroupCreateActivity.class);
         intent.putExtra("title", mTitles[1]);
-        startActivityForResult(intent, Let.REQUEST_CODE_CREATE_GROUP);;
+        startActivityForResult(intent, Let.REQUEST_CODE_CREATE_GROUP);
+        ;
     }
 
     @Override
