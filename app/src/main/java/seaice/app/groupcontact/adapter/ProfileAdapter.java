@@ -1,7 +1,6 @@
 package seaice.app.groupcontact.adapter;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,11 +9,8 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 
-import java.util.List;
-
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.Var;
-import seaice.app.groupcontact.utils.BitmapUtils;
 import seaice.app.groupcontact.view.TableAdapter;
 
 public class ProfileAdapter extends TableAdapter {
@@ -63,8 +59,6 @@ public class ProfileAdapter extends TableAdapter {
     private View getMainView() {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_avatar, null);
         ImageView avatarView = (ImageView) rootView.findViewById(R.id.profile_avatar);
-//        avatarView.setImageBitmap(BitmapUtils.getCroppedBitmap(BitmapFactory.decodeResource(
-//                mContext.getResources(), R.drawable.avatar)));
         String name = Var.userAO.getName();
         avatarView.setImageDrawable(TextDrawable.builder()
                 .buildRoundRect(name.substring(name.length() - 1),

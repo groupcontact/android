@@ -1,6 +1,8 @@
 package seaice.app.groupcontact.adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,16 +15,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.api.BaseCallback;
+import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
+import seaice.app.groupcontact.api.impl.GroupAPImpl;
+import seaice.app.groupcontact.view.SearchBarView;
 import seaice.app.groupcontact.view.TableAdapter;
 
 public class GroupListAdapter extends TableAdapter {
 
     private List<GroupAO> mDataSet;
 
-    public GroupListAdapter(Context context) {
+    /* 点击搜索栏的动作 */
+    private View.OnClickListener mListener;
+
+    public GroupListAdapter(Context context, View.OnClickListener listener) {
         super(context);
         mDataSet = new ArrayList<>();
+
+        mListener = listener;
     }
 
     public void setDataSet(List<GroupAO> dataset) {
@@ -41,11 +52,31 @@ public class GroupListAdapter extends TableAdapter {
     }
 
     @Override
+    public View getHeader() {
+        if (mListener == null) {
+            return null;
+        }
+        SearchBarView searchBarView = (SearchBarView) LayoutInflater.from(mContext).inflate(
+                R.layout.item_group_searchbar, null);
+        searchBarView.setOnClickListener(mListener);
+        return searchBarView;
+    }
+
+    @Override
     public View getFooter() {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_dataset_count, null);
         TextView dataCount = (TextView) rootView.findViewById(R.id.dataCount);
         dataCount.setText("总共" + mDataSet.size() + "个群组");
         return rootView;
+    }
+
+    public boolean isEnabled(int position) {
+        /* SearchBar是可点的 */
+        if (position == 0) {
+            return true;
+        } else {
+            return super.isEnabled(position);
+        }
     }
 
     @Override

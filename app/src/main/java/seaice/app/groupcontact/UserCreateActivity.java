@@ -9,8 +9,6 @@ import android.telephony.TelephonyManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -21,7 +19,6 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.AnimationUtils;
-import seaice.app.groupcontact.utils.FileUtils;
 
 /**
  * create a user instance in the app..

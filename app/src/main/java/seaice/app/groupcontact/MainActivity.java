@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -32,6 +33,8 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
     @InjectView(R.id.navBar)
     NavBarView mNavBarView;
     private int mBackCount = 0;
+
+    private boolean mNavBarHidden = false;
 
     String[] mTitles;
 
@@ -132,4 +135,49 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    public void animate2Activity(final Class<?> activityClass) {
+        mNavBarHidden = true;
+        mNavBarView.hide(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                Intent intent = new Intent(MainActivity.this, activityClass);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+
+    public void onResume() {
+        super.onResume();
+        if (mNavBarHidden) {
+            mNavBarView.show(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mNavBarHidden = false;
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
+    }
+
 }

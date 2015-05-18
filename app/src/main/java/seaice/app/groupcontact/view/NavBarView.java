@@ -9,6 +9,8 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -60,6 +62,8 @@ public class NavBarView extends RelativeLayout {
     float mItemMargin = DEFAULT_ITEM_MARGIN;
     private static final float DEFAULT_ITEM_MARGIN = 8;
 
+    int mHeight = 0;
+
     public NavBarView(Context context) {
         super(context);
         init(null, 0);
@@ -96,7 +100,6 @@ public class NavBarView extends RelativeLayout {
         mItemTextSize = a.getDimension(R.styleable.NavBarView_navItemTextSize,
                 AppUtils.getPix(getContext(), DEFAULT_ITEM_TEXT_SIZE));
         mHasBackTitle = a.getBoolean(R.styleable.NavBarView_navHasBackTitle, DEFAULT_HAS_BACK_TITLE);
-
 
         a.recycle();
 
@@ -297,5 +300,45 @@ public class NavBarView extends RelativeLayout {
 
     public void setTitle(String title) {
         mTitleView.setText(title);
+    }
+
+    public void hide(Animation.AnimationListener listener) {
+        final int height = 96;
+
+        Animation animation = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                getLayoutParams().height = height - (int) (height * interpolatedTime);
+                requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+        animation.setDuration((long) ((height * 5) / AppUtils.getPix(getContext(), 1)));
+        animation.setAnimationListener(listener);
+        startAnimation(animation);
+    }
+
+    public void show(Animation.AnimationListener listener) {
+        final float height = 96;
+
+        Animation animation = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                getLayoutParams().height = (int) (height * interpolatedTime);
+                requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+        animation.setDuration((long) ((height * 5) / AppUtils.getPix(getContext(), 1)));
+        animation.setAnimationListener(listener);
+        startAnimation(animation);
     }
 }

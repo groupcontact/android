@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,8 +18,8 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import seaice.app.groupcontact.GroupCreateActivity;
 import seaice.app.groupcontact.Let;
+import seaice.app.groupcontact.MainActivity;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.UserListActivity;
@@ -44,16 +43,25 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
 
     private GroupListAdapter mAdapter;
 
-    private SwipeRefreshLayout mLayout;
+    @InjectView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mLayout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mLayout = (SwipeRefreshLayout) inflater.inflate(R.layout.fragment_group_list,
+        View rootView = inflater.inflate(R.layout.fragment_group_list,
                 container, false);
-        ButterKnife.inject(this, mLayout);
 
-        mAdapter = new GroupListAdapter(getActivity());
+        ButterKnife.inject(this, rootView);
+
+        mAdapter = new GroupListAdapter(getActivity(), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 跳转至搜索Activity
+                ((MainActivity) getActivity()).animate2Activity(SearchActivity.class);
+            }
+        });
         List<GroupAO> dataset = FileUtils.read(getActivity(), Let.GROUP_CACHE_PATH, GroupAO.class);
         // No Cache
         if (dataset == null || dataset.size() == 0) {
@@ -66,7 +74,6 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
         mGroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // here the id is the group id, and here we jumps to the UserListActivity
                 Intent intent = new Intent(getActivity(), UserListActivity.class);
                 GroupAO group = (GroupAO) parent.getAdapter().getItem(position);
                 intent.putExtra("gid", group.getGid());
@@ -77,7 +84,7 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
 
         mLayout.setOnRefreshListener(this);
 
-        return mLayout;
+        return rootView;
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

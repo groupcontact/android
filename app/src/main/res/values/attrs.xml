@@ -27,4 +27,15 @@
         <attr name="navItemTextSize" format="dimension" />
         <attr name="navHasBackTitle" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="SearchBarView">
+        <attr name="searchWrapperBackground" format="reference" />
+        <attr name="searchLeftIcon" format="reference" />
+        <attr name="searchEditMargin" format="dimension" />
+        <attr name="searchEditInnerMargin" format="dimension" />
+        <attr name="searchHintColor" format="color" />
+        <attr name="searchHintText" format="string" />
+        <attr name="searchTextColor" format="color" />
+        <attr name="searchTextSize" format="dimension" />
+    </declare-styleable>
 </resources>

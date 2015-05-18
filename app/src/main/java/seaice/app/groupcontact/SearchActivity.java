@@ -28,6 +28,7 @@ import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
+import seaice.app.groupcontact.view.SearchBarView;
 
 
 public class SearchActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -38,11 +39,11 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
     @Inject
     UserAPI mUserAPI;
 
-    @InjectView(R.id.searchKey)
-    EditText mSearchKey;
+    @InjectView(R.id.groupList)
+    ListView mGroupList;
 
-    @InjectView(R.id.searchResult)
-    ListView mSearchResult;
+    @InjectView(R.id.searchBar)
+    SearchBarView mSearchBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +52,12 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
         ButterKnife.inject(this);
 
-        final GroupListAdapter adapter = new GroupListAdapter(this);
-        mSearchResult.setAdapter(adapter);
+        final GroupListAdapter adapter = new GroupListAdapter(this, null);
+        mGroupList.setAdapter(adapter);
 
         final Context context = this;
 
-        mSearchKey.addTextChangedListener(new TextWatcher() {
+        mSearchBarView.setTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // ingored
@@ -64,7 +65,7 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String key = mSearchKey.getText().toString().trim();
+                String key = s.toString().trim();
                 if (key.equals("")) {
                     // do not allowed empty query
                     adapter.setDataSet(new ArrayList<GroupAO>());
@@ -84,19 +85,7 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
             }
         });
 
-        mSearchResult.setOnItemClickListener(this);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        mSearchBarView.enterEditMode();
     }
 
     @Override
@@ -138,6 +127,11 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
             }
         });
         builder.show();
+    }
+
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }
 
