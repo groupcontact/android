@@ -101,4 +101,5 @@
     <string name="action_confirm">Conform</string>
     <string name="action_add">Add</string>
     <string name="action_search_group">Search Group</string>
+    <string name="title_activity_action_sheet">ActionSheetActivity</string>
 </resources>

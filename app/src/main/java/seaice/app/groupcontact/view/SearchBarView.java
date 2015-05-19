@@ -60,6 +60,11 @@ public class SearchBarView extends LinearLayout {
 
     private TextWatcher mListener;
 
+    /* 当前模式 */
+    private static final int EDIT_MODE = 1;
+    private static final int VIEW_MODE = 2;
+    private int mMode = VIEW_MODE;
+
     public SearchBarView(Context context) {
         super(context);
         init(null);
@@ -117,7 +122,9 @@ public class SearchBarView extends LinearLayout {
         mWrapperView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                enterEditMode();
+                if (mMode == VIEW_MODE) {
+                    enterEditMode();
+                }
             }
         });
 
@@ -131,6 +138,7 @@ public class SearchBarView extends LinearLayout {
     }
 
     public void enterEditMode() {
+        mMode = EDIT_MODE;
         // 移除TextHint
         if (mHintView != null) {
             mWrapperView.removeView(mHintView);
@@ -160,6 +168,7 @@ public class SearchBarView extends LinearLayout {
     }
 
     public void enterViewMode() {
+        mMode = VIEW_MODE;
         if (mEditText != null) {
             mIMManager.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
             mWrapperView.removeView(mEditText);

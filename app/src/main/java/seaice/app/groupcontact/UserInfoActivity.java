@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -23,7 +25,7 @@ import seaice.app.groupcontact.view.NavBarView;
 import seaice.app.groupcontact.view.TableView;
 
 
-public class UserInfoActivity extends BaseActivity {
+public class UserInfoActivity extends BaseActivity implements TableView.OnCellClickListener {
 
     @InjectView(R.id.navBar)
     NavBarView mNavBarView;
@@ -49,6 +51,8 @@ public class UserInfoActivity extends BaseActivity {
         mNavBarView.setTitle(mUser.getName());
 
         mTableView.setAdapter(new UserInfoAdapter(this, mUser));
+
+        mTableView.setOnCellClickListener(this);
     }
 
     @Override
@@ -59,6 +63,14 @@ public class UserInfoActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCellClick(AdapterView<?> parent, View view, int section, int row, long id) {
+        if (section == 0 && row == 1) {
+            Intent intent = new Intent(this, ActionSheetActivity.class);
+            startActivity(intent);
+        }
     }
 //
 //    @OnClick(R.id.call)

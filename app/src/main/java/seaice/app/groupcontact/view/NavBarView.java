@@ -62,8 +62,6 @@ public class NavBarView extends RelativeLayout {
     float mItemMargin = DEFAULT_ITEM_MARGIN;
     private static final float DEFAULT_ITEM_MARGIN = 8;
 
-    int mHeight = 0;
-
     public NavBarView(Context context) {
         super(context);
         init(null, 0);
@@ -302,13 +300,15 @@ public class NavBarView extends RelativeLayout {
         mTitleView.setText(title);
     }
 
+    private int mHeight;
+
     public void hide(Animation.AnimationListener listener) {
-        final int height = 96;
+        mHeight = getMeasuredHeight();
 
         Animation animation = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                getLayoutParams().height = height - (int) (height * interpolatedTime);
+                getLayoutParams().height = mHeight - (int) (mHeight * interpolatedTime);
                 requestLayout();
             }
 
@@ -317,18 +317,16 @@ public class NavBarView extends RelativeLayout {
                 return true;
             }
         };
-        animation.setDuration((long) ((height * 5) / AppUtils.getPix(getContext(), 1)));
+        animation.setDuration((long) ((mHeight * 1) / AppUtils.getPix(getContext(), 1)));
         animation.setAnimationListener(listener);
         startAnimation(animation);
     }
 
     public void show(Animation.AnimationListener listener) {
-        final float height = 96;
-
         Animation animation = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                getLayoutParams().height = (int) (height * interpolatedTime);
+                getLayoutParams().height = (int) (mHeight * interpolatedTime);
                 requestLayout();
             }
 
@@ -337,7 +335,7 @@ public class NavBarView extends RelativeLayout {
                 return true;
             }
         };
-        animation.setDuration((long) ((height * 5) / AppUtils.getPix(getContext(), 1)));
+        animation.setDuration((long) ((mHeight * 1) / AppUtils.getPix(getContext(), 1)));
         animation.setAnimationListener(listener);
         startAnimation(animation);
     }

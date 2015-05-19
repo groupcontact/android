@@ -7,9 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -55,8 +52,6 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
-
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.inject(this, rootView);
 
@@ -70,37 +65,27 @@ public class ProfileFragment extends BaseFragment {
                     startActivity(intent);
                     return;
                 }
-                if (row == 0) {
-                    Intent intent = new Intent(getActivity(), QrcodeActivity.class);
-                    startActivity(intent);
-                } else if (row == 1) {
-                    Intent intent = new Intent(getActivity(), ScanActivity.class);
-                    startActivityForResult(intent, SCAN_REQUEST_CODE);
-                } else {
-                    FeedbackAgent agent = new FeedbackAgent(getActivity());
-                    agent.startFeedbackActivity();
+                if (section == 1) {
+                    if (row == 0) {
+                        Intent intent = new Intent(getActivity(), QrcodeActivity.class);
+                        startActivity(intent);
+                    } else if (row == 1) {
+                        Intent intent = new Intent(getActivity(), ScanActivity.class);
+                        startActivityForResult(intent, SCAN_REQUEST_CODE);
+                    } else {
+                        FeedbackAgent agent = new FeedbackAgent(getActivity());
+                        agent.startFeedbackActivity();
+                    }
+                }
+                if (section == 2) {
+                    if (row == 0) {
+                        resetPassword();
+                    }
                 }
             }
         });
 
         return rootView;
-    }
-
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_profile, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_reset_password) {
-            resetPassword();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

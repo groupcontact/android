@@ -101,8 +101,8 @@ public class UserInfoAdapter extends TableAdapter {
             textView.setText(mContext.getString(R.string.empty_now));
             textView.setTextColor(mContext.getResources().getColor(R.color.tipColor));
         }
-        imageView.setImageResource(row == 0 ? R.drawable.scan : row == 1 ? R.drawable.exit :
-                R.drawable.feedback);
+        imageView.setImageResource(row == 0 ? R.drawable.phone : row == 1 ? R.drawable.email :
+                R.drawable.wechat);
         return rootView;
     }
 

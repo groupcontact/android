@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -54,6 +53,7 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
         final GroupListAdapter adapter = new GroupListAdapter(this, null);
         mGroupList.setAdapter(adapter);
+        mGroupList.setOnItemClickListener(this);
 
         final Context context = this;
 
@@ -74,6 +74,10 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
                 mGroupAPI.search(key, new BaseCallback<List<GroupAO>>(context) {
                     @Override
                     public void call(List<GroupAO> result) {
+                        if (result == null) {
+                            info(getString(R.string.error_network));
+                            return;
+                        }
                         adapter.setDataSet(result);
                     }
                 });
@@ -84,6 +88,11 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
                 // ignored
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         mSearchBarView.enterEditMode();
     }
