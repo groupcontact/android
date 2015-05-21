@@ -8,15 +8,18 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.adapter.PopupMenuAdapter;
 import seaice.app.groupcontact.utils.AppUtils;
 
 /**
@@ -61,6 +64,10 @@ public class NavBarView extends RelativeLayout {
 
     float mItemMargin = DEFAULT_ITEM_MARGIN;
     private static final float DEFAULT_ITEM_MARGIN = 8;
+
+    /* 全屏的弹窗 */
+    PopupWindow mPopupWindow;
+
 
     public NavBarView(Context context) {
         super(context);
@@ -268,6 +275,36 @@ public class NavBarView extends RelativeLayout {
         addView(view, getRightItemLayoutParams());
         mRightItem = view;
     }
+
+    public void setRightActions(int imgResId, String[] actions, int[] icons) {
+        if (imgResId != -1) {
+            setRightItem(imgResId);
+        }
+
+        if (mPopupWindow == null) {
+            initPopupWindow();
+            TableView menuList = (TableView) mPopupWindow.getContentView().findViewById(R.id.menuList);
+            menuList.setAdapter(new PopupMenuAdapter(getContext(), actions, null));
+        }
+
+        setRightItemOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopupWindow.isShowing()) {
+                    mPopupWindow.dismiss();
+                } else {
+                    mPopupWindow.showAsDropDown(v);
+                }
+            }
+        });
+    }
+
+    protected void initPopupWindow() {
+        View rootView = LayoutInflater.from(getContext()).inflate(R.layout.popup_menu, null);
+        mPopupWindow = new PopupWindow(rootView, LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT, false);
+    }
+
 
     /* 移除右边按钮 */
     public void removeRightItem() {

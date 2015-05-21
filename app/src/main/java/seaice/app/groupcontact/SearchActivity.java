@@ -3,7 +3,6 @@ package seaice.app.groupcontact;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -88,23 +87,20 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
                 // ignored
             }
         });
+
+        mSearchBarView.enterEditMode();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        mSearchBarView.enterEditMode();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, final long id) {
-        GroupAO group = (GroupAO) parent.getAdapter().getItem(position);
-
+        final GroupAO group = (GroupAO) parent.getAdapter().getItem(position);
         final Context context = this;
-
-        final SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        final Long uid = Var.uid;
 
         // Ask the user to enter the accessToken
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -117,7 +113,7 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
             @Override
             public void onClick(final DialogInterface dialog, int which) {
                 final String atNew = vAccessToken.getText().toString();
-                mUserAPI.joinGroup(Var.uid, Var.password, id, atNew, new BaseCallback<GeneralAO>(context) {
+                mUserAPI.joinGroup(Var.uid, Var.password, group.getGid(), atNew, new BaseCallback<GeneralAO>(context) {
                     @Override
                     public void call(GeneralAO result) {
                         if (result.getStatus() == 1) {

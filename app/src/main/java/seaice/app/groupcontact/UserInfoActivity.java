@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -25,7 +26,8 @@ import seaice.app.groupcontact.view.NavBarView;
 import seaice.app.groupcontact.view.TableView;
 
 
-public class UserInfoActivity extends BaseActivity implements TableView.OnCellClickListener {
+public class UserInfoActivity extends BaseActivity implements TableView.OnCellClickListener,
+        View.OnClickListener {
 
     @InjectView(R.id.navBar)
     NavBarView mNavBarView;
@@ -39,6 +41,8 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
     UserAO mUser;
 
     JSONObject mExtAttrs;
+
+    PopupWindow mPopupMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +61,15 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
         }
         setTitle(mUser.getName());
         mNavBarView.setTitle(mUser.getName());
+        mNavBarView.setRightItemOnClickListener(this);
 
         mTableView.setAdapter(new UserInfoAdapter(this, mUser));
 
         mTableView.setOnCellClickListener(this);
+
+        mNavBarView.setRightActions(-1, new String[]{
+                "加为好友", "删除好友"
+        }, new int[]{R.drawable.call, R.drawable.message});
     }
 
     @Override
@@ -154,6 +163,15 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
         });
         intent.setType("message/rfc822");
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (!mPopupMenu.isShowing()) {
+            mPopupMenu.showAsDropDown(v);
+        } else {
+            mPopupMenu.dismiss();
+        }
     }
 //
 //    public void addFriend() {
