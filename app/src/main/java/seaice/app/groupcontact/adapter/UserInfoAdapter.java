@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.UserAO;
+import seaice.app.groupcontact.utils.AppUtils;
 import seaice.app.groupcontact.view.TableAdapter;
 
 public class UserInfoAdapter extends TableAdapter {
@@ -57,61 +58,46 @@ public class UserInfoAdapter extends TableAdapter {
         avatarView.setImageDrawable(TextDrawable.builder()
                 .buildRoundRect(mName.substring(mName.length() - 1),
                         ColorGenerator.MATERIAL.getColor(mName), 0));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(160,
-                160);
-        params.setMargins(0, 32, 0, 32);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                (int) AppUtils.getPix(mContext, 80),
+                (int) AppUtils.getPix(mContext, 80));
+        params.setMargins(0, (int) AppUtils.getPix(mContext, 16), 0, (int) AppUtils.getPix(mContext, 16));
         container.addView(avatarView, params);
         return container;
     }
 
     @Override
     public int getRowCount(int section) {
-        return section == 0 ? 3 : 1;
+        return 3;
     }
 
     @Override
     public View getRow(int section, int row) {
-        if (section == 0) {
-            return getMainField(row);
-        } else {
-            return getExtField(row);
-        }
-    }
-
-    @Override
-    public String getSectionHeader(int section) {
-        if (section == 0) {
-            return null;
-        }
-        return "";
+        return getMainField(row);
     }
 
     @Override
     public int getSectionCount() {
-        return 2;
+        return 1;
     }
 
     public View getMainField(int row) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
-        TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure, null);
+        TextView textView = (TextView) rootView.findViewById(R.id.menuText);
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.menuIcon);
         String text = row == 0 ? mPhone : row == 1 ? mEmail : mWechat;
         textView.setText(text);
         if (text == null) {
             textView.setText(mContext.getString(R.string.empty_now));
             textView.setTextColor(mContext.getResources().getColor(R.color.tipColor));
+            rootView.findViewById(R.id.menuDisclosure).setVisibility(View.INVISIBLE);
+        }
+        /* 除了手机号和邮箱,其他的都没有动作 */
+        if (row >= 2) {
+            rootView.findViewById(R.id.menuDisclosure).setVisibility(View.INVISIBLE);
         }
         imageView.setImageResource(row == 0 ? R.drawable.phone : row == 1 ? R.drawable.email :
                 R.drawable.wechat);
-        return rootView;
-    }
-
-    public View getExtField(int row) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
-        TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
-        textView.setText("877498144");
-        imageView.setImageResource(R.drawable.scan);
         return rootView;
     }
 }

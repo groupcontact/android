@@ -102,4 +102,5 @@
     <string name="action_add">Add</string>
     <string name="action_search_group">Search Group</string>
     <string name="title_activity_action_sheet">ActionSheetActivity</string>
+    <string name="success_copy">Copy Successfully</string>
 </resources>

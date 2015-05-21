@@ -19,6 +19,8 @@ public class ProfileAdapter extends TableAdapter {
 
     Integer[] mDrawableList;
 
+    String[] mSettings;
+
     public ProfileAdapter(Context context, String[] textList) {
         super(context);
 
@@ -28,6 +30,7 @@ public class ProfileAdapter extends TableAdapter {
                 R.drawable.scan,
                 R.drawable.feedback
         };
+        mSettings = context.getResources().getStringArray(R.array.profile_settings);
 
         notifyDataSetChanged();
     }
@@ -71,19 +74,19 @@ public class ProfileAdapter extends TableAdapter {
     }
 
     private View getMenuView(int row) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
-        TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure, null);
+        TextView textView = (TextView) rootView.findViewById(R.id.menuText);
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.menuIcon);
         textView.setText(mTextList[row]);
         imageView.setImageResource(mDrawableList[row]);
         return rootView;
     }
 
     private View getSettingView(int row) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_profile_menu, null);
-        TextView textView = (TextView) rootView.findViewById(R.id.profile_menu_text);
-        ImageView imageView = (ImageView) rootView.findViewById(R.id.profile_menu_icon);
-        textView.setText(row == 0 ? "修改密码" : "切换账号");
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure, null);
+        TextView textView = (TextView) rootView.findViewById(R.id.menuText);
+        ImageView imageView = (ImageView) rootView.findViewById(R.id.menuIcon);
+        textView.setText(mSettings[row]);
         imageView.setImageResource(row == 0 ? R.drawable.password : R.drawable.exit);
         return rootView;
     }

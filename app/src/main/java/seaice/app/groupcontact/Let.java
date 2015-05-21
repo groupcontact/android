@@ -27,4 +27,8 @@ public class Let {
     public static final int REQUEST_CODE_CREATE_GROUP = 3;
 
     public static final int REQUEST_CODE_JOIN_GROUP = 4;
+
+    public static final int REQUEST_CODE_OPERATE_PHONE = 1;
+
+    public static final int REQUEST_CODE_OPERATE_EMAIL = 2;
 }

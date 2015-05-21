@@ -25,6 +25,7 @@ import seaice.app.groupcontact.QrcodeActivity;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.ScanActivity;
 import seaice.app.groupcontact.UserAddActivity;
+import seaice.app.groupcontact.UserCreateActivity;
 import seaice.app.groupcontact.UserEditActivity;
 import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.adapter.ProfileAdapter;
@@ -80,6 +81,9 @@ public class ProfileFragment extends BaseFragment {
                 if (section == 2) {
                     if (row == 0) {
                         resetPassword();
+                    }
+                    if (row == 1) {
+                        logout();
                     }
                 }
             }
@@ -147,5 +151,13 @@ public class ProfileFragment extends BaseFragment {
             }
         });
         builder.show();
+    }
+
+    private void logout() {
+        Var.uid = -1l;
+        getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE).edit().putLong("uid", -1).apply();
+
+        Intent intent = new Intent(getActivity(), UserCreateActivity.class);
+        startActivity(intent);
     }
 }

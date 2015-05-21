@@ -15,5 +15,18 @@
         <item>Scan QR Code</item>
         <item>Feedback</item>
     </string-array>
-
+    <string-array name="user_info_phone_actions">
+        <item>Call</item>
+        <item>SMS</item>
+        <item>Send</item>
+        <item>Copy</item>
+    </string-array>
+    <string-array name="user_info_email_actions">
+        <item>Send Email</item>
+        <item>Copy</item>
+    </string-array>
+    <string-array name="profile_settings">
+        <item>Reset Password</item>
+        <item>Logout</item>
+    </string-array>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="seaice.app.groupcontact" >
+    package="seaice.app.groupcontact">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -40,12 +40,12 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".StartupActivity"
             android:label="@string/app_name"
             android:noHistory="true"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,7 +77,7 @@
             android:label="@string/title_activity_user_info"
             android:screenOrientation="portrait" />
 
-        <receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver" >
+        <receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
@@ -116,8 +116,8 @@
 
         <activity
             android:name=".ActionSheetActivity"
-            android:label="@string/title_activity_action_sheet" >
-        </activity>
+            android:label="@string/title_activity_action_sheet"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>

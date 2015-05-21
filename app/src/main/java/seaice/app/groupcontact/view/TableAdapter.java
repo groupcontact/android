@@ -163,11 +163,13 @@ public abstract class TableAdapter extends BaseAdapter {
                 /* 在当前Section行中 */
             int row = position - range.start - range.hasHeader;
             View rowView = getRow(section, row);
-            // 最后一行
-            if ((row + 1) == getRowCount(section)) {
-                rowView.setBackgroundResource(R.drawable.tabcell_last_bg);
-            } else {
-                rowView.setBackgroundResource(R.drawable.tabcell_bg);
+            if (rowView.getBackground() == null) {
+                // 最后一行
+                if ((row + 1) == getRowCount(section)) {
+                    rowView.setBackgroundResource(R.drawable.tabcell_last_bg);
+                } else {
+                    rowView.setBackgroundResource(R.drawable.tabcell_bg);
+                }
             }
             return rowView;
         }

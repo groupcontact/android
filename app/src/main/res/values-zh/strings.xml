@@ -89,4 +89,5 @@
     <string name="action_confirm">确定</string>
     <string name="action_add">添加</string>
     <string name="action_search_group">搜索群组</string>
+    <string name="success_copy">复制成功</string>
 </resources>

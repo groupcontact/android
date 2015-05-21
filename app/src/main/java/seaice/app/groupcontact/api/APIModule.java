@@ -6,8 +6,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import seaice.app.groupcontact.ActionSheetActivity;
 import seaice.app.groupcontact.GroupCreateActivity;
-import seaice.app.groupcontact.MainActivity;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.StartupActivity;
 import seaice.app.groupcontact.UserAddActivity;
@@ -33,7 +33,8 @@ import seaice.app.groupcontact.fragment.ProfileFragment;
         ProfileFragment.class,
         UserAddActivity.class,
         UserInfoActivity.class,
-        UserEditActivity.class
+        UserEditActivity.class,
+        ActionSheetActivity.class
 })
 public class APIModule {
 

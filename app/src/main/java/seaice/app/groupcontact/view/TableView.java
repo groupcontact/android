@@ -2,6 +2,7 @@ package seaice.app.groupcontact.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,6 +40,11 @@ public class TableView extends ListView implements AdapterView.OnItemClickListen
 
         /* 取消Divider */
         setDivider(null);
+        /* 取消背景 */
+        setBackground(null);
+        setSelector(new ColorDrawable(0x0));
+        /* Overscroll模式 */
+        setOverScrollMode(View.OVER_SCROLL_ALWAYS);
 
         /* 点击的监听器 */
         setOnItemClickListener(this);
