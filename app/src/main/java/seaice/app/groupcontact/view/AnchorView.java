@@ -90,6 +90,7 @@ public class AnchorView extends View {
         mPaint.setColor(Color.parseColor("#000000"));
 
         canvas.drawLines(points, mPaint);
+
     }
 
 }

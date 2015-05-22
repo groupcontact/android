@@ -4,5 +4,5 @@
     <corners
         android:bottomLeftRadius="@dimen/actionSheetRadius"
         android:bottomRightRadius="@dimen/actionSheetRadius" />
-    <solid android:color="#BBFFFFFF" />
+    <solid android:color="#CCFFFFFF" />
 </shape>
