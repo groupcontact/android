@@ -12,6 +12,16 @@
         <item name="android:background">@color/navBarColor</item>
     </style>
 
+    <style name="SegCtrl">
+        <item name="android:textColor">@drawable/seg_ctrl_text_color</item>
+        <item name="android:minHeight">33dp</item>
+        <item name="android:minWidth">70dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
+
     <style name="btn_normal" parent="@android:style/Widget.Button">
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>

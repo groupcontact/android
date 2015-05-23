@@ -7,11 +7,11 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import seaice.app.groupcontact.ActionSheetActivity;
+import seaice.app.groupcontact.AuthActivity;
 import seaice.app.groupcontact.GroupCreateActivity;
 import seaice.app.groupcontact.SearchActivity;
 import seaice.app.groupcontact.StartupActivity;
 import seaice.app.groupcontact.UserAddActivity;
-import seaice.app.groupcontact.UserCreateActivity;
 import seaice.app.groupcontact.UserEditActivity;
 import seaice.app.groupcontact.UserInfoActivity;
 import seaice.app.groupcontact.UserListActivity;
@@ -20,12 +20,14 @@ import seaice.app.groupcontact.api.impl.GroupAPImpl;
 import seaice.app.groupcontact.api.impl.UserAPImpl;
 import seaice.app.groupcontact.fragment.FriendListFragment;
 import seaice.app.groupcontact.fragment.GroupListFragment;
+import seaice.app.groupcontact.fragment.LoginFragment;
 import seaice.app.groupcontact.fragment.ProfileFragment;
+import seaice.app.groupcontact.fragment.RegisterFragment;
 
 @Module(injects = {
         StartupActivity.class,
         SearchActivity.class,
-        UserCreateActivity.class,
+        AuthActivity.class,
         GroupCreateActivity.class,
         UserListActivity.class,
         FriendListFragment.class,
@@ -34,7 +36,9 @@ import seaice.app.groupcontact.fragment.ProfileFragment;
         UserAddActivity.class,
         UserInfoActivity.class,
         UserEditActivity.class,
-        ActionSheetActivity.class
+        ActionSheetActivity.class,
+        LoginFragment.class,
+        RegisterFragment.class
 })
 public class APIModule {
 

@@ -3,13 +3,11 @@ package seaice.app.groupcontact;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Toast;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.MainPagerAdapter;
 import seaice.app.groupcontact.view.NavBarView;
@@ -20,7 +18,7 @@ import seaice.app.groupcontact.view.TabBarView;
  *
  * @author zhb
  */
-public class MainActivity extends FragmentActivity implements TabBarView.OnTabChangeListener {
+public class MainActivity extends BaseActivity implements TabBarView.OnTabChangeListener {
 
     // Support the press again to exit functionality..
     private static final int RESET_BACK_COUNT = 123456;
@@ -41,8 +39,6 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
 
         mTitles = getResources().getStringArray(R.array.pager_titles);
         MainPagerAdapter adapter = new MainPagerAdapter(getSupportFragmentManager());
@@ -66,6 +62,10 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
 
     @Override
     public void onBackPressed() {
+        if (mNavBarView.isPopupShowing()) {
+            mNavBarView.dismissPopup();
+            return;
+        }
         ++mBackCount;
         // the first press, toast the tip
         if (mBackCount == 1) {
@@ -91,9 +91,7 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
         mNavBarView.setTitle(mTitles[to]);
 
         if (to == 0) {
-            if (from == 2) {
-                mNavBarView.setRightItem(R.mipmap.ic_action_add);
-            }
+            mNavBarView.setRightItem(getString(R.string.action_add));
             mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -101,9 +99,7 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
                 }
             });
         } else if (to == 1) {
-            if (from == 2) {
-                mNavBarView.setRightItem(R.mipmap.ic_action_add);
-            }
+            mNavBarView.setRightItem(getString(R.string.action_create));
             mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -178,6 +174,16 @@ public class MainActivity extends FragmentActivity implements TabBarView.OnTabCh
                 }
             });
         }
+    }
+
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected boolean needDagger() {
+        return false;
     }
 
 }

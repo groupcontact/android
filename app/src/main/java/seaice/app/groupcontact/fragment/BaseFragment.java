@@ -2,6 +2,7 @@ package seaice.app.groupcontact.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import butterknife.ButterKnife;
@@ -14,9 +15,14 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        mTitle = getArguments().getString("title");
+        Bundle args = getArguments();
+        if (args != null) {
+            mTitle = getArguments().getString("title");
+        }
 
-        MyApplication.inject(this);
+        if (needDagger()) {
+            MyApplication.inject(this);
+        }
     }
 
     @Override
@@ -46,5 +52,10 @@ public abstract class BaseFragment extends Fragment {
 
     public String getTitle() {
         return mTitle;
+    }
+
+    /* 是否需要Dagger做Member Injection */
+    public boolean needDagger() {
+        return true;
     }
 }

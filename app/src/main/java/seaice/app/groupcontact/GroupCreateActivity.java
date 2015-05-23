@@ -39,9 +39,6 @@ public class GroupCreateActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_create);
-
-        ButterKnife.inject(this);
 
         mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +46,11 @@ public class GroupCreateActivity extends BaseActivity {
                 createGroup();
             }
         });
+    }
+
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_group_create;
     }
 
     public void createGroup() {

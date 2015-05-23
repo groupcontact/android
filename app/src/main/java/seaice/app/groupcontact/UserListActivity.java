@@ -13,7 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
@@ -55,9 +54,6 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_list);
-
-        ButterKnife.inject(this);
 
         mLayout.setOnRefreshListener(this);
         mUserList.setVisibility(View.INVISIBLE);
@@ -89,6 +85,11 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         mDialog.show();
 
         onRefresh();
+    }
+
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_user_list;
     }
 
 //    public boolean onCreateOptionsMenu(Menu menu) {

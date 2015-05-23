@@ -18,7 +18,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
@@ -46,9 +45,6 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-
-        ButterKnife.inject(this);
 
         final GroupListAdapter adapter = new GroupListAdapter(this, null);
         mGroupList.setAdapter(adapter);
@@ -137,6 +133,16 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
     public void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_search;
+    }
+
+
+    protected boolean hasNavBar() {
+        return false;
     }
 }
 

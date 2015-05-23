@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="@string/enter_phone"
+            android:inputType="phone"
+            android:textColor="@color/edit_color" />
+
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="@string/setup_password"
+            android:inputType="numberPassword"
+            android:maxLength="6"
+            android:textColor="@color/edit_color" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:hint="@string/setup_name"
+            android:inputType="text"
+            android:textColor="@color/edit_color" />
+
+        <com.dd.processbutton.iml.ActionProcessButton
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_register"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:pb_colorComplete="@color/green_complete"
+            app:pb_colorError="@color/red_error"
+            app:pb_colorNormal="@color/blue_normal"
+            app:pb_colorPressed="@color/blue_pressed"
+            app:pb_colorProgress="@color/purple_progress"
+            app:pb_textComplete="@string/success_register"
+            app:pb_textError="@string/error_register"
+            app:pb_textProgress="@string/progress_register" />
+
+    </LinearLayout>
+
+</ScrollView>

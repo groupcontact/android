@@ -3,7 +3,6 @@ package seaice.app.groupcontact.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -30,7 +29,7 @@ import seaice.app.groupcontact.utils.AppUtils;
 public class NavBarView extends RelativeLayout {
 
     /* 标题View */
-    TextView mTitleView;
+    View mCenterItem;
     /* 标题 */
     String mTitle;
 
@@ -40,8 +39,7 @@ public class NavBarView extends RelativeLayout {
     float mItemTextSize;
     private static final float DEFAULT_ITEM_TEXT_SIZE = 9f;
 
-    /* 左按钮 */
-    View mLeftItem;
+    /* 左按钮 */ View mLeftItem;
     int mLeftIcon;
     private static final int DEFAULT_LEFT_ICON = -1;
     String mLeftText;
@@ -56,12 +54,15 @@ public class NavBarView extends RelativeLayout {
     boolean mHasBackTitle;
     private static final boolean DEFAULT_HAS_BACK_TITLE = true;
 
+    /* 标题的颜色 */
     int mTitleColor = DEFAULT_TITLE_COLOR;
     private static final int DEFAULT_TITLE_COLOR = Color.parseColor("#FFFFFFFF");
 
+    /* 标题的大小 */
     float mTitleSize = DEFAULT_TITLE_SIZE;
     private static final float DEFAULT_TITLE_SIZE = 10f;
 
+    /* 左右的边距 */
     float mItemMargin = DEFAULT_ITEM_MARGIN;
     private static final float DEFAULT_ITEM_MARGIN = 8;
 
@@ -85,11 +86,9 @@ public class NavBarView extends RelativeLayout {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-
         final TypedArray a = getContext().obtainStyledAttributes(
                 attrs, R.styleable.NavBarView, defStyle, 0);
 
-        Resources r = getResources();
         mTitle = a.getString(R.styleable.NavBarView_navTitle);
         mRightIcon = a.getResourceId(R.styleable.NavBarView_navRightIcon, DEFAULT_RIGHT_ICON);
         mLeftIcon = a.getResourceId(R.styleable.NavBarView_navLeftIcon, DEFAULT_LEFT_ICON);
@@ -108,8 +107,7 @@ public class NavBarView extends RelativeLayout {
 
         a.recycle();
 
-        mTitleView = getTextView(mTitle, true);
-        addView(mTitleView, getTitleLayoutParams());
+        setCenterItem(mTitle);
         if (mRightIcon != DEFAULT_RIGHT_ICON) {
             setRightItem(mRightIcon);
         }
@@ -123,6 +121,7 @@ public class NavBarView extends RelativeLayout {
             setLeftItem(mLeftText);
         }
 
+        /* 设置BackTitle */
         if (mHasBackTitle) {
             Context context = getContext();
             if (context instanceof Activity) {
@@ -136,6 +135,7 @@ public class NavBarView extends RelativeLayout {
         }
     }
 
+    /* 辅助方法: 生成一个TextView */
     private TextView getTextView(String text, boolean title) {
         TextView textView = new TextView(getContext());
         textView.setTextColor(mTitleColor);
@@ -143,12 +143,6 @@ public class NavBarView extends RelativeLayout {
         textView.setText(text);
 
         return textView;
-    }
-
-    protected LayoutParams getTitleLayoutParams() {
-        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        params.addRule(CENTER_IN_PARENT);
-        return params;
     }
 
     /* 设置左边按钮, 文字形式的按钮 */
@@ -220,7 +214,7 @@ public class NavBarView extends RelativeLayout {
     /* 直接使用View作为左部按钮 */
     public void setLeftItem(View view) {
         removeLeftItem();
-        addView(view, getLeftItemLayoutParams());
+        addView(view, getLeftLayoutParams());
         mLeftItem = view;
     }
 
@@ -235,6 +229,33 @@ public class NavBarView extends RelativeLayout {
     public void setLeftItemOnClickListener(OnClickListener listener) {
         if (mLeftItem != null) {
             mLeftItem.setOnClickListener(listener);
+        }
+    }
+
+    public void setCenterItem(View view) {
+        removeCenterItem();
+        addView(view, getCenterLayoutParams());
+        mCenterItem = view;
+    }
+
+    /* 设置中间部分的标题 */
+    public void setCenterItem(String text) {
+        setCenterItem(getTextView(text, true));
+    }
+
+    /* 设置中间部分的View, 根据LayoutId */
+    public void setCenterItem(int layoutId) {
+        setCenterItem(LayoutInflater.from(getContext()).inflate(layoutId, null));
+    }
+
+    /* 设置标题 */
+    public void setTitle(String title) {
+        setCenterItem(title);
+    }
+
+    public void removeCenterItem() {
+        if (mCenterItem != null) {
+            removeView(mCenterItem);
         }
     }
 
@@ -272,10 +293,11 @@ public class NavBarView extends RelativeLayout {
     /* 设置右边按钮, 任意View */
     public void setRightItem(View view) {
         removeRightItem();
-        addView(view, getRightItemLayoutParams());
+        addView(view, getRightLayoutParams());
         mRightItem = view;
     }
 
+    /* 设置右边触发的多选项菜单 */
     public void setRightActions(int imgResId, String[] actions, int[] icons) {
         if (imgResId != -1) {
             setRightItem(imgResId);
@@ -299,6 +321,7 @@ public class NavBarView extends RelativeLayout {
         });
     }
 
+    /* 初始一个PopupWindow */
     protected void initPopupWindow() {
         View rootView = LayoutInflater.from(getContext()).inflate(R.layout.popup_menu, null);
         mPopupWindow = new PopupWindow(rootView, LayoutParams.MATCH_PARENT,
@@ -313,32 +336,40 @@ public class NavBarView extends RelativeLayout {
         }
     }
 
+    /* 设置右部的点击时间处理方法 */
     public void setRightItemOnClickListener(OnClickListener listener) {
         if (mRightItem != null) {
             mRightItem.setOnClickListener(listener);
         }
     }
 
-    protected LayoutParams getLeftItemLayoutParams() {
+    /* 左部的布局参数 */
+    protected LayoutParams getLeftLayoutParams() {
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
         params.addRule(ALIGN_PARENT_LEFT);
         params.addRule(CENTER_VERTICAL);
         return params;
     }
 
-    protected LayoutParams getRightItemLayoutParams() {
+    /* 中间的布局参数 */
+    protected LayoutParams getCenterLayoutParams() {
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.addRule(CENTER_IN_PARENT);
+        return params;
+    }
+
+    /* 右部的布局参数 */
+    protected LayoutParams getRightLayoutParams() {
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
         params.addRule(ALIGN_PARENT_RIGHT);
         params.addRule(CENTER_VERTICAL);
         return params;
     }
 
-    public void setTitle(String title) {
-        mTitleView.setText(title);
-    }
-
+    /* 高度 */
     private int mHeight;
 
+    /* 逐渐隐藏 */
     public void hide(Animation.AnimationListener listener) {
         mHeight = getMeasuredHeight();
 
@@ -359,6 +390,7 @@ public class NavBarView extends RelativeLayout {
         startAnimation(animation);
     }
 
+    /* 逐渐显示 */
     public void show(Animation.AnimationListener listener) {
         Animation animation = new Animation() {
             @Override
@@ -375,5 +407,17 @@ public class NavBarView extends RelativeLayout {
         animation.setDuration((long) ((mHeight * 1) / AppUtils.getPix(getContext(), 1)));
         animation.setAnimationListener(listener);
         startAnimation(animation);
+    }
+
+    /* PopupWindow是否正在显示 */
+    public boolean isPopupShowing() {
+        return mPopupWindow != null && mPopupWindow.isShowing();
+    }
+
+    /* 曲线PopupWindow的显示 */
+    public void dismissPopup() {
+        if (mPopupWindow != null) {
+            mPopupWindow.dismiss();
+        }
     }
 }

@@ -50,8 +50,8 @@
     <string name="hello_world">你好世界</string>
     <string name="empty_now">暂未填写</string>
     <string name="action_share">分享</string>
-    <string name="enter_password">密码</string>
-    <string name="setup_name">设置您的姓名</string>
+    <string name="enter_password">六位数字密码</string>
+    <string name="setup_name">设置姓名</string>
     <string name="progress_wait">稍等片刻</string>
     <string name="user_create_save">保存并继续</string>
     <string name="success_login">登录成功</string>
@@ -90,4 +90,12 @@
     <string name="action_add">添加</string>
     <string name="action_search_group">搜索群组</string>
     <string name="success_copy">复制成功</string>
+    <string name="action_create">创建</string>
+    <string name="action_login">登录</string>
+    <string name="action_register">注册</string>
+    <string name="error_login">登录失败</string>
+    <string name="progress_login">登录中</string>
+    <string name="progress_register">注册中</string>
+    <string name="error_register">注册失败</string>
+    <string name="setup_password">设置六位数字密码</string>
 </resources>

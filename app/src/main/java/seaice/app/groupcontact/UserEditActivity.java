@@ -15,7 +15,6 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnClick;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -44,9 +43,6 @@ public class UserEditActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_edit);
-
-        ButterKnife.inject(this);
 
         UserAO user = Var.userAO;
         mPhoneView.setText(user.getPhone());
@@ -64,6 +60,11 @@ public class UserEditActivity extends BaseActivity {
                 save();
             }
         });
+    }
+
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_user_edit;
     }
 
     @Override

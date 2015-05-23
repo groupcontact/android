@@ -1,5 +1,6 @@
 package seaice.app.groupcontact;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,7 @@ import seaice.app.groupcontact.adapter.ActionSheetAdapter;
 import seaice.app.groupcontact.view.TableView;
 
 
-public class ActionSheetActivity extends BaseActivity implements TableView.OnCellClickListener {
+public class ActionSheetActivity extends Activity implements TableView.OnCellClickListener {
 
     public static final String TITLE = "ACTION_SHEET_TITLE";
 
@@ -51,10 +52,6 @@ public class ActionSheetActivity extends BaseActivity implements TableView.OnCel
 
         mActionSheetView.setAdapter(new ActionSheetAdapter(
                 this, mTitle, mMessage, mActions, mIcons, mCancel));
-
-//        TranslateAnimation animation = new TranslateAnimation(.0f, .0f, 1f, 0f);
-//        animation.setDuration(500);
-//        mActionSheetView.startAnimation(animation);
 
         mActionSheetView.setOnCellClickListener(this);
     }

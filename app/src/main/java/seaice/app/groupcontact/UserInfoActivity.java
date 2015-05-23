@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.UserInfoAdapter;
 import seaice.app.groupcontact.api.UserAPI;
@@ -48,10 +47,6 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_user_info);
-
-        ButterKnife.inject(this);
-
         mUser = getIntent().getParcelableExtra("user");
         try {
             mExtAttrs = new JSONObject(mUser.getExt());
@@ -70,6 +65,11 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
         mNavBarView.setRightActions(-1, new String[]{
                 "加为好友", "删除好友"
         }, new int[]{R.drawable.call, R.drawable.message});
+    }
+
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_user_info;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Let {
 
     public static final int APP_VERSION = 3;
 
-    public static final int REQUEST_CODE_CREATE_USER = 1;
+    public static final int REQUEST_CODE_INIT_DATA = 1;
 
     public static final int REQUEST_CODE_ADD_FRIEND = 2;
 

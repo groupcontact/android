@@ -56,4 +56,6 @@ dependencies {
     compile 'com.github.cdflynn:crossview:v1.0.1'
     compile 'com.github.stuxuhai:jpinyin:1.0'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'info.hoang8f:android-segmented:1.0.5'
+    compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.3'
 }

@@ -16,23 +16,28 @@ import android.widget.Toast;
 
 import com.umeng.fb.FeedbackAgent;
 
+import java.util.Collections;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import seaice.app.groupcontact.AuthActivity;
 import seaice.app.groupcontact.Let;
 import seaice.app.groupcontact.QrcodeActivity;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.ScanActivity;
 import seaice.app.groupcontact.UserAddActivity;
-import seaice.app.groupcontact.UserCreateActivity;
 import seaice.app.groupcontact.UserEditActivity;
 import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.adapter.ProfileAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
+import seaice.app.groupcontact.api.ao.GroupAO;
+import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.CipherUtils;
+import seaice.app.groupcontact.utils.FileUtils;
 import seaice.app.groupcontact.view.TableView;
 
 /**
@@ -156,8 +161,12 @@ public class ProfileFragment extends BaseFragment {
     private void logout() {
         Var.uid = -1l;
         getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE).edit().putLong("uid", -1).apply();
-
-        Intent intent = new Intent(getActivity(), UserCreateActivity.class);
+        FileUtils.write(getActivity(), Let.FRIEND_CACHE_PATH, Collections.<UserAO>emptyList(),
+                UserAO.class, true);
+        FileUtils.write(getActivity(), Let.GROUP_CACHE_PATH, Collections.<GroupAO>emptyList(),
+                GroupAO.class, true);
+        Intent intent = new Intent(getActivity(), AuthActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }

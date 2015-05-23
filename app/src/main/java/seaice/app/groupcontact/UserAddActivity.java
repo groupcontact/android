@@ -37,9 +37,6 @@ public class UserAddActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_add);
-
-        ButterKnife.inject(this);
 
         String name = getIntent().getStringExtra("name");
         String phone = getIntent().getStringExtra("phone");
@@ -53,6 +50,11 @@ public class UserAddActivity extends BaseActivity {
                 addFriend();
             }
         });
+    }
+
+    @Override
+    public int getLayoutResId() {
+        return R.layout.activity_user_add;
     }
 
     public void addFriend() {

@@ -13,7 +13,7 @@
     <string name="action_save">Save</string>
     <string name="action_refresh">Refresh</string>
 
-    <string name="enter_name">Name(Real Name)</string>
+    <string name="enter_name">Name</string>
     <string name="enter_phone">Phone Number</string>
     <string name="action_create_user">Login</string>
 
@@ -62,8 +62,8 @@
     <string name="action_share">Share</string>
 
     <string name="empty_now">Empty</string>
-    <string name="enter_password">Password</string>
-    <string name="setup_name">Setup Your Name</string>
+    <string name="enter_password">Six Digit Password</string>
+    <string name="setup_name">Setup Name</string>
     <string name="progress_wait">Loading</string>
     <string name="user_create_save">Save</string>
     <string name="success_login">Login Successfully</string>
@@ -103,4 +103,13 @@
     <string name="action_search_group">Search Group</string>
     <string name="title_activity_action_sheet">ActionSheetActivity</string>
     <string name="success_copy">Copy Successfully</string>
+    <string name="action_create">Create</string>
+    <string name="action_login">Login</string>
+    <string name="action_register">Register</string>
+
+    <string name="error_login">Login Failed</string>
+    <string name="progress_login">Login in Progress</string>
+    <string name="error_register">Register Failed</string>
+    <string name="progress_register">Register in Progress</string>
+    <string name="setup_password">Setup Six Digit Password</string>
 </resources>

@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="seaice.app.groupcontact.AuthActivity">
+
+    <seaice.app.groupcontact.view.NavBarView
+        android:id="@+id/navBar"
+        style="@style/NavBar"
+        app:navHasBackTitle="false" />
+
+    <FrameLayout
+        android:id="@+id/fragment_auth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

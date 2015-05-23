@@ -10,7 +10,7 @@
         style="@style/NavBar"
         app:navHasBackTitle="false"
         app:navLeftText="@string/app_name"
-        app:navRightIcon="@mipmap/ic_action_add" />
+        app:navRightText="@string/action_add" />
 
     <seaice.app.groupcontact.view.TabBarView
         android:id="@+id/tabBar"

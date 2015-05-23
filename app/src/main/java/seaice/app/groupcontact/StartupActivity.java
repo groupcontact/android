@@ -5,13 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.Log;
 
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 import java.io.File;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,10 +40,10 @@ public class StartupActivity extends BaseActivity {
 
         XiaomiUpdateAgent.update(this);
 
-        setContentView(R.layout.activity_startup);
-
         File file = new File(Let.APP_DIR);
-        file.mkdirs();
+        if (!file.mkdirs()) {
+            Log.e("StartupActivity", "Failed To Make Directories.");
+        }
 
         final Context context = this;
         mConfigAPI.load(new BaseCallback<ConfigAO>(this) {
@@ -54,65 +52,60 @@ public class StartupActivity extends BaseActivity {
                 if (config == null) {
                     info(getString(R.string.error_network));
                 } else {
-                    // save configuration into runtime constants
+                    // 保存配置
                     Var.config = config;
                 }
-                // check whether the user has logged in before.
+                // 用户是否已经登录了
                 SharedPreferences prefs = context.getSharedPreferences("prefs", MODE_PRIVATE);
                 long uid = prefs.getLong("uid", -1);
-                // Yes, the user logged in before.
+                // 登录过
                 if (uid != -1) {
-                    String password = prefs.getString("password", "123456");
-                    // 升级前没有存储name字段
-                    String name = prefs.getString("name", null);
-                    if (name == null && config == null) {
-                        info(getString(R.string.network_required_for_upgrade));
-                        return;
-                    }
-                    loadUserInfo(uid, name, password);
+                    Var.uid = uid;
+                    Var.name = prefs.getString("name", "");
+                    Var.password = prefs.getString("password", "");
+                    Var.userAO = FileUtils.read(context, Let.PROFILE_CACHE_PATH, UserAO.class).get(0);
+                    Intent intent = new Intent(context, MainActivity.class);
+                    startActivity(intent);
                 } else {
-                    Intent intent = new Intent(context, UserCreateActivity.class);
-                    startActivityForResult(intent, Let.REQUEST_CODE_CREATE_USER);
+                    Intent intent = new Intent(context, AuthActivity.class);
+                    startActivity(intent);
                 }
             }
         });
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Let.REQUEST_CODE_CREATE_USER) {
-            if (resultCode == Activity.RESULT_OK) {
-                long uid = data.getLongExtra("uid", -1);
-                String name = data.getStringExtra("name");
-                String password = data.getStringExtra("password");
-                loadUserInfo(uid, name, password);
-                super.onActivityResult(requestCode, resultCode, data);
-            }
-        }
-        finish();
+    public int getLayoutResId() {
+        return R.layout.activity_startup;
     }
 
-    private void loadUserInfo(long uid, String name, String password) {
-        Var.uid = uid;
-        Var.name = name;
-        Var.password = password;
-
-        // load user info
-        mUserAPI.find(Var.uid, new BaseCallback<List<UserAO>>(this) {
-            @Override
-            public void call(List<UserAO> result) {
-                // 如果网络有错误，则从本地读取
-                if (result == null || result.size() == 0) {
-                    result = FileUtils.read(StartupActivity.this, Let.PROFILE_CACHE_PATH, UserAO.class);
-                } else {
-                    FileUtils.write(StartupActivity.this, Let.PROFILE_CACHE_PATH, result, UserAO.class, true);
-                    getSharedPreferences("prefs", MODE_PRIVATE).edit().putString("name", result.get(0)
-                            .getName()).apply();
-                }
-                Var.userAO = result.get(0);
-                Intent intent = new Intent(StartupActivity.this, MainActivity.class);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Let.REQUEST_CODE_INIT_DATA) {
+            if (resultCode == Activity.RESULT_OK) {
+                UserAO user = data.getParcelableExtra("user");
+                String password = data.getStringExtra("password");
+                SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+                prefs.edit().putLong("uid", user.getUid()).apply();
+                prefs.edit().putString("name", user.getName()).apply();
+                prefs.edit().putString("password", password).apply();
+                Var.userAO = user;
+                Var.uid = user.getUid();
+                Var.name = user.getName();
+                Var.password = password;
+                // 准备就绪
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+            } else {
+                finish();
             }
-        });
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected boolean hasNavBar() {
+        return false;
     }
 }
