@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.MainPagerAdapter;
+import seaice.app.groupcontact.utils.AppUtils;
 import seaice.app.groupcontact.view.NavBarView;
 import seaice.app.groupcontact.view.TabBarView;
 
@@ -125,7 +126,6 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
         Intent intent = new Intent(this, GroupCreateActivity.class);
         intent.putExtra("title", mTitles[1]);
         startActivityForResult(intent, Let.REQUEST_CODE_CREATE_GROUP);
-        ;
     }
 
     @Override
@@ -138,55 +138,57 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
 
     public void animate2Activity(final Class<?> activityClass) {
         mNavBarHidden = true;
-        findViewById(R.id.topPanel).animate().translationY(-96).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
+        findViewById(R.id.topPanel).animate().translationY(-(AppUtils.getPix(this, 48)))
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
 
-            }
+                    }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Intent intent = new Intent(MainActivity.this, activityClass);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-            }
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        Intent intent = new Intent(MainActivity.this, activityClass);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+                    }
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
 
-            }
+                    }
 
-            @Override
-            public void onAnimationRepeat(Animator animation) {
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
 
-            }
-        });
+                    }
+                });
     }
 
     public void onResume() {
         super.onResume();
         if (mNavBarHidden) {
-            findViewById(R.id.topPanel).animate().translationY(0).setListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
+            findViewById(R.id.topPanel).animate().translationY(0).setListener(
+                    new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animation) {
 
-                }
+                        }
 
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mNavBarHidden = false;
-                }
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            mNavBarHidden = false;
+                        }
 
-                @Override
-                public void onAnimationCancel(Animator animation) {
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
 
-                }
+                        }
 
-                @Override
-                public void onAnimationRepeat(Animator animation) {
+                        @Override
+                        public void onAnimationRepeat(Animator animation) {
 
-                }
-            });
+                        }
+                    });
         }
     }
 

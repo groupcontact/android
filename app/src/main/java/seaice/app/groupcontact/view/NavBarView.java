@@ -368,17 +368,6 @@ public class NavBarView extends RelativeLayout {
         return params;
     }
 
-    /* 高度 */
-    private int mHeight;
-
-    /* 逐渐隐藏 */
-    public void hide(Animator.AnimatorListener listener) {
-        mHeight = getMeasuredHeight();
-
-        animate().setDuration(500).y(-mHeight).setListener(listener);
-        //animate().setDuration(500).translationY(-mHeight).setListener(listener);
-    }
-
     /* 逐渐显示 */
     public void show(Animator.AnimatorListener listener) {
         animate().setDuration(500).y(0).setListener(listener);
