@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -28,7 +27,8 @@ import seaice.app.groupcontact.view.TableView;
  *
  * @author zhb
  */
-public class UserListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class UserListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener,
+        TableView.OnCellClickListener {
 
     @Inject
     GroupAPI mGroupAPI;
@@ -84,29 +84,15 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         mDialog.setCancelable(true);
         mDialog.show();
 
+        mNavBarView.setRightActions(-1, getResources().getStringArray(
+                R.array.group_actions), null, this);
+
         onRefresh();
     }
 
     @Override
     public int getLayoutResId() {
         return R.layout.activity_user_list;
-    }
-
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_user_list, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -129,12 +115,14 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         });
     }
 
-    public void leaveGroup() {
+    @Override
+    public void onCellClick(AdapterView<?> parent, View view, int section, int row, long id) {
         mUserAPI.leaveGroup(Var.uid, Var.password, mGid, new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
                 if (result.getStatus() == 1) {
                     info(getString(R.string.success_leave_group));
+                    setResult(RESULT_OK);
                     finish();
                 } else {
                     info(result.getInfo());

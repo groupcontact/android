@@ -112,4 +112,5 @@
     <string name="error_register">Register Failed</string>
     <string name="progress_register">Register in Progress</string>
     <string name="setup_password">Setup Six Digit Password</string>
+    <string name="action_leave">Leave</string>
 </resources>

@@ -1,11 +1,11 @@
 package seaice.app.groupcontact;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Toast;
 
 import butterknife.InjectView;
@@ -91,7 +91,9 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
         mNavBarView.setTitle(mTitles[to]);
 
         if (to == 0) {
-            mNavBarView.setRightItem(getString(R.string.action_add));
+            if (from == 2) {
+                mNavBarView.setRightItem(R.mipmap.ic_action_add);
+            }
             mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -99,7 +101,9 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
                 }
             });
         } else if (to == 1) {
-            mNavBarView.setRightItem(getString(R.string.action_create));
+            if (from == 2) {
+                mNavBarView.setRightItem(R.mipmap.ic_action_add);
+            }
             mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -134,21 +138,26 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
 
     public void animate2Activity(final Class<?> activityClass) {
         mNavBarHidden = true;
-        mNavBarView.hide(new Animation.AnimationListener() {
+        findViewById(android.R.id.content).animate().translationY(-96).setListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
+            public void onAnimationStart(Animator animation) {
 
             }
 
             @Override
-            public void onAnimationEnd(Animation animation) {
+            public void onAnimationEnd(Animator animation) {
                 Intent intent = new Intent(MainActivity.this, activityClass);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
 
             }
         });
@@ -157,19 +166,24 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
     public void onResume() {
         super.onResume();
         if (mNavBarHidden) {
-            mNavBarView.show(new Animation.AnimationListener() {
+            findViewById(android.R.id.content).animate().translationY(0).setListener(new Animator.AnimatorListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {
+                public void onAnimationStart(Animator animation) {
 
                 }
 
                 @Override
-                public void onAnimationEnd(Animation animation) {
+                public void onAnimationEnd(Animator animation) {
                     mNavBarHidden = false;
                 }
 
                 @Override
-                public void onAnimationRepeat(Animation animation) {
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
 
                 }
             });

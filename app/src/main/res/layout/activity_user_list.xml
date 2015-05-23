@@ -8,7 +8,7 @@
     <seaice.app.groupcontact.view.NavBarView
         android:id="@+id/navBar"
         style="@style/NavBar"
-        app:navRightIcon="@mipmap/ic_action_settings" />
+        app:navRightIcon="@mipmap/ic_action_add" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"

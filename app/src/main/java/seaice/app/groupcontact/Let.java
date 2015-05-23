@@ -24,11 +24,15 @@ public class Let {
 
     public static final int REQUEST_CODE_ADD_FRIEND = 2;
 
-    public static final int REQUEST_CODE_CREATE_GROUP = 3;
+    public static final int REQUEST_CODE_VIEW_GROUP = 3;
 
-    public static final int REQUEST_CODE_JOIN_GROUP = 4;
+    public static final int REQUEST_CODE_VIEW_FRIEND = 4;
 
-    public static final int REQUEST_CODE_OPERATE_PHONE = 1;
+    public static final int REQUEST_CODE_CREATE_GROUP = 5;
 
-    public static final int REQUEST_CODE_OPERATE_EMAIL = 2;
+    public static final int REQUEST_CODE_JOIN_GROUP = 6;
+
+    public static final int REQUEST_CODE_OPERATE_PHONE = 7;
+
+    public static final int REQUEST_CODE_OPERATE_EMAIL = 8;
 }

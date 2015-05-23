@@ -29,4 +29,13 @@
         <item>Reset Password</item>
         <item>Logout</item>
     </string-array>
+    <string-array name="group_actions">
+        <item>Leave Group</item>
+    </string-array>
+    <string-array name="friend_actions">
+        <item>Delete Friend</item>
+    </string-array>
+    <string-array name="user_actions">
+        <item>Add As Friends</item>
+    </string-array>
 </resources>

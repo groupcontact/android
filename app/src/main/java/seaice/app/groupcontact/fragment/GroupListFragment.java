@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,8 +31,6 @@ import seaice.app.groupcontact.view.TableView;
 
 public class GroupListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private static final int CREATE_GROUP = 1;
-
     @Inject
     UserAPI mUserAPI;
 
@@ -45,7 +41,6 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @InjectView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mLayout;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,18 +73,13 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
                 GroupAO group = (GroupAO) parent.getAdapter().getItem(position);
                 intent.putExtra("gid", group.getGid());
                 intent.putExtra("name", group.getName());
-                startActivity(intent);
+                startActivityForResult(intent, Let.REQUEST_CODE_VIEW_GROUP);
             }
         });
 
         mLayout.setOnRefreshListener(this);
 
         return rootView;
-    }
-
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_group_list, menu);
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -121,12 +111,12 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CREATE_GROUP) {
+        if (requestCode == Let.REQUEST_CODE_VIEW_GROUP) {
             if (resultCode == Activity.RESULT_OK) {
                 onRefresh();
             }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

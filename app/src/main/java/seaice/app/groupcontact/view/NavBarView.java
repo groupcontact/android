@@ -1,5 +1,6 @@
 package seaice.app.groupcontact.view;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +10,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -298,7 +297,7 @@ public class NavBarView extends RelativeLayout {
     }
 
     /* 设置右边触发的多选项菜单 */
-    public void setRightActions(int imgResId, String[] actions, int[] icons) {
+    public void setRightActions(int imgResId, String[] actions, int[] icons, TableView.OnCellClickListener listener) {
         if (imgResId != -1) {
             setRightItem(imgResId);
         }
@@ -307,6 +306,9 @@ public class NavBarView extends RelativeLayout {
             initPopupWindow();
             TableView menuList = (TableView) mPopupWindow.getContentView().findViewById(R.id.menuList);
             menuList.setAdapter(new PopupMenuAdapter(getContext(), actions, null));
+            if (listener != null) {
+                menuList.setOnCellClickListener(listener);
+            }
         }
 
         setRightItemOnClickListener(new OnClickListener() {
@@ -370,43 +372,16 @@ public class NavBarView extends RelativeLayout {
     private int mHeight;
 
     /* 逐渐隐藏 */
-    public void hide(Animation.AnimationListener listener) {
+    public void hide(Animator.AnimatorListener listener) {
         mHeight = getMeasuredHeight();
 
-        Animation animation = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                getLayoutParams().height = mHeight - (int) (mHeight * interpolatedTime);
-                requestLayout();
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-        animation.setDuration((long) ((mHeight * 1) / AppUtils.getPix(getContext(), 1)));
-        animation.setAnimationListener(listener);
-        startAnimation(animation);
+        animate().setDuration(500).y(-mHeight).setListener(listener);
+        //animate().setDuration(500).translationY(-mHeight).setListener(listener);
     }
 
     /* 逐渐显示 */
-    public void show(Animation.AnimationListener listener) {
-        Animation animation = new Animation() {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                getLayoutParams().height = (int) (mHeight * interpolatedTime);
-                requestLayout();
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-        animation.setDuration((long) ((mHeight * 1) / AppUtils.getPix(getContext(), 1)));
-        animation.setAnimationListener(listener);
-        startAnimation(animation);
+    public void show(Animator.AnimatorListener listener) {
+        animate().setDuration(500).y(0).setListener(listener);
     }
 
     /* PopupWindow是否正在显示 */

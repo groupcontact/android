@@ -29,5 +29,13 @@
         <item>修改密码</item>
         <item>切换账号</item>
     </string-array>
-
+    <string-array name="group_actions">
+        <item>退出群组</item>
+    </string-array>
+    <string-array name="friend_actions">
+        <item>删除好友</item>
+    </string-array>
+    <string-array name="user_actions">
+        <item>加为好友</item>
+    </string-array>
 </resources>

@@ -81,7 +81,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
     /* 当按下返回键时 */
     public void onBackPressed() {
-        if (mNavBarView.isPopupShowing()) {
+        if (mNavBarView != null && mNavBarView.isPopupShowing()) {
             mNavBarView.dismissPopup();
         } else {
             super.onBackPressed();
