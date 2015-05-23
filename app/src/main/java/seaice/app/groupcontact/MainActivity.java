@@ -138,7 +138,7 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
 
     public void animate2Activity(final Class<?> activityClass) {
         mNavBarHidden = true;
-        findViewById(android.R.id.content).animate().translationY(-96).setListener(new Animator.AnimatorListener() {
+        findViewById(R.id.topPanel).animate().translationY(-96).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
 
@@ -166,7 +166,7 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
     public void onResume() {
         super.onResume();
         if (mNavBarHidden) {
-            findViewById(android.R.id.content).animate().translationY(0).setListener(new Animator.AnimatorListener() {
+            findViewById(R.id.topPanel).animate().translationY(0).setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
 
