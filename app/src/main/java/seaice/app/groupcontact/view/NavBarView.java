@@ -239,7 +239,11 @@ public class NavBarView extends RelativeLayout {
 
     /* 设置中间部分的标题 */
     public void setCenterItem(String text) {
-        setCenterItem(getTextView(text, true));
+        if (mCenterItem != null && mCenterItem instanceof TextView) {
+            ((TextView) mCenterItem).setText(text);
+        } else {
+            setCenterItem(getTextView(text, true));
+        }
     }
 
     /* 设置中间部分的View, 根据LayoutId */

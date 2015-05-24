@@ -22,6 +22,16 @@
         <item name="android:paddingRight">5dp</item>
     </style>
 
+    <style name="EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textColor">@color/edit_color</item>
+        <item name="android:textColorHint">@color/tipColor</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="btn_normal" parent="@android:style/Widget.Button">
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>

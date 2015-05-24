@@ -1,6 +1,7 @@
 package seaice.app.groupcontact;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,7 +34,7 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
     NavBarView mNavBarView;
     private int mBackCount = 0;
 
-    private boolean mNavBarHidden = false;
+    private boolean mTopHidden = false;
 
     String[] mTitles;
 
@@ -128,65 +129,27 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
         startActivityForResult(intent, Let.REQUEST_CODE_CREATE_GROUP);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Let.REQUEST_CODE_ADD_FRIEND) {
-
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
     public void animate2Activity(final Class<?> activityClass) {
-        mNavBarHidden = true;
+        mTopHidden = true;
         findViewById(R.id.topPanel).animate().translationY(-(AppUtils.getPix(this, 48)))
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
+                .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(MainActivity.this, activityClass);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
                     }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
                 });
     }
 
     public void onResume() {
         super.onResume();
-        if (mNavBarHidden) {
+        if (mTopHidden) {
             findViewById(R.id.topPanel).animate().translationY(0).setListener(
-                    new Animator.AnimatorListener() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-
-                        }
-
+                    new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            mNavBarHidden = false;
-                        }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) {
-
+                            mTopHidden = false;
                         }
                     });
         }

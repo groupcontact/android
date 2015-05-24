@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -54,9 +53,6 @@ public class SearchBarView extends LinearLayout {
 
     /* 输入框 */
     EditText mEditText;
-
-    /* 输入法控制 */
-    InputMethodManager mIMManager;
 
     private TextWatcher mListener;
 
@@ -129,8 +125,6 @@ public class SearchBarView extends LinearLayout {
         });
 
         enterViewMode();
-
-        mIMManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     public void setTextWatcher(TextWatcher listener) {
@@ -150,6 +144,7 @@ public class SearchBarView extends LinearLayout {
         animation.setDuration(500);
         mIconView.startAnimation(animation);
 
+
         mEditText = new EditText(getContext());
         mEditText.setBackgroundColor(Color.WHITE);
         mEditText.setPadding(0, 0, 0, 0);
@@ -164,13 +159,11 @@ public class SearchBarView extends LinearLayout {
         }
 
         mEditText.requestFocus();
-        mIMManager.showSoftInput(mEditText, InputMethodManager.SHOW_IMPLICIT);
     }
 
     public void enterViewMode() {
         mMode = VIEW_MODE;
         if (mEditText != null) {
-            mIMManager.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
             mWrapperView.removeView(mEditText);
             mEditText = null;
 

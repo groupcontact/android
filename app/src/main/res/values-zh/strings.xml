@@ -99,4 +99,5 @@
     <string name="error_register">注册失败</string>
     <string name="setup_password">设置六位数字密码</string>
     <string name="action_leave">退出</string>
+    <string name="action_cancel">取消</string>
 </resources>

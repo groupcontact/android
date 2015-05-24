@@ -8,10 +8,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,6 @@ import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
-import seaice.app.groupcontact.view.SearchBarView;
 
 
 public class SearchActivity extends BaseActivity implements AdapterView.OnItemClickListener {
@@ -39,8 +40,13 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
     @InjectView(R.id.groupList)
     ListView mGroupList;
 
-    @InjectView(R.id.searchBar)
-    SearchBarView mSearchBarView;
+    @InjectView(R.id.searchKey)
+    EditText mSearchKeyView;
+
+    @InjectView(R.id.cancel)
+    TextView mCancelView;
+
+    InputMethodManager mImm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +58,7 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
         final Context context = this;
 
-        mSearchBarView.setTextWatcher(new TextWatcher() {
+        mSearchKeyView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // ingored
@@ -84,13 +90,24 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
             }
         });
 
-        mSearchBarView.enterEditMode();
+        mImm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        mCancelView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
+        if (mSearchKeyView.requestFocus()) {
+            mImm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        }
     }
 
     @Override
@@ -132,6 +149,8 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
     public void onPause() {
         super.onPause();
+
+        //mImm.hideSoftInputFromWindow(mSearchKeyView.getWindowToken(), 0);
         overridePendingTransition(0, 0);
     }
 

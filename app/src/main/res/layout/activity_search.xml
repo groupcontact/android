@@ -1,15 +1,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="seaice.app.groupcontact.SearchActivity">
 
-    <seaice.app.groupcontact.view.SearchBarView
+    <LinearLayout
         android:id="@+id/searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:searchHintText="@string/action_search_group" />
+        android:background="#FFCDCDCD"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/searchbar_wrapper_bg"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="0dp"
+                android:focusable="false"
+                android:src="@mipmap/ic_action_search" />
+
+            <EditText
+                android:id="@+id/searchKey"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:inputType="text"
+                android:padding="0dp"
+                android:textColor="#FF565656"
+                android:textColorHint="#FFBCBCBC"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginStart="4dp"
+            android:background="#00000000"
+            android:text="@string/action_cancel"
+            android:textColor="@color/actionSheetAction" />
+
+    </LinearLayout>
 
     <seaice.app.groupcontact.view.TableView
         android:id="@+id/groupList"

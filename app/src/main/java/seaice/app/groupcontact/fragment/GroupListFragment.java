@@ -111,7 +111,8 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Let.REQUEST_CODE_VIEW_GROUP) {
+        if (requestCode == Let.REQUEST_CODE_VIEW_GROUP
+                || requestCode == Let.REQUEST_CODE_CREATE_GROUP) {
             if (resultCode == Activity.RESULT_OK) {
                 onRefresh();
             }

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.ActionSheetAdapter;
@@ -54,6 +57,8 @@ public class ActionSheetActivity extends Activity implements TableView.OnCellCli
                 this, mTitle, mMessage, mActions, mIcons, mCancel));
 
         mActionSheetView.setOnCellClickListener(this);
+
+        YoYo.with(Techniques.SlideInUp).duration(200).playOn(mActionSheetView);
     }
 
     @Override
