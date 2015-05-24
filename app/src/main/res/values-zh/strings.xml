@@ -100,4 +100,6 @@
     <string name="setup_password">设置六位数字密码</string>
     <string name="action_leave">退出</string>
     <string name="action_cancel">取消</string>
+    <string name="avatarContentDesc">图标</string>
+    <string name="title_activity_action_sheet">多选</string>
 </resources>
