@@ -35,8 +35,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:src="@drawable/phone" />
 
                 <EditText
@@ -47,6 +47,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:ems="8"
+                    android:hint="@string/hint_phone"
                     android:inputType="phone" />
 
             </LinearLayout>
@@ -61,8 +62,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:src="@drawable/email" />
 
                 <EditText
@@ -73,6 +74,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:ems="8"
+                    android:hint="@string/hint_email"
                     android:inputType="textEmailAddress" />
 
             </LinearLayout>
@@ -87,8 +89,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:src="@drawable/wechat" />
 
                 <EditText
@@ -99,6 +101,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:ems="8"
+                    android:hint="@string/hint_wechat"
                     android:inputType="text" />
             </LinearLayout>
 

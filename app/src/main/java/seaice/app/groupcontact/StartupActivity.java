@@ -80,31 +80,6 @@ public class StartupActivity extends BaseActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Let.REQUEST_CODE_INIT_DATA) {
-            if (resultCode == Activity.RESULT_OK) {
-                UserAO user = data.getParcelableExtra("user");
-                String password = data.getStringExtra("password");
-                SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-                prefs.edit().putLong("uid", user.getUid()).apply();
-                prefs.edit().putString("name", user.getName()).apply();
-                prefs.edit().putString("password", password).apply();
-                Var.userAO = user;
-                Var.uid = user.getUid();
-                Var.name = user.getName();
-                Var.password = password;
-                // 准备就绪
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            } else {
-                finish();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
     protected boolean hasNavBar() {
         return false;
     }

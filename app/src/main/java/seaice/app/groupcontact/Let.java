@@ -6,9 +6,9 @@ public class Let {
 
     public static final String DEFAULT_KEY = "groupcontact";
 
-    public static final String API_USER = "http://groupcontact.duapp.com/api/v2/users";
+    public static final String API_USER = "http://groupcontact.duapp.com/api/v3/users";
 
-    public static final String API_GROUP = "http://groupcontact.duapp.com/api/v2/groups";
+    public static final String API_GROUP = "http://groupcontact.duapp.com/api/v3/groups";
 
     public static final String FRIEND_CACHE_PATH = "friend.s";
 

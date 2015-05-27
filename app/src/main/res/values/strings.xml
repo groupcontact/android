@@ -26,9 +26,9 @@
     <string name="search_empty_result">No Results</string>
 
     <string name="label_user_name">Name</string>
-    <string name="label_user_phone">Phone</string>
-    <string name="label_user_email">Email</string>
-    <string name="label_user_wechat">WeChat</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_wechat">WeChat</string>
     <string name="action_save_user">Save</string>
     <string name="success_save_user">Saved Successfully</string>
     <string name="fail_save_user">Failed to Save Your Modification</string>

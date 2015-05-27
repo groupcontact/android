@@ -12,9 +12,9 @@
     <string name="action_create_user">登录</string>
     <string name="action_save_user">保存</string>
     <string name="label_user_name">用户名:</string>
-    <string name="label_user_phone">手机号:</string>
-    <string name="label_user_email">邮箱:</string>
-    <string name="label_user_wechat">微信:</string>
+    <string name="hint_phone">手机号</string>
+    <string name="hint_email">邮箱</string>
+    <string name="hint_wechat">微信</string>
     <string name="fail_save_user">保存失败</string>
     <string name="success_save_user">保存成功</string>
     <string name="action_search">搜索</string>
