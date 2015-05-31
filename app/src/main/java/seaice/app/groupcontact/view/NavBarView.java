@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -308,7 +309,20 @@ public class NavBarView extends RelativeLayout {
 
         if (mPopupWindow == null) {
             initPopupWindow();
-            TableView menuList = (TableView) mPopupWindow.getContentView().findViewById(R.id.menuList);
+            View contentView = mPopupWindow.getContentView();
+            final TableView menuList = (TableView) contentView.findViewById(R.id.menuList);
+            contentView.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent ev) {
+                    if (ev.getX() < menuList.getX()) {
+                        mPopupWindow.dismiss();
+                    }
+                    if (ev.getY() > menuList.getY()) {
+                        mPopupWindow.dismiss();
+                    }
+                    return true;
+                }
+            });
             menuList.setAdapter(new PopupMenuAdapter(getContext(), actions, null));
             if (listener != null) {
                 menuList.setOnCellClickListener(listener);
