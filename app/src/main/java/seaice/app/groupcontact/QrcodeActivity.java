@@ -1,6 +1,5 @@
 package seaice.app.groupcontact;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -16,28 +15,20 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.io.File;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.groupcontact.utils.BitmapUtils;
 import seaice.app.groupcontact.utils.CipherUtils;
-import seaice.app.groupcontact.view.NavBarView;
 
-public class QrcodeActivity extends Activity {
+public class QrcodeActivity extends BaseActivity {
 
     @InjectView(R.id.resultQRCode)
     ImageView mQrcodeView;
-
-    @InjectView(R.id.navBar)
-    NavBarView mNavBarView;
 
     private static final String QRCODE_FILE_PATH = Let.APP_DIR + "qrcode.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qrcode);
-
-        ButterKnife.inject(this);
 
         String content = "friend:" + Var.userAO.getName() + ":" + Var.userAO.getPhone() + ":" +
                 System.currentTimeMillis();
@@ -57,6 +48,16 @@ public class QrcodeActivity extends Activity {
                 startActivity(shareIntent);
             }
         });
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_qrcode;
+    }
+
+    @Override
+    protected boolean needDagger() {
+        return false;
     }
 
     private Bitmap bitMatrix2Bitmap(BitMatrix matrix) {

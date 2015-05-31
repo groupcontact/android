@@ -46,18 +46,26 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.1.1'
+    // Network
     compile 'com.mcxiaoke.volley:library:1.0.11'
+    // Inversion of Control
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
+    // View Injection
     compile 'com.jakewharton:butterknife:6.1.0'
+    // 二维码扫描相关
     compile "com.google.zxing:core:3.2.0"
     compile "com.google.zxing:android-core:3.2.0"
+    // 友盟相关
     compile 'com.umeng:fb:5.1.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
+    // 汉字取得拼音首字母
     compile 'com.github.stuxuhai:jpinyin:1.0'
     // minSDKVersion = 10
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'info.hoang8f:android-segmented:1.0.5'
     // minSDKVersion = 14
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.3'
+    // Swipe Back功能
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 }

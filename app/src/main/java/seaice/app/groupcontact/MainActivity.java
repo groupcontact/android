@@ -165,4 +165,9 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
         return false;
     }
 
+    @Override
+    protected boolean needSwipeBack() {
+        return false;
+    }
+
 }
