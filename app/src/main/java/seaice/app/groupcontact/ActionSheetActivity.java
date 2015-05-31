@@ -3,6 +3,8 @@ package seaice.app.groupcontact;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -54,6 +56,17 @@ public class ActionSheetActivity extends Activity implements TableView.OnCellCli
                 this, mTitle, mMessage, mActions, mIcons, mCancel));
 
         mActionSheetView.setOnCellClickListener(this);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            if (ev.getY() < mActionSheetView.getY()) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
