@@ -29,4 +29,6 @@
     <dimen name="actionSheetRadius">6dp</dimen>
 
     <dimen name="mm_up_arrow_margin">-16dp</dimen>
+
+    <dimen name="navBarHeight">48dp</dimen>
 </resources>

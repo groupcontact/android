@@ -69,6 +69,8 @@ public class NavBarView extends RelativeLayout {
     /* 全屏的弹窗 */
     PopupWindow mPopupWindow;
 
+    /* 消息窗口 */
+    View mMessageView;
 
     public NavBarView(Context context) {
         super(context);
@@ -386,20 +388,32 @@ public class NavBarView extends RelativeLayout {
         return params;
     }
 
-    /* 逐渐显示 */
-    public void show(Animator.AnimatorListener listener) {
-        animate().setDuration(500).y(0).setListener(listener);
-    }
-
     /* PopupWindow是否正在显示 */
     public boolean isPopupShowing() {
         return mPopupWindow != null && mPopupWindow.isShowing();
     }
 
-    /* 曲线PopupWindow的显示 */
+    /* 取消PopupWindow的显示 */
     public void dismissPopup() {
         if (mPopupWindow != null) {
             mPopupWindow.dismiss();
         }
+    }
+
+    private void initMessageView() {
+        // mMessageView = LayoutInflater.from(getContext()).inflate()
+    }
+
+    /* 显示信息消息 */
+    public void showInfoMessage(String title, String message) {
+        if (mMessageView == null) {
+            initMessageView();
+        }
+
+    }
+
+    /* 显示错误消息 */
+    public void showErrorMessage(String title, String message) {
+
     }
 }

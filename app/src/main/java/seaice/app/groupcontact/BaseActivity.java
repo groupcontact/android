@@ -1,17 +1,15 @@
 package seaice.app.groupcontact;
 
 import android.content.Intent;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 import seaice.app.groupcontact.view.NavBarView;
 
-public abstract class BaseActivity extends SwipeBackActivity {
+public abstract class BaseActivity extends FragmentActivity {
 
     protected NavBarView mNavBarView;
 
@@ -19,12 +17,6 @@ public abstract class BaseActivity extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
-
-        if (needSwipeBack()) {
-            setSwipeBackEnable(true);
-        } else {
-            setSwipeBackEnable(false);
-        }
 
         if (hasNavBar()) {
             mNavBarView = (NavBarView) findViewById(R.id.navBar);

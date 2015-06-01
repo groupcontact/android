@@ -66,6 +66,4 @@ dependencies {
     compile 'info.hoang8f:android-segmented:1.0.5'
     // minSDKVersion = 14
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.3'
-    // Swipe Back功能
-    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 }
