@@ -53,6 +53,11 @@ public class MainPagerAdapter extends FragmentPagerAdapter implements TabBarAdap
     }
 
     @Override
+    public String getSVGIcon(int position) {
+        return null;
+    }
+
+    @Override
     public String getTitle(int position) {
         return getPageTitle(position).toString();
     }

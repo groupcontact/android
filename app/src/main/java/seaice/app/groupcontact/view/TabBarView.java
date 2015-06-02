@@ -252,11 +252,21 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
      * <li>当ratio = 1时, 结果为选中色</li>
      * </ol>
      *
-     * @param ratio
-     * @return
+     * @param ratio 中间比例
+     * @return 结果颜色
      */
-    protected int getInterIconColor(float ratio) {
+    protected int getInterIconFillColor(float ratio) {
         return ColorUtils.getInterColor(Color.WHITE, mTitleSelectedColor, ratio);
+    }
+
+    /**
+     * 获取标题颜色和选中颜色的中间颜色
+     *
+     * @param ratio 中间比例
+     * @return 结果颜色
+     */
+    protected int getInterIconStrokeColor(float ratio) {
+        return ColorUtils.getInterColor(mTitleColor, mTitleSelectedColor, ratio);
     }
 
     /**
@@ -273,13 +283,13 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
      * @return
      */
     protected Drawable getInterDrawable(int position, float ratio) {
-        int interColor = getInterIconColor(ratio);
+        int interColor = getInterIconFillColor(ratio);
         int svgResId = mAdapter.getIcon(position);
+        String svgResStr = AppUtils.getRawResAsString(getContext(), svgResId);
         // 使用中间色替换原图中的颜色
         SVG svg = SVGParser.getSVGFromResource(getResources(), svgResId, mTitleSelectedColor,
                 interColor);
-        Drawable result = svg.createPictureDrawable();
-        return result;
+        return svg.createPictureDrawable();
     }
 
     /* 直接点击Tab跳转的动作 */

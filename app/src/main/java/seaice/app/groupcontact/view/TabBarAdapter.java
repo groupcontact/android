@@ -5,10 +5,12 @@ package seaice.app.groupcontact.view;
  */
 public interface TabBarAdapter {
 
-    public int getCount();
+    int getCount();
 
-    public int getIcon(int position);
+    int getIcon(int position);
 
-    public String getTitle(int position);
+    String getSVGIcon(int position);
+
+    String getTitle(int position);
 
 }

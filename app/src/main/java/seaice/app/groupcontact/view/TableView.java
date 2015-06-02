@@ -2,6 +2,7 @@ package seaice.app.groupcontact.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -41,7 +42,7 @@ public class TableView extends ListView implements AdapterView.OnItemClickListen
         /* 取消Divider */
         setDivider(null);
         /* 取消背景 */
-        setBackground(null);
+        setBackgroundColor(Color.parseColor("#00000000"));
         setSelector(new ColorDrawable(0x0));
 
         /* 点击的监听器 */
