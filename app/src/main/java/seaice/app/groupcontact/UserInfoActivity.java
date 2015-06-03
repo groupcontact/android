@@ -16,19 +16,16 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import seaice.app.appbase.BaseActivity;
+import seaice.app.appbase.view.TableView;
 import seaice.app.groupcontact.adapter.UserInfoAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.appbase.view.NavBarView;
-import seaice.app.appbase.view.TableView;
 
 
 public class UserInfoActivity extends BaseActivity implements TableView.OnCellClickListener {
-
-    @InjectView(R.id.navBar)
-    NavBarView mNavBarView;
 
     @InjectView(R.id.filedList)
     TableView mTableView;

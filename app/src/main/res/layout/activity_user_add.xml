@@ -6,7 +6,7 @@
     tools:context="seaice.app.groupcontact.AuthActivity">
 
     <seaice.app.appbase.view.NavBarView
-        android:id="@+id/navBar"
+        android:id="@id/app_base_nav_bar"
         style="@style/NavBar"
         app:navRightIcon="@mipmap/ic_action_tick"
         app:navTitle="@string/title_activity_user_add" />
@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/navBar"
+        android:layout_below="@id/app_base_nav_bar"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 

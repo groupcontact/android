@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <seaice.app.appbase.view.NavBarView
-            android:id="@+id/navBar"
+            android:id="@id/app_base_nav_bar"
             style="@style/NavBar"
             app:navHasBackTitle="false"
             app:navLeftText="@string/app_name"

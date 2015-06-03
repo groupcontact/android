@@ -6,7 +6,7 @@
     tools:context="seaice.app.groupcontact.UserListActivity">
 
     <seaice.app.appbase.view.NavBarView
-        android:id="@+id/navBar"
+        android:id="@id/app_base_nav_bar"
         style="@style/NavBar"
         app:navRightIcon="@mipmap/ic_action_add" />
 
@@ -19,7 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/navBar">
+        android:layout_below="@id/app_base_nav_bar">
 
         <seaice.app.appbase.view.TableView
             android:id="@+id/userList"

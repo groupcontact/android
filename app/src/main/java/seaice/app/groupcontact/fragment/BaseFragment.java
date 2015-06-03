@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import butterknife.ButterKnife;
-import seaice.app.groupcontact.MyApplication;
+import seaice.app.appbase.BaseApplication;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -21,7 +21,7 @@ public abstract class BaseFragment extends Fragment {
         }
 
         if (needDagger()) {
-            MyApplication.inject(this);
+            BaseApplication.inject(this);
         }
     }
 

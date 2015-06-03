@@ -21,6 +21,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import seaice.app.appbase.BaseActivity;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.GroupAPI;

@@ -13,14 +13,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import seaice.app.appbase.BaseActivity;
+import seaice.app.appbase.view.TableView;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.appbase.view.NavBarView;
-import seaice.app.appbase.view.TableView;
 
 /**
  * The Screen Shows the listGroup of users in the specified group.
@@ -35,9 +35,6 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
 
     @Inject
     UserAPI mUserAPI;
-
-    @InjectView(R.id.navBar)
-    NavBarView mNavBarView;
 
     @InjectView(R.id.userList)
     TableView mUserList;

@@ -8,11 +8,11 @@ import android.widget.EditText;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import seaice.app.appbase.BaseActivity;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
-import seaice.app.appbase.view.NavBarView;
 
 
 public class GroupCreateActivity extends BaseActivity {
@@ -31,9 +31,6 @@ public class GroupCreateActivity extends BaseActivity {
 
     @InjectView(R.id.group_create_modify)
     EditText mModify;
-
-    @InjectView(R.id.navBar)
-    NavBarView mNavBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

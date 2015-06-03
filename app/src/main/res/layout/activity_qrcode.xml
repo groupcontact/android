@@ -6,7 +6,7 @@
     tools:context="seaice.app.groupcontact.QrcodeActivity">
 
     <seaice.app.appbase.view.NavBarView
-        android:id="@+id/navBar"
+        android:id="@id/app_base_nav_bar"
         app:navTitle="@string/title_activity_qrcode"
         app:navRightIcon="@mipmap/ic_action_share"
         style="@style/NavBar" />

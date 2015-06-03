@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import java.util.Arrays;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
+import seaice.app.appbase.BaseActivity;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.fragment.LoginFragment;
 import seaice.app.groupcontact.fragment.RegisterFragment;

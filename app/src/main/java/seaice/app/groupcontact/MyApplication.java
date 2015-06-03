@@ -1,26 +1,11 @@
 package seaice.app.groupcontact;
 
-import android.app.Application;
-
-import com.umeng.analytics.MobclickAgent;
-
-import dagger.ObjectGraph;
+import seaice.app.appbase.BaseApplication;
 import seaice.app.groupcontact.api.APIModule;
 
-public class MyApplication extends Application {
-
-    private static ObjectGraph objectGraph;
-
-    public static void inject(Object obj) {
-        objectGraph.inject(obj);
-    }
-
+public class MyApplication extends BaseApplication {
     @Override
-    public void onCreate() {
-        super.onCreate();
-
-        objectGraph = ObjectGraph.create(new APIModule(this));
-
-        MobclickAgent.openActivityDurationTrack(false);
+    public Object[] getModules() {
+        return new Object[]{new APIModule(this)};
     }
 }

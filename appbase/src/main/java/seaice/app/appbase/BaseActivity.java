@@ -1,10 +1,8 @@
-package seaice.app.groupcontact;
+package seaice.app.appbase;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import seaice.app.appbase.view.NavBarView;
@@ -19,7 +17,7 @@ public abstract class BaseActivity extends FragmentActivity {
         setContentView(getLayoutResId());
 
         if (hasNavBar()) {
-            mNavBarView = (NavBarView) findViewById(R.id.navBar);
+            mNavBarView = (NavBarView) findViewById(R.id.app_base_nav_bar);
         }
         // View的Injection
         if (needButterKnife()) {
@@ -27,20 +25,8 @@ public abstract class BaseActivity extends FragmentActivity {
         }
         // Member的Injection
         if (needDagger()) {
-            MyApplication.inject(this);
+            BaseApplication.inject(this);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        MobclickAgent.onResume(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        MobclickAgent.onPause(this);
     }
 
     /* 重载此方法是跳转进入的Activity知道当前Activity的Title */

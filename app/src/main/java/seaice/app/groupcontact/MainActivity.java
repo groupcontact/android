@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import butterknife.InjectView;
-import seaice.app.groupcontact.adapter.MainPagerAdapter;
+import seaice.app.appbase.BaseActivity;
 import seaice.app.appbase.utils.AppUtils;
-import seaice.app.appbase.view.NavBarView;
 import seaice.app.appbase.view.TabBarView;
+import seaice.app.groupcontact.adapter.MainPagerAdapter;
 
 /**
  * The First Screen In Action: Three Tabs(Groups, Friends, Profile)
@@ -30,8 +30,6 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
     ViewPager mPager;
     @InjectView(R.id.tabBar)
     TabBarView mTabBarView;
-    @InjectView(R.id.navBar)
-    NavBarView mNavBarView;
     private int mBackCount = 0;
 
     private boolean mTopHidden = false;

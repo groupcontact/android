@@ -14,21 +14,18 @@ import java.util.Arrays;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import seaice.app.appbase.BaseActivity;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.FileUtils;
-import seaice.app.appbase.view.NavBarView;
 
 
 public class UserEditActivity extends BaseActivity {
 
     @Inject
     UserAPI mUserAPI;
-
-    @InjectView(R.id.navBar)
-    NavBarView mNavBarView;
 
     @InjectView(R.id.editPhone)
     EditText mPhoneView;

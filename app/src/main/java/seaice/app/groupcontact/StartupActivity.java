@@ -12,6 +12,7 @@ import java.io.File;
 
 import javax.inject.Inject;
 
+import seaice.app.appbase.BaseActivity;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.ConfigAPI;
 import seaice.app.groupcontact.api.UserAPI;

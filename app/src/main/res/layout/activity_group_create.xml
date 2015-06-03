@@ -6,7 +6,7 @@
     tools:context="seaice.app.groupcontact.GroupCreateActivity">
 
     <seaice.app.appbase.view.NavBarView
-        android:id="@+id/navBar"
+        android:id="@id/app_base_nav_bar"
         style="@style/NavBar"
         app:navRightIcon="@mipmap/ic_action_tick"
         app:navTitle="@string/title_activity_group_create" />
@@ -14,7 +14,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/navBar">
+        android:layout_below="@id/app_base_nav_bar">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -9,10 +9,10 @@ import android.widget.EditText;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import seaice.app.appbase.BaseActivity;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
-import seaice.app.appbase.view.NavBarView;
 
 /**
  * This screen help the user to add friend directly, by enter the name and phone_normal number
@@ -29,9 +29,6 @@ public class UserAddActivity extends BaseActivity {
 
     @Inject
     UserAPI mUserAPI;
-
-    @InjectView(R.id.navBar)
-    NavBarView mNavBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
