@@ -1,4 +1,4 @@
-package seaice.app.groupcontact.view;
+package seaice.app.appbase.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -20,9 +20,9 @@ import com.larvalabs.svgandroid.SVGParser;
 import java.util.ArrayList;
 import java.util.List;
 
-import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.utils.AppUtils;
-import seaice.app.groupcontact.utils.ColorUtils;
+import seaice.app.appbase.R;
+import seaice.app.appbase.utils.AppUtils;
+import seaice.app.appbase.utils.ColorUtils;
 
 /**
  * 仿iOS中TabBar样式的View.
@@ -31,39 +31,33 @@ import seaice.app.groupcontact.utils.ColorUtils;
  */
 public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeListener, View.OnClickListener {
 
-    /* 表示当前显示的是第几个tab, -1表示不可用 */
-    private int mTabIndex = -1;
-
-    /* 模型数据 */
-    private TabBarAdapter mAdapter;
-
-    /* ViewPager实例 */
-    private ViewPager mPager;
-
-    /* tab变化监听器 */
-    private OnTabChangeListener mListener;
-
-    /* 标题TextView的列表 */
-    private List<TextView> mTitleList;
-
-    /* 图标ImageView的列表 */
-    private List<ImageView> mIconList;
-
+    private static final int DEFAULT_TITLE_COLOR = Color.parseColor("#FF6E6E6E");
+    private static final int DEFAULT_TITLE_SELECTED_COLOR = Color.parseColor("#FF33BBEE");
+    private static final float DEFAULT_TITLE_SIZE = 0;
+    private static final int DEFAULT_ICON_SIZE = 28;
+    private static final boolean DEFAULT_USE_ANIMATION = true;
     /* 标题颜色 */
     int mTitleColor;
-    private static final int DEFAULT_TITLE_COLOR = Color.parseColor("#FF6E6E6E");
     /* 标题被选中时的颜色 */
     int mTitleSelectedColor;
-    private static final int DEFAULT_TITLE_SELECTED_COLOR = Color.parseColor("#FF33BBEE");
     /* 标题的大小 */
     float mTitleSize;
-    private static final float DEFAULT_TITLE_SIZE = 0;
     /* 图标的大小 */
     float mIconSize;
-    private static final int DEFAULT_ICON_SIZE = 28;
     /* 是否使用动画 */
     boolean mUseAnimation;
-    private static final boolean DEFAULT_USE_ANIMATION = true;
+    /* 表示当前显示的是第几个tab, -1表示不可用 */
+    private int mTabIndex = -1;
+    /* 模型数据 */
+    private TabBarAdapter mAdapter;
+    /* ViewPager实例 */
+    private ViewPager mPager;
+    /* tab变化监听器 */
+    private OnTabChangeListener mListener;
+    /* 标题TextView的列表 */
+    private List<TextView> mTitleList;
+    /* 图标ImageView的列表 */
+    private List<ImageView> mIconList;
 
     public TabBarView(Context context) {
         super(context);
@@ -146,12 +140,6 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
 
         // 当前tab设置为第一个
         changeTab(0);
-    }
-
-    /* tab变化的监听器 */
-    public interface OnTabChangeListener {
-
-        void onTabChange(int from, int to);
     }
 
     /* 当不是使用ViewPager时, 这里是另外一种替代方式 */
@@ -323,5 +311,11 @@ public class TabBarView extends LinearLayout implements ViewPager.OnPageChangeLi
             mTabIndex = to;
         }
 
+    }
+
+    /* tab变化的监听器 */
+    public interface OnTabChangeListener {
+
+        void onTabChange(int from, int to);
     }
 }

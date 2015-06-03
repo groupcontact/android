@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <seaice.app.groupcontact.view.NavBarView
+    <seaice.app.appbase.view.NavBarView
         android:id="@+id/navBar"
         style="@style/NavBar"
         app:navRightIcon="@mipmap/ic_action_add" />
 
-    <seaice.app.groupcontact.view.TableView
+    <seaice.app.appbase.view.TableView
         android:id="@+id/filedList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

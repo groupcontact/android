@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context="seaice.app.groupcontact.AuthActivity">
 
-    <seaice.app.groupcontact.view.NavBarView
+    <seaice.app.appbase.view.NavBarView
         android:id="@+id/navBar"
         style="@style/NavBar"
         app:navHasBackTitle="false" />

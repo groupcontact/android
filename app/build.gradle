@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "seaice.app.groupcontact"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 21
         versionCode 5
         versionName "1.4"
@@ -54,8 +54,8 @@ dependencies {
     // View Injection
     compile 'com.jakewharton:butterknife:6.1.0'
     // 二维码扫描相关
-    compile "com.google.zxing:core:3.2.0"
-    compile "com.google.zxing:android-core:3.2.0"
+    compile 'com.google.zxing:core:3.2.0'
+    compile 'com.google.zxing:android-core:3.2.0'
     // 友盟相关
     compile 'com.umeng:fb:5.1.0'
     compile 'com.umeng.analytics:analytics:latest.integration'
@@ -66,4 +66,5 @@ dependencies {
     compile 'info.hoang8f:android-segmented:1.0.5'
     // minSDKVersion = 14
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.3'
+    compile project(':appbase')
 }

@@ -16,8 +16,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import java.io.File;
 
 import butterknife.InjectView;
-import seaice.app.groupcontact.utils.BitmapUtils;
-import seaice.app.groupcontact.utils.CipherUtils;
+import seaice.app.appbase.utils.BitmapUtils;
+import seaice.app.appbase.utils.CipherUtils;
 
 public class QrcodeActivity extends BaseActivity {
 

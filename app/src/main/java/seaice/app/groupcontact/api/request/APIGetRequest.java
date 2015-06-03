@@ -8,11 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
-
-import javax.crypto.Cipher;
-
-import seaice.app.groupcontact.utils.CipherUtils;
+import seaice.app.appbase.utils.CipherUtils;
 
 /**
  * Created by zhb on 2015/3/11.

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#66222222">
 
-    <seaice.app.groupcontact.view.TableView
+    <seaice.app.appbase.view.TableView
         android:id="@+id/menuList"
         android:layout_width="150dp"
         android:layout_height="wrap_content"

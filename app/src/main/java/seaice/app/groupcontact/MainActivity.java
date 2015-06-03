@@ -11,9 +11,9 @@ import android.widget.Toast;
 
 import butterknife.InjectView;
 import seaice.app.groupcontact.adapter.MainPagerAdapter;
-import seaice.app.groupcontact.utils.AppUtils;
-import seaice.app.groupcontact.view.NavBarView;
-import seaice.app.groupcontact.view.TabBarView;
+import seaice.app.appbase.utils.AppUtils;
+import seaice.app.appbase.view.NavBarView;
+import seaice.app.appbase.view.TabBarView;
 
 /**
  * The First Screen In Action: Three Tabs(Groups, Friends, Profile)

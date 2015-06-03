@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="seaice.app.groupcontact.QrcodeActivity">
 
-    <seaice.app.groupcontact.view.NavBarView
+    <seaice.app.appbase.view.NavBarView
         android:id="@+id/navBar"
         app:navTitle="@string/title_activity_qrcode"
         app:navRightIcon="@mipmap/ic_action_share"

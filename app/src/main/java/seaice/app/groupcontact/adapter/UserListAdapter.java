@@ -17,7 +17,7 @@ import java.util.Map;
 
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.view.TableAdapter;
+import seaice.app.appbase.view.TableAdapter;
 
 /**
  * The adapter provides data for a list view of user.

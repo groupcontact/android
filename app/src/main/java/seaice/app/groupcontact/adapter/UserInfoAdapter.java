@@ -16,8 +16,8 @@ import org.json.JSONObject;
 
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.utils.AppUtils;
-import seaice.app.groupcontact.view.TableAdapter;
+import seaice.app.appbase.utils.AppUtils;
+import seaice.app.appbase.view.TableAdapter;
 
 public class UserInfoAdapter extends TableAdapter {
 

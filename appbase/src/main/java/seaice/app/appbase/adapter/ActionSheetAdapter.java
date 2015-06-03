@@ -1,4 +1,4 @@
-package seaice.app.groupcontact.adapter;
+package seaice.app.appbase.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.utils.AppUtils;
-import seaice.app.groupcontact.view.TableAdapter;
+import seaice.app.appbase.R;
+import seaice.app.appbase.utils.AppUtils;
+import seaice.app.appbase.view.TableAdapter;
 
 public class ActionSheetAdapter extends TableAdapter {
 

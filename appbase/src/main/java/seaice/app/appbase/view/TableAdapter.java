@@ -1,4 +1,4 @@
-package seaice.app.groupcontact.view;
+package seaice.app.appbase.view;
 
 import android.content.Context;
 import android.view.Gravity;
@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.utils.AppUtils;
+import seaice.app.appbase.R;
+import seaice.app.appbase.utils.AppUtils;
 
 public abstract class TableAdapter extends BaseAdapter {
 
@@ -29,17 +29,13 @@ public abstract class TableAdapter extends BaseAdapter {
 
     /* 是否有Footer */
     protected int mHasFooter = 0;
-
-    /* 前闭后开 */
-    protected class Range {
-        int start;
-        int end;
-        int hasHeader;
-        int hasFooter;
-    }
-
     /* 每个Section的position范围 */
     protected Map<Integer, Range> mRangeMap;
+
+    /* 初始化相关数据 */
+    public TableAdapter(Context context) {
+        mContext = context;
+    }
 
     public abstract int getRowCount(int section);
 
@@ -68,11 +64,6 @@ public abstract class TableAdapter extends BaseAdapter {
 
     public List<Object> getDataSet() {
         return null;
-    }
-
-    /* 初始化相关数据 */
-    public TableAdapter(Context context) {
-        mContext = context;
     }
 
     @Override
@@ -220,6 +211,14 @@ public abstract class TableAdapter extends BaseAdapter {
         mCount += mHasFooter;
 
         super.notifyDataSetChanged();
+    }
+
+    /* 前闭后开 */
+    protected class Range {
+        int start;
+        int end;
+        int hasHeader;
+        int hasFooter;
     }
 
 }

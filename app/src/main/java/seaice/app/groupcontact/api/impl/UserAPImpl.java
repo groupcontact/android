@@ -12,7 +12,7 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.utils.CipherUtils;
+import seaice.app.appbase.utils.CipherUtils;
 
 /**
  * API about user manipulation.

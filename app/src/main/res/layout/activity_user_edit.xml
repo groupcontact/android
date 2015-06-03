@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="seaice.app.groupcontact.UserEditActivity">
 
-    <seaice.app.groupcontact.view.NavBarView
+    <seaice.app.appbase.view.NavBarView
         android:id="@+id/navBar"
         style="@style/NavBar"
         app:navRightText="@string/action_save"

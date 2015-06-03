@@ -19,8 +19,8 @@ import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.view.NavBarView;
-import seaice.app.groupcontact.view.TableView;
+import seaice.app.appbase.view.NavBarView;
+import seaice.app.appbase.view.TableView;
 
 /**
  * The Screen Shows the listGroup of users in the specified group.

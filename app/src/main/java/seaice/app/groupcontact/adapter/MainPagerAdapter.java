@@ -9,7 +9,7 @@ import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.fragment.FriendListFragment;
 import seaice.app.groupcontact.fragment.GroupListFragment;
 import seaice.app.groupcontact.fragment.ProfileFragment;
-import seaice.app.groupcontact.view.TabBarAdapter;
+import seaice.app.appbase.view.TabBarAdapter;
 
 public class MainPagerAdapter extends FragmentPagerAdapter implements TabBarAdapter {
 

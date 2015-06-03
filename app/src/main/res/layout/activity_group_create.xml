@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="seaice.app.groupcontact.GroupCreateActivity">
 
-    <seaice.app.groupcontact.view.NavBarView
+    <seaice.app.appbase.view.NavBarView
         android:id="@+id/navBar"
         style="@style/NavBar"
         app:navRightIcon="@mipmap/ic_action_tick"

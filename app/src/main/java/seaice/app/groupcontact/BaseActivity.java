@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
-import seaice.app.groupcontact.view.NavBarView;
+import seaice.app.appbase.view.NavBarView;
 
 public abstract class BaseActivity extends FragmentActivity {
 

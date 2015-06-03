@@ -1,4 +1,4 @@
-package seaice.app.groupcontact.utils;
+package seaice.app.appbase.utils;
 
 import android.graphics.Color;
 

@@ -11,7 +11,7 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.Var;
-import seaice.app.groupcontact.view.TableAdapter;
+import seaice.app.appbase.view.TableAdapter;
 
 public class ProfileAdapter extends TableAdapter {
 

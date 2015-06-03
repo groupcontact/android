@@ -27,7 +27,7 @@ import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.utils.FileUtils;
-import seaice.app.groupcontact.view.TableView;
+import seaice.app.appbase.view.TableView;
 
 public class GroupListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 

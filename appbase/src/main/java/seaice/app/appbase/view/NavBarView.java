@@ -1,6 +1,5 @@
-package seaice.app.groupcontact.view;
+package seaice.app.appbase.view;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +16,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.adapter.PopupMenuAdapter;
-import seaice.app.groupcontact.utils.AppUtils;
+import seaice.app.appbase.R;
+import seaice.app.appbase.adapter.PopupMenuAdapter;
+import seaice.app.appbase.utils.AppUtils;
 
 /**
  * 仿iOS中Navigation Bar式样的View
@@ -28,44 +27,36 @@ import seaice.app.groupcontact.utils.AppUtils;
  */
 public class NavBarView extends RelativeLayout {
 
+    private static final int DEFAULT_ITEM_BACKGROUND = R.drawable.navbar_item_bg;
+    private static final float DEFAULT_ITEM_TEXT_SIZE = 9f;
+    private static final int DEFAULT_LEFT_ICON = -1;
+    private static final int DEFAULT_RIGHT_ICON = -1;
+    private static final boolean DEFAULT_HAS_BACK_TITLE = true;
+    private static final int DEFAULT_TITLE_COLOR = Color.parseColor("#FFFFFFFF");
+    private static final float DEFAULT_TITLE_SIZE = 10f;
+    private static final float DEFAULT_ITEM_MARGIN = 8;
     /* 标题View */
     View mCenterItem;
     /* 标题 */
     String mTitle;
-
     /* BarItem的背景设置 */
     int mItemBackground;
-    private static final int DEFAULT_ITEM_BACKGROUND = R.drawable.navbar_item_bg;
     float mItemTextSize;
-    private static final float DEFAULT_ITEM_TEXT_SIZE = 9f;
-
     /* 左按钮 */ View mLeftItem;
     int mLeftIcon;
-    private static final int DEFAULT_LEFT_ICON = -1;
     String mLeftText;
-
     /* 右按钮 */
     View mRightItem;
     int mRightIcon;
-    private static final int DEFAULT_RIGHT_ICON = -1;
     String mRightText;
-
     /* 是否有Back Title */
     boolean mHasBackTitle;
-    private static final boolean DEFAULT_HAS_BACK_TITLE = true;
-
     /* 标题的颜色 */
     int mTitleColor = DEFAULT_TITLE_COLOR;
-    private static final int DEFAULT_TITLE_COLOR = Color.parseColor("#FFFFFFFF");
-
     /* 标题的大小 */
     float mTitleSize = DEFAULT_TITLE_SIZE;
-    private static final float DEFAULT_TITLE_SIZE = 10f;
-
     /* 左右的边距 */
     float mItemMargin = DEFAULT_ITEM_MARGIN;
-    private static final float DEFAULT_ITEM_MARGIN = 8;
-
     /* 全屏的弹窗 */
     PopupWindow mPopupWindow;
 

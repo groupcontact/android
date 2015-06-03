@@ -1,10 +1,10 @@
-package seaice.app.groupcontact.adapter;
+package seaice.app.appbase.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import seaice.app.groupcontact.R;
+import seaice.app.appbase.R;
 
 public class PopupMenuAdapter extends ActionSheetAdapter {
 

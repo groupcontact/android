@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="seaice.app.groupcontact.UserListActivity">
 
-    <seaice.app.groupcontact.view.TableView
+    <seaice.app.appbase.view.TableView
         android:id="@+id/profileList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -36,9 +36,9 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.utils.CipherUtils;
+import seaice.app.appbase.utils.CipherUtils;
 import seaice.app.groupcontact.utils.FileUtils;
-import seaice.app.groupcontact.view.TableView;
+import seaice.app.appbase.view.TableView;
 
 /**
  * User Profile Info Edit And Save.

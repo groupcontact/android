@@ -1,4 +1,4 @@
-package seaice.app.groupcontact.view;
+package seaice.app.appbase.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.utils.AppUtils;
+import seaice.app.appbase.R;
+import seaice.app.appbase.utils.AppUtils;
 
 /**
  * 仿iOS式样的SearchBar
@@ -23,42 +23,36 @@ import seaice.app.groupcontact.utils.AppUtils;
  */
 public class SearchBarView extends LinearLayout {
 
-    /* 内部的Wrapper */
-    LinearLayout mWrapperView;
-    int mWrapperBackground;
-
-    /* 搜索框内的hint */
-    TextView mHintView;
-    String mHintText;
-
-    /* 搜索区域内的图标 */
-    ImageView mIconView;
-    int mIconResId;
-
-    /* 输入框距上下左右边距 */
-    float mEditMargin;
     private static final float DEFAULT_EDIT_MARGIN = 8;
-    /* 输入框中图标和输入文本之间的边距 */
-    float mEditInnerMargin;
     private static final float DEFAULT_EDIT_INNER_MARGIN = 2;
-    /* 提示文本的颜色 */
-    int mHintColor;
     private static final int DEFAULT_HINT_COLOR = Color.parseColor("#FFBCBCBC");
     /* 搜索文本的颜色 */
     private static final int DEFAULT_TEXT_COLOR = Color.parseColor("#FF565656");
-    int mTextColor;
-    /* 文本的大小 */
-    float mTextSize;
     private static final float DEFAULT_TEXT_SIZE = 8;
-
-    /* 输入框 */
-    EditText mEditText;
-
-    private TextWatcher mListener;
-
     /* 当前模式 */
     private static final int EDIT_MODE = 1;
     private static final int VIEW_MODE = 2;
+    /* 内部的Wrapper */
+    LinearLayout mWrapperView;
+    int mWrapperBackground;
+    /* 搜索框内的hint */
+    TextView mHintView;
+    String mHintText;
+    /* 搜索区域内的图标 */
+    ImageView mIconView;
+    int mIconResId;
+    /* 输入框距上下左右边距 */
+    float mEditMargin;
+    /* 输入框中图标和输入文本之间的边距 */
+    float mEditInnerMargin;
+    /* 提示文本的颜色 */
+    int mHintColor;
+    int mTextColor;
+    /* 文本的大小 */
+    float mTextSize;
+    /* 输入框 */
+    EditText mEditText;
+    private TextWatcher mListener;
     private int mMode = VIEW_MODE;
 
     public SearchBarView(Context context) {

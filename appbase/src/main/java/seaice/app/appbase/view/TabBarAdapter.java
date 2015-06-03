@@ -1,4 +1,4 @@
-package seaice.app.groupcontact.view;
+package seaice.app.appbase.view;
 
 /**
  * Created by zhb on 5/15/15.

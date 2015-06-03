@@ -1,8 +1,6 @@
 package seaice.app.groupcontact.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,12 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.api.BaseCallback;
-import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
-import seaice.app.groupcontact.api.impl.GroupAPImpl;
-import seaice.app.groupcontact.view.SearchBarView;
-import seaice.app.groupcontact.view.TableAdapter;
+import seaice.app.appbase.view.SearchBarView;
+import seaice.app.appbase.view.TableAdapter;
 
 public class GroupListAdapter extends TableAdapter {
 

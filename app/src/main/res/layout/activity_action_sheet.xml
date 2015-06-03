@@ -6,7 +6,7 @@
     tools:context="seaice.app.groupcontact.ActionSheetActivity">
 
 
-    <seaice.app.groupcontact.view.TableView
+    <seaice.app.appbase.view.TableView
         android:id="@+id/actionSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

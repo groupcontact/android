@@ -8,13 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import seaice.app.groupcontact.Let;
-import seaice.app.groupcontact.Var;
 import seaice.app.groupcontact.api.Callback;
 import seaice.app.groupcontact.api.GroupAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.groupcontact.utils.CipherUtils;
+import seaice.app.appbase.utils.CipherUtils;
 
 public class GroupAPImpl extends VolleyBaseAPImpl implements GroupAPI {
 

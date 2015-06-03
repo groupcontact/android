@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <seaice.app.groupcontact.view.NavBarView
+        <seaice.app.appbase.view.NavBarView
             android:id="@+id/navBar"
             style="@style/NavBar"
             app:navHasBackTitle="false"
@@ -29,7 +29,7 @@
     </LinearLayout>
 
 
-    <seaice.app.groupcontact.view.TabBarView
+    <seaice.app.appbase.view.TabBarView
         android:id="@+id/tabBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

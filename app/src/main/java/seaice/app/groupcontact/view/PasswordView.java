@@ -10,6 +10,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
+
 import seaice.app.groupcontact.R;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;

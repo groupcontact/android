@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import seaice.app.groupcontact.adapter.ActionSheetAdapter;
-import seaice.app.groupcontact.view.TableView;
+import seaice.app.appbase.adapter.ActionSheetAdapter;
+import seaice.app.appbase.view.TableView;
 
 
 public class ActionSheetActivity extends Activity implements TableView.OnCellClickListener {
