@@ -2,6 +2,7 @@
 /local.properties
 /.idea/*
 /app/app.iml
+/appbase/appbase.iml
 /groupcontact.iml
 .DS_Store
 /build
