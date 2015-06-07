@@ -31,7 +31,7 @@
     <string name="user_operation">操作</string>
     <string name="user_operation_call">呼叫</string>
     <string name="user_operation_sms">发送短信</string>
-    <string name="loading_user_list">拼命加载中</string>
+    <string name="loading_user_list">加载中</string>
     <string name="tip_press_to_exit">再按一次退出</string>
     <string name="action_add_friend">添加为好友</string>
     <string name="add_to_friend">添加为好友</string>
@@ -102,4 +102,5 @@
     <string name="action_cancel">取消</string>
     <string name="avatarContentDesc">图标</string>
     <string name="title_activity_action_sheet">多选</string>
+    <string name="save_user_info">保存中</string>
 </resources>

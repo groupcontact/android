@@ -15,6 +15,7 @@ import javax.inject.Inject;
 
 import butterknife.InjectView;
 import seaice.app.appbase.BaseActivity;
+import seaice.app.appbase.view.ProgressView;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -36,6 +37,8 @@ public class UserEditActivity extends BaseActivity {
     @InjectView(R.id.editWechat)
     EditText mWechatView;
 
+    ProgressView mProgressView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,8 @@ public class UserEditActivity extends BaseActivity {
         mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressView = ProgressView.show(UserEditActivity.this,
+                        getString(R.string.save_user_info), true, null);
                 save();
             }
         });
@@ -91,6 +96,9 @@ public class UserEditActivity extends BaseActivity {
         mUserAPI.save(user, Var.password, new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
+                if (mProgressView != null) {
+                    mProgressView.dismiss();
+                }
                 if (result == null) {
                     info(getString(R.string.error_network));
                     return;

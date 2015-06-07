@@ -114,4 +114,5 @@
     <string name="setup_password">Setup Six Digit Password</string>
     <string name="action_leave">Leave</string>
     <string name="action_cancel">Cancel</string>
+    <string name="save_user_info">Saving</string>
 </resources>

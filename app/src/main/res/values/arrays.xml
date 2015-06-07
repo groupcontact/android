@@ -30,8 +30,8 @@
         <item>Logout</item>
     </string-array>
     <string-array name="group_actions">
-        <item>Extend Information</item>
-        <item>Privacy Settings</item>
+        <item>My Information</item>
+        <item>Enable Cache</item>
         <item>Leave Group</item>
     </string-array>
     <string-array name="friend_actions">

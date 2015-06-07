@@ -1,6 +1,5 @@
 package seaice.app.groupcontact;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +13,7 @@ import javax.inject.Inject;
 
 import butterknife.InjectView;
 import seaice.app.appbase.BaseActivity;
+import seaice.app.appbase.view.ProgressView;
 import seaice.app.appbase.view.TableView;
 import seaice.app.groupcontact.adapter.UserListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
@@ -46,7 +46,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
 
     private Long mGid;
 
-    private ProgressDialog mDialog;
+    private ProgressView mProgressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +76,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
             }
         });
 
-        mDialog = new ProgressDialog(this);
-        mDialog.setMessage(getResources().getString(R.string.loading_user_list));
-        mDialog.setCancelable(true);
-        mDialog.show();
+        mProgressView = ProgressView.show(this, getString(R.string.loading_user_list), false, null);
 
         mNavBarView.setRightActions(-1, getResources().getStringArray(
                 R.array.group_actions), null, this);
@@ -100,7 +97,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
                 if (mLayout.isRefreshing()) {
                     mLayout.setRefreshing(false);
                 } else {
-                    mDialog.dismiss();
+                    mProgressView.dismiss();
                 }
                 if (result == null) {
                     info(getString(R.string.error_network));

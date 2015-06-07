@@ -30,8 +30,8 @@
         <item>切换账号</item>
     </string-array>
     <string-array name="group_actions">
-        <item>扩展信息</item>
-        <item>隐私设置</item>
+        <item>我的信息</item>
+        <item>缓存数据</item>
         <item>退出群组</item>
     </string-array>
     <string-array name="friend_actions">
