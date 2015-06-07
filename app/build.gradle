@@ -46,9 +46,7 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
-    // Network
-    compile 'com.mcxiaoke.volley:library:1.0.11'
-    // Inversion of Control
+    // 控制反转
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
     // View Injection

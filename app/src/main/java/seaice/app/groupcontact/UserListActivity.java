@@ -114,17 +114,23 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
 
     @Override
     public void onCellClick(AdapterView<?> parent, View view, int section, int row, long id) {
-        mUserAPI.leaveGroup(Var.uid, Var.password, mGid, new BaseCallback<GeneralAO>(this) {
-            @Override
-            public void call(GeneralAO result) {
-                if (result.getStatus() == 1) {
-                    info(getString(R.string.success_leave_group));
-                    setResult(RESULT_OK);
-                    finish();
-                } else {
-                    info(result.getInfo());
+        if (row == 0) {
+            System.out.println("Setup More Information");
+        } else if (row == 2) {
+            System.out.println("Setup Privacy");
+        } else if (row == 4) {
+            mUserAPI.leaveGroup(Var.uid, Var.password, mGid, new BaseCallback<GeneralAO>(this) {
+                @Override
+                public void call(GeneralAO result) {
+                    if (result.getStatus() == 1) {
+                        info(getString(R.string.success_leave_group));
+                        setResult(RESULT_OK);
+                        finish();
+                    } else {
+                        info(result.getInfo());
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }

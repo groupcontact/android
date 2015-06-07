@@ -160,8 +160,13 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
         return R.layout.activity_search;
     }
 
-
+    @Override
     protected boolean hasNavBar() {
+        return false;
+    }
+
+    @Override
+    protected boolean needSwipeBack() {
         return false;
     }
 }
