@@ -76,7 +76,7 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
             }
         });
 
-        mProgressView = ProgressView.show(this, getString(R.string.loading_user_list), false, null);
+        mProgressView = ProgressView.show(this, getString(R.string.loading_user_list), true, null);
 
         mNavBarView.setRightActions(-1, getResources().getStringArray(
                 R.array.group_actions), null, this);
