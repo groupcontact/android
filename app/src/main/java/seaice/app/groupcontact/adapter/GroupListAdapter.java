@@ -76,20 +76,28 @@ public class GroupListAdapter extends TableAdapter {
 
     @Override
     public View getRow(int section, int row, View convertView) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_group, null);
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_group, null);
+            viewHolder = new ViewHolder();
+            viewHolder.mAvatarView = (ImageView) convertView.findViewById(R.id.groupAvatar);
+            viewHolder.mNameView = (TextView) convertView.findViewById(R.id.groupName);
+            viewHolder.mDescView = (TextView) convertView.findViewById(R.id.groupDesc);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
         GroupAO groupAO = mDataSet.get(row);
         String name = groupAO.getName();
 
-        ImageView vAvatarView = (ImageView) rootView.findViewById(R.id.groupAvatar);
-        vAvatarView.setImageDrawable(TextDrawable.builder()
+        viewHolder.mAvatarView.setImageDrawable(TextDrawable.builder()
                 .buildRoundRect(name.substring(0, 1),
                         ColorGenerator.MATERIAL.getColor(name), 0));
-        TextView vNameView = (TextView) rootView.findViewById(R.id.groupName);
-        vNameView.setText(name);
-        TextView vDescView = (TextView) rootView.findViewById(R.id.groupDesc);
-        vDescView.setText(groupAO.getDesc());
+        viewHolder.mNameView.setText(name);
+        viewHolder.mDescView.setText(groupAO.getDesc());
 
-        return rootView;
+        return convertView;
     }
 
     @Override
@@ -99,5 +107,11 @@ public class GroupListAdapter extends TableAdapter {
             dataSet.add(mDataSet.get(i));
         }
         return dataSet;
+    }
+
+    private static class ViewHolder {
+        ImageView mAvatarView;
+        TextView mNameView;
+        TextView mDescView;
     }
 }

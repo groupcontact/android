@@ -93,20 +93,27 @@ public class UserListAdapter extends TableAdapter {
 
     @Override
     public View getRow(int section, int row, View convertView) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_user, null);
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_user, null);
+            viewHolder = new ViewHolder();
+            viewHolder.mAvatarView = (ImageView) convertView.findViewById(R.id.userAvatar);
+            viewHolder.mNameView = (TextView) convertView.findViewById(R.id.userName);
+            viewHolder.mPhoneView = (TextView) convertView.findViewById(R.id.userPhone);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
         UserAO userAO = mSectionedDataSet.get(mSections.get(section)).get(row);
         String name = userAO.getName();
 
-        ImageView vAvatarView = (ImageView) rootView.findViewById(R.id.userAvatar);
-        vAvatarView.setImageDrawable(TextDrawable.builder()
+        viewHolder.mAvatarView.setImageDrawable(TextDrawable.builder()
                 .buildRoundRect(name.substring(name.length() - 1),
                         ColorGenerator.MATERIAL.getColor(name), 0));
-        TextView vNameView = (TextView) rootView.findViewById(R.id.userName);
-        vNameView.setText(userAO.getName());
-        TextView vPhoneView = (TextView) rootView.findViewById(R.id.userPhone);
-        vPhoneView.setText(userAO.getPhone());
+        viewHolder.mNameView.setText(userAO.getName());
+        viewHolder.mPhoneView.setText(userAO.getPhone());
 
-        return rootView;
+        return convertView;
     }
 
     @Override
@@ -114,4 +121,9 @@ public class UserListAdapter extends TableAdapter {
         return mSectionedDataSet.keySet().size();
     }
 
+    private static class ViewHolder {
+        ImageView mAvatarView;
+        TextView mNameView;
+        TextView mPhoneView;
+    }
 }
