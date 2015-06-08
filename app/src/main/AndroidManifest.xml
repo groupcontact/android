@@ -36,7 +36,7 @@
     <uses-permission android:name="com.xiaomi.market.sdk.UPDATE" />
 
     <application
-        android:name="seaice.app.groupcontact.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -122,6 +122,10 @@
             android:name=".ActionSheetActivity"
             android:label="@string/title_activity_action_sheet"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".FeedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>

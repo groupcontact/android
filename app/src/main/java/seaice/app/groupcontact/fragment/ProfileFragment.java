@@ -14,15 +14,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.umeng.fb.FeedbackAgent;
-
 import java.util.Collections;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import seaice.app.appbase.utils.CipherUtils;
+import seaice.app.appbase.view.TableView;
 import seaice.app.groupcontact.AuthActivity;
+import seaice.app.groupcontact.FeedbackActivity;
 import seaice.app.groupcontact.Let;
 import seaice.app.groupcontact.QrcodeActivity;
 import seaice.app.groupcontact.R;
@@ -36,9 +37,7 @@ import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.appbase.utils.CipherUtils;
 import seaice.app.groupcontact.utils.FileUtils;
-import seaice.app.appbase.view.TableView;
 
 /**
  * User Profile Info Edit And Save.
@@ -79,8 +78,10 @@ public class ProfileFragment extends BaseFragment {
                         Intent intent = new Intent(getActivity(), ScanActivity.class);
                         startActivityForResult(intent, SCAN_REQUEST_CODE);
                     } else {
-                        FeedbackAgent agent = new FeedbackAgent(getActivity());
-                        agent.startFeedbackActivity();
+//                        FeedbackAgent agent = new FeedbackAgent(getActivity());
+//                        agent.startFeedbackActivity();
+                        Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+                        startActivity(intent);
                     }
                 }
                 if (section == 2) {

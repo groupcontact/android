@@ -103,4 +103,8 @@
     <string name="avatarContentDesc">图标</string>
     <string name="title_activity_action_sheet">多选</string>
     <string name="save_user_info">保存中</string>
+    <string name="title_activity_feedback">意见反馈</string>
+    <string name="action_send">发送</string>
+    <string name="send_complete">已发送</string>
+    <string name="send_error">发送失败</string>
 </resources>

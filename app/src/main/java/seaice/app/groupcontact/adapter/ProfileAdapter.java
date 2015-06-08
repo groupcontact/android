@@ -9,9 +9,9 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 
+import seaice.app.appbase.view.TableAdapter;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.Var;
-import seaice.app.appbase.view.TableAdapter;
 
 public class ProfileAdapter extends TableAdapter {
 
@@ -46,7 +46,7 @@ public class ProfileAdapter extends TableAdapter {
     }
 
     @Override
-    public View getRow(int section, int row) {
+    public View getRow(int section, int row, View convertView) {
         if (section == 0) {
             return getMainView();
         }

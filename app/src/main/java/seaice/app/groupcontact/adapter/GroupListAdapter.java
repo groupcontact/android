@@ -12,10 +12,10 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.appbase.view.SearchBarView;
 import seaice.app.appbase.view.TableAdapter;
+import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.api.ao.GroupAO;
 
 public class GroupListAdapter extends TableAdapter {
 
@@ -75,7 +75,7 @@ public class GroupListAdapter extends TableAdapter {
     }
 
     @Override
-    public View getRow(int section, int row) {
+    public View getRow(int section, int row, View convertView) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_group, null);
         GroupAO groupAO = mDataSet.get(row);
         String name = groupAO.getName();

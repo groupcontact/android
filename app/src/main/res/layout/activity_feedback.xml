@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="seaice.app.groupcontact.FeedbackActivity">
+
+    <seaice.app.appbase.view.NavBarView
+        android:id="@id/app_base_nav_bar"
+        style="@style/NavBar"
+        app:navTitle="@string/title_activity_feedback" />
+
+    <LinearLayout
+        android:id="@+id/container_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/tabbar_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/edittext_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/edittext_underline_bg"
+            android:inputType="text"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:textColor="@color/content_color" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:text="@string/action_send" />
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/btn_send"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:textColor="@android:color/white"
+            app:cpb_textComplete="@string/send_complete"
+            app:cpb_textError="@string/send_error"
+            app:cpb_textIdle="@string/action_send" />
+    </LinearLayout>
+
+    <seaice.app.appbase.view.TableView
+        android:id="@+id/feedbackList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/container_edittext"
+        android:layout_below="@id/app_base_nav_bar" />
+
+</RelativeLayout>

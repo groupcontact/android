@@ -14,10 +14,10 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import seaice.app.groupcontact.R;
-import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.appbase.utils.AppUtils;
 import seaice.app.appbase.view.TableAdapter;
+import seaice.app.groupcontact.R;
+import seaice.app.groupcontact.api.ao.UserAO;
 
 public class UserInfoAdapter extends TableAdapter {
 
@@ -72,7 +72,7 @@ public class UserInfoAdapter extends TableAdapter {
     }
 
     @Override
-    public View getRow(int section, int row) {
+    public View getRow(int section, int row, View convertView) {
         return getMainField(row);
     }
 

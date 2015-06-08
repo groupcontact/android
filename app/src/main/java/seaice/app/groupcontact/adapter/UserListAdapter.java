@@ -15,9 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import seaice.app.appbase.view.TableAdapter;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.UserAO;
-import seaice.app.appbase.view.TableAdapter;
 
 /**
  * The adapter provides data for a list view of user.
@@ -92,7 +92,7 @@ public class UserListAdapter extends TableAdapter {
     }
 
     @Override
-    public View getRow(int section, int row) {
+    public View getRow(int section, int row, View convertView) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_user, null);
         UserAO userAO = mSectionedDataSet.get(mSections.get(section)).get(row);
         String name = userAO.getName();

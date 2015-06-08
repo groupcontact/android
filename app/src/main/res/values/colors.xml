@@ -17,4 +17,5 @@
     <color name="actionSheetAction">#FF007AFF</color>
     <color name="actionSheetDivider">#BBDEDEDE</color>
     <color name="actionSheetTitle">#FFABABAB</color>
+    <color name="primaryColor">#33BBEE</color>
 </resources>
