@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,12 +15,12 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import seaice.app.appbase.adapter.BaseTableAdapter;
 import seaice.app.appbase.utils.AppUtils;
-import seaice.app.appbase.view.TableAdapter;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.UserAO;
 
-public class UserInfoAdapter extends TableAdapter {
+public class UserInfoAdapter extends BaseTableAdapter {
 
     private String mName;
 
@@ -51,7 +52,12 @@ public class UserInfoAdapter extends TableAdapter {
         notifyDataSetChanged();
     }
 
-    public View getHeader() {
+    @Override
+    public boolean hasHeader() {
+        return true;
+    }
+
+    public View getHeader(ViewGroup parent) {
         LinearLayout container = new LinearLayout(mContext);
         container.setGravity(Gravity.CENTER);
         ImageView avatarView = new ImageView(mContext);
@@ -67,13 +73,23 @@ public class UserInfoAdapter extends TableAdapter {
     }
 
     @Override
+    public boolean hasFooter() {
+        return false;
+    }
+
+    @Override
+    public View getFooter(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
     public int getRowCount(int section) {
         return 3;
     }
 
     @Override
-    public View getRow(int section, int row, View convertView) {
-        return getMainField(row);
+    public View getRow(int section, int row, View convertView, ViewGroup parent) {
+        return getMainField(row, parent);
     }
 
     @Override
@@ -81,8 +97,9 @@ public class UserInfoAdapter extends TableAdapter {
         return 1;
     }
 
-    public View getMainField(int row) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure, null);
+    public View getMainField(int row, ViewGroup parent) {
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure,
+                parent, false);
         TextView textView = (TextView) rootView.findViewById(R.id.menuText);
         ImageView imageView = (ImageView) rootView.findViewById(R.id.menuIcon);
         String text = row == 0 ? mPhone : row == 1 ? mEmail : mWechat;

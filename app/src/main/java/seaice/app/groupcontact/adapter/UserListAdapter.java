@@ -3,6 +3,7 @@ package seaice.app.groupcontact.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import seaice.app.appbase.view.TableAdapter;
+import seaice.app.appbase.adapter.BaseTableAdapter;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.api.ao.UserAO;
 
@@ -24,7 +25,7 @@ import seaice.app.groupcontact.api.ao.UserAO;
  *
  * @author zhb
  */
-public class UserListAdapter extends TableAdapter {
+public class UserListAdapter extends BaseTableAdapter {
 
     private List<UserAO> mDataSet;
 
@@ -76,14 +77,19 @@ public class UserListAdapter extends TableAdapter {
     }
 
     @Override
-    public View getFooter() {
+    public View getFooter(ViewGroup parent) {
         View rootView;
 
-        rootView = LayoutInflater.from(mContext).inflate(R.layout.item_dataset_count, null);
+        rootView = LayoutInflater.from(mContext).inflate(R.layout.item_dataset_count, parent, false);
         TextView dataCount = (TextView) rootView.findViewById(R.id.dataCount);
         dataCount.setText("总共" + mDataSet.size() + "位" + (mIsFromGroup ? "成员" : "好友"));
 
         return rootView;
+    }
+
+    @Override
+    public boolean hasFooter() {
+        return true;
     }
 
     @Override
@@ -92,10 +98,10 @@ public class UserListAdapter extends TableAdapter {
     }
 
     @Override
-    public View getRow(int section, int row, View convertView) {
+    public View getRow(int section, int row, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_user, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_user, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.mAvatarView = (ImageView) convertView.findViewById(R.id.userAvatar);
             viewHolder.mNameView = (TextView) convertView.findViewById(R.id.userName);
@@ -114,6 +120,16 @@ public class UserListAdapter extends TableAdapter {
         viewHolder.mPhoneView.setText(userAO.getPhone());
 
         return convertView;
+    }
+
+    @Override
+    public boolean hasHeader() {
+        return false;
+    }
+
+    @Override
+    public View getHeader(ViewGroup parent) {
+        return null;
     }
 
     @Override

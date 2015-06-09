@@ -3,17 +3,18 @@ package seaice.app.groupcontact.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 
-import seaice.app.appbase.view.TableAdapter;
+import seaice.app.appbase.adapter.BaseTableAdapter;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.Var;
 
-public class ProfileAdapter extends TableAdapter {
+public class ProfileAdapter extends BaseTableAdapter {
 
     String[] mTextList;
 
@@ -46,21 +47,41 @@ public class ProfileAdapter extends TableAdapter {
     }
 
     @Override
-    public View getRow(int section, int row, View convertView) {
+    public View getRow(int section, int row, View convertView, ViewGroup parent) {
         if (section == 0) {
-            return getMainView();
+            return getMainView(parent);
         }
         if (section == 1) {
-            return getMenuView(row);
+            return getMenuView(row, parent);
         }
         if (section == 2) {
-            return getSettingView(row);
+            return getSettingView(row, parent);
         }
         return null;
     }
 
-    private View getMainView() {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_avatar, null);
+    @Override
+    public boolean hasHeader() {
+        return false;
+    }
+
+    @Override
+    public View getHeader(ViewGroup parent) {
+        return null;
+    }
+
+    @Override
+    public boolean hasFooter() {
+        return false;
+    }
+
+    @Override
+    public View getFooter(ViewGroup parent) {
+        return null;
+    }
+
+    private View getMainView(ViewGroup parent) {
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_avatar, parent, false);
         ImageView avatarView = (ImageView) rootView.findViewById(R.id.profile_avatar);
         String name = Var.userAO.getName();
         avatarView.setImageDrawable(TextDrawable.builder()
@@ -73,8 +94,9 @@ public class ProfileAdapter extends TableAdapter {
         return rootView;
     }
 
-    private View getMenuView(int row) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure, null);
+    private View getMenuView(int row, ViewGroup parent) {
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure,
+                parent, false);
         TextView textView = (TextView) rootView.findViewById(R.id.menuText);
         ImageView imageView = (ImageView) rootView.findViewById(R.id.menuIcon);
         textView.setText(mTextList[row]);
@@ -82,8 +104,9 @@ public class ProfileAdapter extends TableAdapter {
         return rootView;
     }
 
-    private View getSettingView(int row) {
-        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure, null);
+    private View getSettingView(int row, ViewGroup parent) {
+        View rootView = LayoutInflater.from(mContext).inflate(R.layout.item_menu_disclosure,
+                parent, false);
         TextView textView = (TextView) rootView.findViewById(R.id.menuText);
         ImageView imageView = (ImageView) rootView.findViewById(R.id.menuIcon);
         textView.setText(mSettings[row]);
