@@ -36,7 +36,7 @@
     <string name="action_add_friend">添加为好友</string>
     <string name="add_to_friend">添加为好友</string>
     <string name="success_add_friend">成功添加好友</string>
-    <string name="delete_friend">取消好友</string>
+    <string name="delete_friend">删除好友</string>
     <string name="success_delete_friend">成功取消好友关系</string>
     <string name="action_add_user">添加为好友</string>
     <string name="title_activity_user_add">添加好友</string>
@@ -107,4 +107,9 @@
     <string name="action_send">发送</string>
     <string name="send_complete">已发送</string>
     <string name="send_error">发送失败</string>
+    <string name="adding_friend">正在添加</string>
+    <string name="creating_group">正在创建</string>
+    <string name="deleting_friend">正在删除</string>
+    <string name="leaving_group">正在退出</string>
+    <string name="joining_group">正在加入</string>
 </resources>

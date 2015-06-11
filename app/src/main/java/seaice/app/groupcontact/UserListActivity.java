@@ -116,9 +116,13 @@ public class UserListActivity extends BaseActivity implements SwipeRefreshLayout
         } else if (row == 2) {
             System.out.println("Setup Privacy");
         } else if (row == 4) {
+            mProgressView = ProgressView.show(this, getString(R.string.leaving_group), true, null);
             mUserAPI.leaveGroup(Var.uid, Var.password, mGid, new BaseCallback<GeneralAO>(this) {
                 @Override
                 public void call(GeneralAO result) {
+                    if (mProgressView != null) {
+                        mProgressView.dismiss();
+                    }
                     if (result.getStatus() == 1) {
                         info(getString(R.string.success_leave_group));
                         setResult(RESULT_OK);

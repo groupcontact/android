@@ -1,8 +1,5 @@
 package seaice.app.groupcontact;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import seaice.app.groupcontact.api.ao.ConfigAO;
 import seaice.app.groupcontact.api.ao.UserAO;
 
@@ -27,4 +24,7 @@ public class Var {
 
     public static String password = "";
 
+    public static boolean friendDataChanged = false;
+
+    public static boolean groupDataChanged = false;
 }

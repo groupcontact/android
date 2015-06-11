@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import seaice.app.appbase.view.TableView;
 import seaice.app.groupcontact.Let;
 import seaice.app.groupcontact.MainActivity;
 import seaice.app.groupcontact.R;
@@ -27,7 +28,6 @@ import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GroupAO;
 import seaice.app.groupcontact.utils.FileUtils;
-import seaice.app.appbase.view.TableView;
 
 public class GroupListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -111,13 +111,22 @@ public class GroupListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Let.REQUEST_CODE_VIEW_GROUP
-                || requestCode == Let.REQUEST_CODE_CREATE_GROUP) {
+        if (requestCode == Let.REQUEST_CODE_VIEW_GROUP) {
             if (resultCode == Activity.RESULT_OK) {
                 onRefresh();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (Var.groupDataChanged) {
+            onRefresh();
+            Var.groupDataChanged = false;
         }
     }
 }

@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import seaice.app.appbase.view.TableView;
 import seaice.app.groupcontact.Let;
 import seaice.app.groupcontact.R;
 import seaice.app.groupcontact.UserInfoActivity;
@@ -25,7 +26,6 @@ import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.UserAO;
 import seaice.app.groupcontact.utils.FileUtils;
-import seaice.app.appbase.view.TableView;
 
 public class FriendListFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -94,7 +94,7 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Let.REQUEST_CODE_ADD_FRIEND) {
+        if (requestCode == Let.REQUEST_CODE_VIEW_FRIEND) {
             if (resultCode == Activity.RESULT_OK) {
                 onRefresh();
             }
@@ -108,6 +108,16 @@ public class FriendListFragment extends BaseFragment implements AdapterView.OnIt
         intent.putExtra("user", user);
         // 从好友列表进来
         intent.putExtra("from", 1);
-        startActivityForResult(intent, MANAGE_FRIEND);
+        startActivityForResult(intent, Let.REQUEST_CODE_VIEW_FRIEND);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (Var.friendDataChanged) {
+            onRefresh();
+            Var.friendDataChanged = false;
+        }
     }
 }

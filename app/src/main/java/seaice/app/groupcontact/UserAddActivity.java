@@ -1,6 +1,5 @@
 package seaice.app.groupcontact;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +9,7 @@ import javax.inject.Inject;
 
 import butterknife.InjectView;
 import seaice.app.appbase.BaseActivity;
+import seaice.app.appbase.view.ProgressView;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.UserAPI;
 import seaice.app.groupcontact.api.ao.GeneralAO;
@@ -30,6 +30,8 @@ public class UserAddActivity extends BaseActivity {
     @Inject
     UserAPI mUserAPI;
 
+    ProgressView mProgressView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,8 @@ public class UserAddActivity extends BaseActivity {
         mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressView = ProgressView.show(UserAddActivity.this,
+                        getString(R.string.adding_friend), true, null);
                 addFriend();
             }
         });
@@ -59,11 +63,12 @@ public class UserAddActivity extends BaseActivity {
         mUserAPI.addFriend(Var.uid, Var.password, name, phone, new BaseCallback<GeneralAO>(this) {
             @Override
             public void call(GeneralAO result) {
+                if (mProgressView != null) {
+                    mProgressView.dismiss();
+                }
                 if (result.getStatus() == 1) {
                     info(getString(R.string.success_add_friend));
-                    // The question here is that do we suppose the user will add friend in batch mode
-                    Intent returnIntent = new Intent();
-                    setResult(RESULT_OK, returnIntent);
+                    Var.friendDataChanged = true;
                     finish();
                 } else {
                     info(result.getInfo());

@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import butterknife.InjectView;
 import seaice.app.appbase.BaseActivity;
+import seaice.app.appbase.view.ProgressView;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
 import seaice.app.groupcontact.api.GroupAPI;
@@ -49,6 +50,8 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
     InputMethodManager mImm;
 
+    ProgressView mProgressView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +72,6 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String key = s.toString().trim();
                 if (key.equals("")) {
-                    // do not allowed empty query
                     adapter.setDataSet(new ArrayList<GroupAO>());
                     return;
                 }
@@ -126,10 +128,14 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
         builder.setPositiveButton(getResources().getString(R.string.join_group), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
+                mProgressView = ProgressView.show(SearchActivity.this, getString(R.string.joining_group), true, null);
                 final String atNew = vAccessToken.getText().toString();
                 mUserAPI.joinGroup(Var.uid, Var.password, group.getGid(), atNew, new BaseCallback<GeneralAO>(context) {
                     @Override
                     public void call(GeneralAO result) {
+                        if (mProgressView != null) {
+                            mProgressView.dismiss();
+                        }
                         if (result.getStatus() == 1) {
                             info(context.getString(R.string.success_join_group));
                         } else {
@@ -151,7 +157,6 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
     public void onPause() {
         super.onPause();
 
-        //mImm.hideSoftInputFromWindow(mSearchKeyView.getWindowToken(), 0);
         overridePendingTransition(0, 0);
     }
 

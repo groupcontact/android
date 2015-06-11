@@ -17,6 +17,7 @@ import javax.inject.Inject;
 
 import butterknife.InjectView;
 import seaice.app.appbase.BaseActivity;
+import seaice.app.appbase.view.ProgressView;
 import seaice.app.appbase.view.TableView;
 import seaice.app.groupcontact.adapter.UserInfoAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
@@ -38,6 +39,8 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
     JSONObject mExtAttrs;
 
     int mFrom;
+
+    ProgressView mProgressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
                     R.array.friend_actions), null, new TableView.OnCellClickListener() {
                 @Override
                 public void onCellClick(AdapterView<?> parent, View view, int section, int row, long id) {
+                    mProgressView = ProgressView.show(UserInfoActivity.this,
+                            getString(R.string.deleting_friend), true, null);
                     deleteFriend();
                 }
             });
@@ -72,6 +77,8 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
                     R.array.user_actions), null, new TableView.OnCellClickListener() {
                 @Override
                 public void onCellClick(AdapterView<?> parent, View view, int section, int row, long id) {
+                    mProgressView = ProgressView.show(UserInfoActivity.this,
+                            getString(R.string.adding_friend), true, null);
                     addFriend();
                 }
             });
@@ -170,12 +177,16 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
         mUserAPI.addFriend(Var.uid, Var.password, mUser.getName(), mUser.getPhone(),
                 new BaseCallback<GeneralAO>(this) {
                     public void call(GeneralAO result) {
+                        if (mProgressView != null) {
+                            mProgressView.dismiss();
+                        }
                         if (result == null) {
                             info(getString(R.string.error_network));
                             return;
                         }
                         if (result.getStatus() == 1) {
                             info(getString(R.string.success_add_friend));
+                            setResult(RESULT_OK);
                             finish();
                         } else {
                             info(result.getInfo());
@@ -188,14 +199,16 @@ public class UserInfoActivity extends BaseActivity implements TableView.OnCellCl
         mUserAPI.deleteFriend(Var.uid, Var.password, mUser.getUid(),
                 new BaseCallback<GeneralAO>(this) {
                     public void call(GeneralAO result) {
+                        if (mProgressView != null) {
+                            mProgressView.dismiss();
+                        }
                         if (result == null) {
                             info(getString(R.string.error_network));
                             return;
                         }
                         if (result.getStatus() == 1) {
                             info(getString(R.string.success_delete_friend));
-                            Intent returnIntent = new Intent();
-                            setResult(RESULT_OK, returnIntent);
+                            setResult(RESULT_OK);
                             finish();
                         } else {
                             info(result.getInfo());

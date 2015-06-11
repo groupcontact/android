@@ -119,4 +119,9 @@
     <string name="action_send">Send</string>
     <string name="send_error">Fail</string>
     <string name="send_complete">Sent</string>
+    <string name="adding_friend">Adding In Progress</string>
+    <string name="creating_group">Creating In Progress</string>
+    <string name="deleting_friend">Deleting In Progress</string>
+    <string name="leaving_group">Leaving In Progress</string>
+    <string name="joining_group">Joining In Progress</string>
 </resources>

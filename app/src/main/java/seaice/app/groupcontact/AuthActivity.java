@@ -68,4 +68,8 @@ public class AuthActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected boolean needSwipeBack() {
+        return false;
+    }
 }

@@ -118,13 +118,13 @@ public class MainActivity extends BaseActivity implements TabBarView.OnTabChange
     private void addFriend() {
         Intent intent = new Intent(this, UserAddActivity.class);
         intent.putExtra("title", mTitles[0]);
-        startActivityForResult(intent, Let.REQUEST_CODE_ADD_FRIEND);
+        startActivity(intent);
     }
 
     private void createGroup() {
         Intent intent = new Intent(this, GroupCreateActivity.class);
         intent.putExtra("title", mTitles[1]);
-        startActivityForResult(intent, Let.REQUEST_CODE_CREATE_GROUP);
+        startActivity(intent);
     }
 
     public void animate2Activity(final Class<?> activityClass) {
