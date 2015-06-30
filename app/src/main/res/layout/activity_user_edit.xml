@@ -9,7 +9,7 @@
     <seaice.app.appbase.view.NavBarView
         android:id="@id/app_base_nav_bar"
         style="@style/NavBar"
-        app:navRightText="@string/action_save"
+        app:navRightText="@string/action_more"
         app:navTitle="@string/title_activity_user_edit" />
 
     <ScrollView
@@ -31,12 +31,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:contentDescription="@string/contentDesc"
                     android:src="@drawable/phone" />
 
                 <EditText
@@ -64,6 +64,7 @@
                     android:layout_height="24dp"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:contentDescription="@string/contentDesc"
                     android:src="@drawable/email" />
 
                 <EditText
@@ -91,6 +92,7 @@
                     android:layout_height="24dp"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:contentDescription="@string/contentDesc"
                     android:src="@drawable/wechat" />
 
                 <EditText
@@ -104,6 +106,20 @@
                     android:hint="@string/hint_wechat"
                     android:inputType="text" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/action_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@drawable/btn_normal"
+                android:text="@string/action_save"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
 
         </LinearLayout>
 

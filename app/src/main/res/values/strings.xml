@@ -124,4 +124,10 @@
     <string name="deleting_friend">Deleting In Progress</string>
     <string name="leaving_group">Leaving In Progress</string>
     <string name="joining_group">Joining In Progress</string>
+    <string name="contentDesc">content description</string>
+    <string name="action_more">More</string>
+    <string name="success_save">Save Successfully</string>
+    <string name="error_save">Save Failed</string>
+    <string name="progress_save">Saving in Progress</string>
+    <string name="title_activity_more_field">More</string>
 </resources>

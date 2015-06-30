@@ -1,17 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="seaice.app.groupcontact.ScanActivity">
 
+    <seaice.app.appbase.view.NavBarView
+        android:id="@id/app_base_nav_bar"
+        style="@style/NavBar"
+        app:navTitle="@string/title_activity_scan" />
+
     <SurfaceView
         android:id="@+id/preview_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_base_nav_bar" />
 
     <seaice.app.groupcontact.zxing.view.ViewfinderView
         android:id="@+id/viewfinder_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/app_base_nav_bar" />
 
 </RelativeLayout>

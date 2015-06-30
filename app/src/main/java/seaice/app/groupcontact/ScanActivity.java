@@ -47,7 +47,6 @@ public class ScanActivity extends Activity implements SurfaceHolder.Callback {
 
         setContentView(R.layout.activity_scan);
 
-        CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 
         hasSurface = false;
@@ -57,6 +56,9 @@ public class ScanActivity extends Activity implements SurfaceHolder.Callback {
     @Override
     protected void onResume() {
         super.onResume();
+
+        CameraManager.init(getApplication());
+
         SurfaceView surfaceView = (SurfaceView) findViewById(R.id.preview_view);
         SurfaceHolder surfaceHolder = surfaceView.getHolder();
         if (hasSurface) {

@@ -1,5 +1,6 @@
 package seaice.app.groupcontact;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import javax.inject.Inject;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 import seaice.app.appbase.BaseActivity;
 import seaice.app.appbase.view.ProgressView;
 import seaice.app.groupcontact.api.BaseCallback;
@@ -56,9 +58,7 @@ public class UserEditActivity extends BaseActivity {
         mNavBarView.setRightItemOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgressView = ProgressView.show(UserEditActivity.this,
-                        getString(R.string.save_user_info), true, null);
-                save();
+                startActivity(new Intent(UserEditActivity.this, MoreFieldActivity.class));
             }
         });
     }
@@ -80,7 +80,11 @@ public class UserEditActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void save() {
+    @OnClick(R.id.action_save)
+    public void save() {
+        mProgressView = ProgressView.show(UserEditActivity.this,
+                getString(R.string.save_user_info), true, null);
+
         final UserAO user = new UserAO();
         user.setUid(Var.uid);
         user.setName(Var.userAO.getName());

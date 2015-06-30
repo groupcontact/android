@@ -76,7 +76,7 @@
 
     <string name="action_leave_group">退出群组</string>
     <string name="success_leave_group">退出群组成功</string>
-    <string name="title_activity_scan">扫描二维码</string>
+    <string name="title_activity_scan">扫一扫</string>
     <string name="action_send_code">发送验证码</string>
     <string name="enter_code">验证码</string>
     <string name="error_network">网络连接失败</string>
@@ -112,4 +112,10 @@
     <string name="deleting_friend">正在删除</string>
     <string name="leaving_group">正在退出</string>
     <string name="joining_group">正在加入</string>
+    <string name="action_more">更多</string>
+    <string name="contentDesc">内容描述</string>
+    <string name="progress_save">保存中</string>
+    <string name="success_save">保存成功</string>
+    <string name="error_save">保存失败</string>
+    <string name="title_activity_more_field">更多</string>
 </resources>

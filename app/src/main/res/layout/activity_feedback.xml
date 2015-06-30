@@ -13,7 +13,7 @@
     <LinearLayout
         android:id="@+id/container_edittext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/tabbar_bg"
         android:gravity="center_vertical"
@@ -22,10 +22,10 @@
         <EditText
             android:id="@+id/edittext_content"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="4dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:background="@drawable/edittext_underline_bg"
@@ -35,22 +35,17 @@
             android:textColor="@color/content_color" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:text="@string/action_send" />
+            android:id="@+id/sendFeedback"
+            android:layout_width="48dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/btn_normal"
+            android:text="@string/action_send"
+            android:textColor="@android:color/white" />
 
-        <com.dd.CircularProgressButton
-            android:id="@+id/btn_send"
-            android:layout_width="64dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:textColor="@android:color/white"
-            app:cpb_textComplete="@string/send_complete"
-            app:cpb_textError="@string/send_error"
-            app:cpb_textIdle="@string/action_send" />
     </LinearLayout>
 
     <seaice.app.appbase.view.TableView
