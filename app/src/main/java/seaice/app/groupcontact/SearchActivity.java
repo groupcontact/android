@@ -1,8 +1,6 @@
 package seaice.app.groupcontact;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,6 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.InjectView;
 import seaice.app.appbase.BaseActivity;
+import seaice.app.appbase.view.AlertView;
 import seaice.app.appbase.view.ProgressView;
 import seaice.app.groupcontact.adapter.GroupListAdapter;
 import seaice.app.groupcontact.api.BaseCallback;
@@ -118,16 +117,16 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
         final GroupAO group = (GroupAO) parent.getAdapter().getItem(position);
         final Context context = this;
 
-        // Ask the user to enter the accessToken
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(group.getName());
         LinearLayout container = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.dialog_password, null);
         final EditText vAccessToken = (EditText) container.findViewById(R.id.enter_password);
-        builder.setView(container);
 
-        builder.setPositiveButton(getResources().getString(R.string.join_group), new DialogInterface.OnClickListener() {
+        // Ask the user to enter the accessToken
+        AlertView.Builder builder = AlertView.Builder.with(this).title(group.getName())
+                .content(container);
+        builder.positive(R.string.join_group, new View.OnClickListener() {
+
             @Override
-            public void onClick(final DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 mProgressView = ProgressView.show(SearchActivity.this, getString(R.string.joining_group), true, null);
                 final String atNew = vAccessToken.getText().toString();
                 mUserAPI.joinGroup(Var.uid, Var.password, group.getGid(), atNew, new BaseCallback<GeneralAO>(context) {
@@ -145,13 +144,15 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
                 });
             }
         });
-        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+
+        builder.negative(getResources().getString(R.string.cancel), new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+            public void onClick(View v) {
+
             }
         });
-        builder.show();
+
+        builder.create().show();
     }
 
     public void onPause() {
