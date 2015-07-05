@@ -118,4 +118,7 @@
     <string name="success_save">保存成功</string>
     <string name="error_save">保存失败</string>
     <string name="title_activity_more_field">更多</string>
+
+    <string name="enter_access_token">输入访问密码</string>
+    <string name="resettings_password">重置密码中&#8230;</string>
 </resources>

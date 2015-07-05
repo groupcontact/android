@@ -1,7 +1,6 @@
 package seaice.app.groupcontact.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +20,8 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import seaice.app.appbase.utils.CipherUtils;
+import seaice.app.appbase.view.AlertView;
+import seaice.app.appbase.view.ProgressView;
 import seaice.app.appbase.view.TableView;
 import seaice.app.groupcontact.AuthActivity;
 import seaice.app.groupcontact.FeedbackActivity;
@@ -51,6 +52,8 @@ public class ProfileFragment extends BaseFragment {
 
     @InjectView(R.id.profileList)
     TableView mTableView;
+
+    ProgressView mProgressView;
 
     static final int SCAN_REQUEST_CODE = 1;
 
@@ -124,20 +127,26 @@ public class ProfileFragment extends BaseFragment {
 
     private void resetPassword() {
         // Ask the user to enter the accessToken
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(getString(R.string.new_password));
+        AlertView.Builder builder = AlertView.Builder.with(getActivity());
+        builder.title(getString(R.string.new_password));
         LinearLayout container = (LinearLayout) LayoutInflater.from(getActivity()).inflate(
-                R.layout.dialog_reset_password, null);
-        final EditText newPass = (EditText) container.findViewById(R.id.enter_new_password);
-        builder.setView(container);
+                R.layout.dialog_password, null);
+        final EditText newPass = (EditText) container.findViewById(R.id.enter_password);
+        builder.content(container);
 
-        builder.setPositiveButton(getResources().getString(R.string.reset_password), new DialogInterface.OnClickListener() {
+        builder.positive(getResources().getString(R.string.reset_password), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(final DialogInterface dialog, int which) {
+                dialog.dismiss();
+                mProgressView = ProgressView.show(getActivity(),
+                        getString(R.string.resettings_password), true, null);
                 final String newPassword = newPass.getText().toString();
                 mUserAPI.setPassword(Var.uid, Var.password, newPassword, new BaseCallback<GeneralAO>(getActivity()) {
                     @Override
                     public void call(GeneralAO result) {
+                        if (mProgressView != null) {
+                            mProgressView.dismiss();
+                        }
                         if (result.getStatus() == 1) {
                             info(getString(R.string.success_reset_password));
                             Var.password = newPassword;
@@ -150,13 +159,13 @@ public class ProfileFragment extends BaseFragment {
                 });
             }
         });
-        builder.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+        builder.negative(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
-        builder.show();
+        builder.create().show();
     }
 
     private void logout() {

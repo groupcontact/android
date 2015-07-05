@@ -3,8 +3,8 @@
     <color name="background_tab_pressed">#6633B5E5</color>
     <color name="default_ev_border_color">#CCCCCC</color>
     <color name="default_ev_password_color">#CCCCCC</color>
-    <color name="passwordBorder">#8899AA</color>
-    <color name="passwordColor">#6d8b93</color>
+    <color name="passwordBorder">#556655</color>
+    <color name="passwordColor">#334433</color>
     <color name="label_color">#454545</color>
     <color name="content_color">#787878</color>
     <color name="dark_label_color">#EFEFEF</color>

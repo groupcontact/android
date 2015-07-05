@@ -40,7 +40,7 @@
     <string name="user_operation_call">Call</string>
     <string name="user_operation_sms">SMS</string>
 
-    <string name="loading_user_list">Loading...</string>
+    <string name="loading_user_list">Loading&#8230;</string>
     <string name="tip_press_to_exit">Press Again to Exit</string>
     <string name="action_add_friend">Add Friend</string>
     <string name="add_to_friend">Add As Friend</string>
@@ -130,4 +130,7 @@
     <string name="error_save">Save Failed</string>
     <string name="progress_save">Saving in Progress</string>
     <string name="title_activity_more_field">More</string>
+
+    <string name="enter_access_token">Enter Access Token</string>
+    <string name="resettings_password">Password Resetting</string>
 </resources>

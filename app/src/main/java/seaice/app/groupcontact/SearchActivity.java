@@ -1,6 +1,7 @@
 package seaice.app.groupcontact;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -122,11 +123,13 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
 
         // Ask the user to enter the accessToken
         AlertView.Builder builder = AlertView.Builder.with(this).title(group.getName())
+                .message(R.string.enter_access_token)
                 .content(container);
-        builder.positive(R.string.join_group, new View.OnClickListener() {
+        builder.positive(R.string.join_group, new DialogInterface.OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
                 mProgressView = ProgressView.show(SearchActivity.this, getString(R.string.joining_group), true, null);
                 final String atNew = vAccessToken.getText().toString();
                 mUserAPI.joinGroup(Var.uid, Var.password, group.getGid(), atNew, new BaseCallback<GeneralAO>(context) {
@@ -145,10 +148,10 @@ public class SearchActivity extends BaseActivity implements AdapterView.OnItemCl
             }
         });
 
-        builder.negative(getResources().getString(R.string.cancel), new View.OnClickListener() {
+        builder.negative(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
             }
         });
 

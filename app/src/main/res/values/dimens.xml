@@ -17,13 +17,13 @@
     <dimen name="footer_padding">16dp</dimen>
     <dimen name="tipSize">16sp</dimen>
 
-    <dimen name="default_ev_border_width">5dp</dimen>
-    <dimen name="default_ev_border_radius">3dp</dimen>
-    <dimen name="default_ev_password_width">10dp</dimen>
-    <dimen name="default_ev_password_radius">3dp</dimen>
-    <dimen name="custom_ev_border_width">10dp</dimen>
-    <dimen name="custom_ev_border_radius">10dp</dimen>
-    <dimen name="custom_ev_password_width">10dp</dimen>
+    <dimen name="default_ev_border_width">2dp</dimen>
+    <dimen name="default_ev_border_radius">2dp</dimen>
+    <dimen name="default_ev_password_width">8dp</dimen>
+    <dimen name="default_ev_password_radius">2dp</dimen>
+    <dimen name="custom_ev_border_width">2dp</dimen>
+    <dimen name="custom_ev_border_radius">2dp</dimen>
+    <dimen name="custom_ev_password_width">8dp</dimen>
 
     <dimen name="disclosure">16dp</dimen>
     <dimen name="actionSheetRadius">6dp</dimen>
